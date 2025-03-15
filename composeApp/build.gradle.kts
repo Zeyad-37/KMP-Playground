@@ -55,6 +55,7 @@ kotlin {
             implementation(compose.ui)
             implementation(compose.components.resources)
             implementation(compose.components.uiToolingPreview)
+
             implementation(libs.androidx.lifecycle.viewmodel)
             implementation(libs.androidx.lifecycle.runtime.compose)
 
@@ -63,18 +64,21 @@ kotlin {
             implementation(libs.voyager.koin)
 
             implementation(libs.kotlinx.datetime)
+            implementation(libs.kotlinx.coroutines.core)
 
             implementation(libs.kotlin.logging)
 
-            implementation(libs.kotlinx.coroutines.core)
             implementation(libs.ktor.client.core)
             implementation(libs.ktor.client.content.negotiation)
             implementation(libs.ktor.serialization.kotlinx.json)
             implementation(libs.ktor.logging)
             implementation(libs.ktor.cio)
-            implementation(libs.sql.delight.runtime)
+
             implementation(libs.koin.core)
             implementation(libs.koin.compose)
+
+            implementation(libs.coil.compose)
+            implementation(libs.coil.network.okhttp)
 
             implementation(libs.androidx.room.runtime)
             implementation(libs.androidx.room.ktx)
