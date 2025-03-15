@@ -3,7 +3,7 @@ package com.zeyadgasser.playground.tasks.domain.usecase
 import com.zeyadgasser.playground.tasks.domain.model.Operation
 import com.zeyadgasser.playground.tasks.domain.model.TaskDomain
 import com.zeyadgasser.playground.tasks.domain.model.Value
-import com.zeyadgasser.taskdomain.TaskRepository
+import com.zeyadgasser.playground.tasks.domain.TaskRepository
 
 class CheckTaskUseCase(private val taskRepository: TaskRepository) {
 

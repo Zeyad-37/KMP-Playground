@@ -28,6 +28,8 @@ navigationCompose = "2.8.9"
 compose-navigation = "2.9.0-alpha14"
 compose-animation = "1.7.8"
 voyagerNavigator = "1.0.1"
+room = "2.6.1"
+ksp = "2.1.0-1.0.29"
 
 [libraries]
 kotlin-logging = { module = "io.github.oshai:kotlin-logging", version.ref = "kotlinLogging" }
@@ -71,9 +73,15 @@ sql-delight-android-driver = { module = "app.cash.sqldelight:android-driver", ve
 sql-delight-native-driver = { module = "app.cash.sqldelight:native-driver", version.ref = "sqlDelight" }
 sql-delight-jvm-driver = { module = "app.cash.sqldelight:sqlite-driver", version.ref = "sqliteDriver" }
 sql-delight-runtime = { module = "app.cash.sqldelight:runtime", version.ref = "sqlDelight" }
+
 voyager-koin = { module = "cafe.adriel.voyager:voyager-koin", version.ref = "voyagerNavigator" }
 voyager-navigator = { module = "cafe.adriel.voyager:voyager-navigator", version.ref = "voyagerNavigator" }
 voyager-screenmodel = { module = "cafe.adriel.voyager:voyager-screenmodel", version.ref = "voyagerNavigator" }
+
+androidx-room-compiler = { module = "androidx.room:room-compiler", version.ref = "room" }
+androidx-room-ktx = { module = "androidx.room:room-ktx", version.ref = "room" }
+androidx-room-runtime = { module = "androidx.room:room-runtime", version.ref = "room" }
+androidx-room-testing = { module = "androidx.room:room-testing", version.ref = "room" }
 
 [plugins]
 androidApplication = { id = "com.android.application", version.ref = "agp" }
@@ -83,3 +91,4 @@ composeCompiler = { id = "org.jetbrains.kotlin.plugin.compose", version.ref = "k
 kotlinMultiplatform = { id = "org.jetbrains.kotlin.multiplatform", version.ref = "kotlin" }
 kotlinxSerialization = { id = "org.jetbrains.kotlin.plugin.serialization", version.ref = "kotlin" }
 sqldelight = { id = "app.cash.sqldelight", version.ref = "sqlDelight" }
+ksp = { id = "com.google.devtools.ksp", version.ref = "ksp" }

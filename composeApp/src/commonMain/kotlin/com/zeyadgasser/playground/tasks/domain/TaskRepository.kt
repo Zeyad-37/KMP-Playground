@@ -1,6 +1,6 @@
-package com.zeyadgasser.taskdomain
+package com.zeyadgasser.playground.tasks.domain
 
-import com.zeyadgasser.architecture.domain.Repository
+import com.zeyadgasser.playground.architecture.domain.Repository
 import com.zeyadgasser.playground.tasks.domain.model.TaskDomain
 import kotlinx.coroutines.flow.Flow
 

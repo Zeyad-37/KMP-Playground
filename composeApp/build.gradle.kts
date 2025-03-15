@@ -9,6 +9,11 @@ plugins {
     alias(libs.plugins.composeCompiler)
     alias(libs.plugins.kotlinxSerialization)
     alias(libs.plugins.sqldelight)
+    alias(libs.plugins.ksp)
+}
+
+ksp {
+
 }
 
 kotlin {
@@ -70,6 +75,11 @@ kotlin {
             implementation(libs.sql.delight.runtime)
             implementation(libs.koin.core)
             implementation(libs.koin.compose)
+
+            implementation(libs.androidx.room.runtime)
+            implementation(libs.androidx.room.ktx)
+//            ksp(libs.androidx.room.compiler)
+//            "testImplementation"(libs.findLibrary("androidx.room.testing").get())
 
         }
         iosMain.dependencies {
