@@ -1,4 +1,4 @@
-package com.zeyadgasser.playground.tasks.data.api
+package com.zeyadgasser.playground.tasks.data.network
 
 import kotlinx.serialization.SerialName
 import kotlinx.serialization.Serializable

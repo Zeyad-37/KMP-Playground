@@ -1,4 +1,4 @@
-package com.zeyadgasser.playground.tasks.data.api
+package com.zeyadgasser.playground.tasks.data.network
 
 import io.ktor.client.HttpClient
 import io.ktor.client.call.body

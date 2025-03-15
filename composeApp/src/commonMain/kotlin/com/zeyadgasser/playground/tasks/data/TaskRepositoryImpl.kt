@@ -1,9 +1,9 @@
 package com.zeyadgasser.playground.tasks.data
 
-import com.zeyadgasser.playground.tasks.data.api.TaskDTO
+import com.zeyadgasser.playground.tasks.data.network.TaskDTO
 import com.zeyadgasser.playground.tasks.domain.TaskRepository
 import com.zeyadgasser.playground.tasks.domain.model.TaskDomain
-import com.zeyadgasser.playground.tasks.data.api.TasksAPI
+import com.zeyadgasser.playground.tasks.data.network.TasksAPI
 import kotlinx.coroutines.CoroutineDispatcher
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.IO

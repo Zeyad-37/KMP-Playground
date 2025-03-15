@@ -1,6 +1,6 @@
 package com.zeyadgasser.playground.tasks.data
 
-import com.zeyadgasser.playground.tasks.data.api.TaskDTO
+import com.zeyadgasser.playground.tasks.data.network.TaskDTO
 import com.zeyadgasser.playground.tasks.domain.model.TaskDomain
 
 //class TaskDataMapper(private val cryptoHelper: CryptoHelper) {

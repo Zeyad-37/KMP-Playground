@@ -3,7 +3,7 @@ package com.zeyadgasser.playground.di
 import com.zeyadgasser.playground.networking.KtorHttpClient
 import com.zeyadgasser.playground.tasks.data.TaskDataMapper
 import com.zeyadgasser.playground.tasks.data.TaskRepositoryImpl
-import com.zeyadgasser.playground.tasks.data.api.TasksAPI
+import com.zeyadgasser.playground.tasks.data.network.TasksAPI
 import com.zeyadgasser.playground.tasks.domain.TaskRepository
 import com.zeyadgasser.playground.tasks.presentation.detail.viewmodel.TaskDetailViewModel
 import com.zeyadgasser.playground.tasks.presentation.list.viewmodel.TasksReducer
