@@ -1,0 +1,117 @@
+-- Create the Tasks table
+CREATE TABLE Tasks (
+    creationDate TEXT NOT NULL,
+    dueDate TEXT NOT NULL,
+    encryptedDescription TEXT NOT NULL,
+    encryptedTitle TEXT NOT NULL,
+    id TEXT PRIMARY KEY NOT NULL,
+    image TEXT NOT NULL,
+    done INTEGER NOT NULL -- SQLite uses INTEGER for boolean values (0 = false, 1 = true)
+);
+
+-- Create the task_dependencies table
+CREATE TABLE task_dependencies (
+    taskId TEXT NOT NULL,
+    dependencyId TEXT NOT NULL,
+    PRIMARY KEY (taskId, dependencyId),
+    FOREIGN KEY (taskId) REFERENCES Tasks(id) ON DELETE CASCADE,
+    FOREIGN KEY (dependencyId) REFERENCES Tasks(id) ON DELETE CASCADE
+);
+
+-- Get all tasks with their dependencies
+getAllTasksWithDependencies:
+SELECT
+    task.id,
+    task.creationDate,
+    task.dueDate,
+    task.encryptedDescription,
+    task.encryptedTitle,
+    task.image,
+    task.done,
+    GROUP_CONCAT(td.dependencyId) AS dependencyIds
+FROM Tasks task
+LEFT JOIN task_dependencies td ON task.id = td.taskId
+GROUP BY task.id
+ORDER BY task.creationDate ASC;
+
+-- Get all tasks with their dependencies as a Flow (offline-first)
+getAllTasksWithDependenciesOfflineFirst:
+SELECT
+    task.id,
+    task.creationDate,
+    task.dueDate,
+    task.encryptedDescription,
+    task.encryptedTitle,
+    task.image,
+    task.done,
+    GROUP_CONCAT(td.dependencyId) AS dependencyIds
+FROM Tasks task
+LEFT JOIN task_dependencies td ON task.id = td.taskId
+GROUP BY task.id
+ORDER BY task.creationDate ASC;
+
+-- Get a specific task with its dependencies
+getTaskWithDependency:
+SELECT
+    task.id,
+    task.creationDate,
+    task.dueDate,
+    task.encryptedDescription,
+    task.encryptedTitle,
+    task.image,
+    task.done,
+    GROUP_CONCAT(td.dependencyId) AS dependencyIds
+FROM Tasks task
+LEFT JOIN task_dependencies td ON task.id = td.taskId
+WHERE task.id = :taskId
+GROUP BY task.id;
+
+-- Insert or replace tasks
+insertAllReplace:
+INSERT OR REPLACE INTO Tasks (
+    creationDate,
+    dueDate,
+    encryptedDescription,
+    encryptedTitle,
+    id,
+    image,
+    done
+) VALUES (
+    :creationDate,
+    :dueDate,
+    :encryptedDescription,
+    :encryptedTitle,
+    :id,
+    :image,
+    :done
+);
+
+-- Insert or replace task dependencies
+insertAllTaskDependency:
+INSERT OR REPLACE INTO task_dependencies (
+    taskId,
+    dependencyId
+) VALUES (
+    :taskId,
+    :dependencyId
+);
+
+-- Insert tasks while ignoring conflicts
+insertAllIgnore:
+INSERT OR IGNORE INTO Tasks (
+    creationDate,
+    dueDate,
+    encryptedDescription,
+    encryptedTitle,
+    id,
+    image,
+    done
+) VALUES (
+    :creationDate,
+    :dueDate,
+    :encryptedDescription,
+    :encryptedTitle,
+    :id,
+    :image,
+    :done
+);

@@ -18,7 +18,7 @@ val commonModule = module {
     single { KtorHttpClient.httpClient() }
     single<TasksAPI> { TasksAPI(get()) }
 //    single { SpaceDB(get()) }
-    single<TaskRepository> { TaskRepositoryImpl(get(), get()) }
+    single<TaskRepository> { TaskRepositoryImpl(get(), get(), get(), get()) }
     single { TasksReducer() }
     single { TaskPresentationMapper }
     single { TaskDataMapper() }

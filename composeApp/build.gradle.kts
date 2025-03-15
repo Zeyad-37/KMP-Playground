@@ -1,5 +1,4 @@
 import org.jetbrains.compose.desktop.application.dsl.TargetFormat
-import org.jetbrains.kotlin.gradle.ExperimentalKotlinGradlePluginApi
 import org.jetbrains.kotlin.gradle.dsl.JvmTarget
 
 plugins {
@@ -9,11 +8,7 @@ plugins {
     alias(libs.plugins.composeCompiler)
     alias(libs.plugins.kotlinxSerialization)
     alias(libs.plugins.sqldelight)
-    alias(libs.plugins.ksp)
-}
-
-ksp {
-
+//    alias(libs.plugins.ksp)
 }
 
 kotlin {
@@ -22,7 +17,7 @@ kotlin {
             jvmTarget.set(JvmTarget.JVM_17)
         }
     }
-    
+
     listOf(
         iosX64(),
         iosArm64(),
@@ -33,7 +28,7 @@ kotlin {
             isStatic = true
         }
     }
-    
+
     jvm("desktop")
 
     sourceSets {
@@ -78,13 +73,9 @@ kotlin {
             implementation(libs.koin.compose)
 
             implementation(libs.coil.compose)
-            implementation(libs.coil.network.okhttp)
 
-            implementation(libs.androidx.room.runtime)
-            implementation(libs.androidx.room.ktx)
-//            ksp(libs.androidx.room.compiler)
-//            "testImplementation"(libs.findLibrary("androidx.room.testing").get())
-
+            implementation(libs.sql.delight.runtime)
+            implementation(libs.sql.delight.coroutines.extensions)
         }
         iosMain.dependencies {
             implementation(libs.ktor.client.darwin)
@@ -141,3 +132,10 @@ compose.desktop {
     }
 }
 
+sqldelight {
+    databases {
+        create("PlaygroundDB") {
+            packageName.set("com.zeyadgasser.playground.tasks.data.db")
+        }
+    }
+}
