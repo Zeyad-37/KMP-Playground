@@ -30,15 +30,12 @@ import androidx.compose.ui.text.style.TextAlign
 import com.zeyadgasser.playground.architecture.presentation.Input
 import com.zeyadgasser.playground.sharedUI.composables.ErrorScreen
 import com.zeyadgasser.playground.tasks.presentation.list.viewmodel.CantCheckTaskEffect
-import com.zeyadgasser.playground.tasks.presentation.list.viewmodel.ErrorState
 import com.zeyadgasser.playground.tasks.presentation.list.viewmodel.GoToTaskDetailsEffect
 import com.zeyadgasser.playground.tasks.presentation.list.viewmodel.HideDialogEffect
 import com.zeyadgasser.playground.tasks.presentation.list.viewmodel.HideDialogInput
-import com.zeyadgasser.playground.tasks.presentation.list.viewmodel.InitialState
 import com.zeyadgasser.playground.tasks.presentation.list.viewmodel.LoadTasksInput
 import com.zeyadgasser.playground.tasks.presentation.list.viewmodel.ShowDialogEffect
 import com.zeyadgasser.playground.tasks.presentation.list.viewmodel.ShowDialogInput
-import com.zeyadgasser.playground.tasks.presentation.list.viewmodel.SuccessState
 import com.zeyadgasser.playground.tasks.presentation.list.viewmodel.TasksState
 import com.zeyadgasser.playground.tasks.presentation.list.viewmodel.TasksViewModel
 import kmpplayground.composeapp.generated.resources.Res
@@ -141,9 +138,9 @@ fun TasksScreenContent(
             )
         }
         when (state) {
-            is InitialState -> process(LoadTasksInput)
-            is ErrorState -> ErrorScreen(state.message)
-            is SuccessState -> {
+            is TasksState.InitialState -> process(LoadTasksInput)
+            is TasksState.ErrorState -> ErrorScreen(state.message)
+            is TasksState.SuccessState -> {
                 allTabLabel = stringResource(Res.string.all_tasks_tab_label, state.allTasks.size)
                 upcomingTabLabel =
                     stringResource(Res.string.upcoming_tasks_tab_label, state.upcomingTasks.size)

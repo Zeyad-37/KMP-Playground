@@ -28,17 +28,17 @@ sealed class TasksState(
     open val isLoading: Boolean,
     open val allTasks: List<TaskPM>,
     open val upcomingTasks: List<TaskPM>,
-) : State
+) : State {
+    data class InitialState(override val isLoading: Boolean) : TasksState(isLoading, emptyList(), emptyList())
 
-data class InitialState(override val isLoading: Boolean) : TasksState(isLoading, emptyList(), emptyList())
+    data class ErrorState(
+        val message: String,
+        override val isLoading: Boolean,
+    ) : TasksState(isLoading, emptyList(), emptyList())
 
-data class ErrorState(
-    val message: String,
-    override val isLoading: Boolean,
-) : TasksState(isLoading, emptyList(), emptyList())
-
-data class SuccessState(
-    override val allTasks: List<TaskPM>,
-    override val upcomingTasks: List<TaskPM>,
-    override val isLoading: Boolean,
-) : TasksState(isLoading, allTasks, upcomingTasks)
+    data class SuccessState(
+        override val allTasks: List<TaskPM>,
+        override val upcomingTasks: List<TaskPM>,
+        override val isLoading: Boolean,
+    ) : TasksState(isLoading, allTasks, upcomingTasks)
+}
