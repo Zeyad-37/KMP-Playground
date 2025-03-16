@@ -44,7 +44,7 @@ fun TaskDetail(modifier: Modifier = Modifier, task: TaskPM) {
         if (showButton) {
             Column(Modifier.fillMaxSize(), verticalArrangement = Arrangement.Bottom) {
                 Button(
-                    onClick = { /*TODO*/ },
+                    onClick = { },
                     modifier = Modifier
                         .fillMaxWidth()
                         .padding(horizontal = 16.dp, vertical = 24.dp),

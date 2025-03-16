@@ -3,6 +3,7 @@ package com.zeyadgasser.playground.di
 import com.zeyadgasser.playground.networking.KtorHttpClient
 import com.zeyadgasser.playground.tasks.data.TaskDataMapper
 import com.zeyadgasser.playground.tasks.data.TaskRepositoryImpl
+import com.zeyadgasser.playground.tasks.data.db.PlaygroundDataBase
 import com.zeyadgasser.playground.tasks.data.network.TasksAPI
 import com.zeyadgasser.playground.tasks.domain.TaskRepository
 import com.zeyadgasser.playground.tasks.domain.usecase.CheckTaskUseCase
@@ -30,6 +31,8 @@ val commonModule = module { // todo separate into separate modules
     single { KtorHttpClient.json() }
     single { KtorHttpClient.httpClient(get(), get()) }
     single { TasksAPI(get()) }
+    single { PlaygroundDataBase(get()) }
+//    single<TaskRepository> { TaskRepositoryImpl(get(), get(), get(), get(named(IO))) }
     single<TaskRepository> { TaskRepositoryImpl(get(), get(), get(named(IO))) }
     single { GetUpcomingTasksUseCase() }
     single { CheckTaskUseCase(get()) }
