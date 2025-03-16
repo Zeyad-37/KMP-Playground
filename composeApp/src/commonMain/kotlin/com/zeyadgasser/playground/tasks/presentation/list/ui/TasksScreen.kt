@@ -27,6 +27,7 @@ import androidx.compose.runtime.setValue
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.text.style.TextAlign
+import cafe.adriel.voyager.core.screen.Screen
 import com.zeyadgasser.playground.architecture.presentation.Input
 import com.zeyadgasser.playground.sharedUI.composables.ErrorScreen
 import com.zeyadgasser.playground.tasks.presentation.list.viewmodel.CantCheckTaskEffect
@@ -45,70 +46,80 @@ import kmpplayground.composeapp.generated.resources.upcoming_tasks_tab_label
 import kotlinx.coroutines.flow.collectLatest
 import kotlinx.coroutines.launch
 import org.jetbrains.compose.resources.stringResource
+import org.koin.compose.koinInject
 
-@Composable
-fun TasksScreenStateHolder(viewModel: TasksViewModel , onTaskClick: (String) -> Unit) {
-    val coroutineScope = rememberCoroutineScope()
-    val snackBarHostState: SnackbarHostState = remember { SnackbarHostState() }
-    val tasksState by viewModel.state.collectAsState()
-    var showDialog by remember { mutableStateOf(false) }
-    LaunchedEffect(Unit) {
-        viewModel.effect.collectLatest {
-            when (it) {
-                is GoToTaskDetailsEffect -> onTaskClick(it.taskId)
-                is CantCheckTaskEffect -> coroutineScope.launch {
-                    snackBarHostState.showSnackbar(
-                        "Cant check a task as done that still has dependencies", // fixme
-                        duration = SnackbarDuration.Short
-                    )
+data object ListScreen : Screen {
+    @Composable
+    override fun Content() {
+        TasksScreenStateHolder()
+    }
+
+    @Composable
+    fun TasksScreenStateHolder(
+        viewModel: TasksViewModel = koinInject(),
+//    onTaskClick: (String) -> Unit
+    ) {
+        val coroutineScope = rememberCoroutineScope()
+        val snackBarHostState: SnackbarHostState = remember { SnackbarHostState() }
+        val tasksState by viewModel.state.collectAsState()
+        var showDialog by remember { mutableStateOf(false) }
+        LaunchedEffect(Unit) {
+            viewModel.effect.collectLatest {
+                when (it) {
+                    is GoToTaskDetailsEffect -> Unit //onTaskClick(it.taskId)
+                    is CantCheckTaskEffect -> coroutineScope.launch {
+                        snackBarHostState.showSnackbar(
+                            "Cant check a task as done that still has dependencies", // fixme
+                            duration = SnackbarDuration.Short
+                        )
+                    }
+
+                    ShowDialogEffect -> showDialog = true
+                    HideDialogEffect -> showDialog = false
                 }
-
-                ShowDialogEffect -> showDialog = true
-                HideDialogEffect -> showDialog = false
             }
         }
+        TasksScreenContent(Modifier, tasksState, showDialog, snackBarHostState) { viewModel.process(it) }
     }
-    TasksScreenContent(Modifier, tasksState, showDialog, snackBarHostState) { viewModel.process(it) }
-}
 
-@Composable
-fun TasksScreenContent(
-    modifier: Modifier,
-    state: TasksState,
-    showDialog: Boolean,
-    snackBarHostState: SnackbarHostState,
-    process: (Input) -> Unit,
-) {
-    var selectedTabIndex by remember { mutableIntStateOf(0) }
-    var allTabLabel by remember { mutableStateOf("All tasks") }
-    var upcomingTabLabel by remember { mutableStateOf("Upcoming Tasks") }
-    Scaffold(
-        modifier.fillMaxSize(),
-        topBar = {
-            TopAppBar(
-                {
-                    Text(
-                        text = stringResource(Res.string.app_name),
-                        modifier = Modifier
-                            .fillMaxWidth()
-                            .clickable { process(if (showDialog) HideDialogInput else ShowDialogInput) },
-                        textAlign = TextAlign.Start,
-                        color = MaterialTheme.colors.onBackground,
-                        style = MaterialTheme.typography.h3
-                    )
-                },
+    @Composable
+    fun TasksScreenContent(
+        modifier: Modifier,
+        state: TasksState,
+        showDialog: Boolean,
+        snackBarHostState: SnackbarHostState,
+        process: (Input) -> Unit,
+    ) {
+        var selectedTabIndex by remember { mutableIntStateOf(0) }
+        var allTabLabel by remember { mutableStateOf("All tasks") }
+        var upcomingTabLabel by remember { mutableStateOf("Upcoming Tasks") }
+        Scaffold(
+            modifier.fillMaxSize(),
+            topBar = {
+                TopAppBar(
+                    {
+                        Text(
+                            text = stringResource(Res.string.app_name),
+                            modifier = Modifier
+                                .fillMaxWidth()
+                                .clickable { process(if (showDialog) HideDialogInput else ShowDialogInput) },
+                            textAlign = TextAlign.Start,
+                            color = MaterialTheme.colors.onBackground,
+                            style = MaterialTheme.typography.h3
+                        )
+                    },
 //                colors = TopAppBarDefaults.topAppBarColors(
 //                    containerColor = MaterialTheme.colors.onPrimary,
 //                )
-            )
-        },
-        snackbarHost = {
-            SnackbarHost(
-                hostState = snackBarHostState,
-                snackbar = { Snackbar(it, contentColor = Color.Red) }
-            )
-        },
-    ) { innerPadding ->
+                )
+            },
+            snackbarHost = {
+                SnackbarHost(
+                    hostState = snackBarHostState,
+                    snackbar = { Snackbar(it, contentColor = Color.Red) }
+                )
+            },
+        ) { innerPadding ->
 //        PullToRefreshBox(
 //            state.isLoading,
 //            { process(LoadTasksInput) },
@@ -116,40 +127,41 @@ fun TasksScreenContent(
 //                .fillMaxSize()
 //                .padding(innerPadding),
 //        ) {
-        TabRow(selectedTabIndex = selectedTabIndex) {
-            Tab(
-                text = { Text(allTabLabel, color = MaterialTheme.colors.onBackground) },
-                selected = selectedTabIndex == 0,
-                onClick = { selectedTabIndex = 0 }
-            )
-            Tab(
-                text = { Text(upcomingTabLabel, color = MaterialTheme.colors.onBackground) },
-                selected = selectedTabIndex == 1,
-                onClick = { selectedTabIndex = 1 }
-            )
-        }
-        if (showDialog) {
-            AlertDialog(
-                onDismissRequest = { process(HideDialogInput) },
-                confirmButton = { TextButton({ process(HideDialogInput) }) { Text("Confirm") } },
-                dismissButton = { TextButton({ process(HideDialogInput) }) { Text("Dismiss") } },
-                title = { Text("Dialog") },
-                text = { Text("Dialog effect!") },
-            )
-        }
-        when (state) {
-            is TasksState.InitialState -> process(LoadTasksInput)
-            is TasksState.ErrorState -> ErrorScreen(state.message)
-            is TasksState.SuccessState -> {
-                allTabLabel = stringResource(Res.string.all_tasks_tab_label, state.allTasks.size)
-                upcomingTabLabel =
-                    stringResource(Res.string.upcoming_tasks_tab_label, state.upcomingTasks.size)
-                when (selectedTabIndex) {
-                    0 -> TaskList(state.allTasks) { process(it) }
-                    1 -> TaskList(state.upcomingTasks) { process(it) }
+            TabRow(selectedTabIndex = selectedTabIndex) {
+                Tab(
+                    text = { Text(allTabLabel, color = MaterialTheme.colors.onBackground) },
+                    selected = selectedTabIndex == 0,
+                    onClick = { selectedTabIndex = 0 }
+                )
+                Tab(
+                    text = { Text(upcomingTabLabel, color = MaterialTheme.colors.onBackground) },
+                    selected = selectedTabIndex == 1,
+                    onClick = { selectedTabIndex = 1 }
+                )
+            }
+            if (showDialog) {
+                AlertDialog(
+                    onDismissRequest = { process(HideDialogInput) },
+                    confirmButton = { TextButton({ process(HideDialogInput) }) { Text("Confirm") } },
+                    dismissButton = { TextButton({ process(HideDialogInput) }) { Text("Dismiss") } },
+                    title = { Text("Dialog") },
+                    text = { Text("Dialog effect!") },
+                )
+            }
+            when (state) {
+                is TasksState.InitialState -> process(LoadTasksInput)
+                is TasksState.ErrorState -> ErrorScreen(state.message)
+                is TasksState.SuccessState -> {
+                    allTabLabel = stringResource(Res.string.all_tasks_tab_label, state.allTasks.size)
+                    upcomingTabLabel =
+                        stringResource(Res.string.upcoming_tasks_tab_label, state.upcomingTasks.size)
+                    when (selectedTabIndex) {
+                        0 -> TaskList(state.allTasks) { process(it) }
+                        1 -> TaskList(state.upcomingTasks) { process(it) }
+                    }
                 }
             }
-        }
 //        }
+        }
     }
 }

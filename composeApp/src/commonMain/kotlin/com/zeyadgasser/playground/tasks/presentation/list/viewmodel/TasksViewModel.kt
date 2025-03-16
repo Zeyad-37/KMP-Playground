@@ -15,6 +15,7 @@ import kotlinx.coroutines.flow.flowOf
 import kotlinx.coroutines.flow.onEmpty
 import kotlinx.coroutines.flow.onStart
 
+@OptIn(kotlinx.coroutines.ExperimentalCoroutinesApi::class)
 class TasksViewModel(
     private val getTasksUseCase: GetTasksUseCase,
     private val checkTaskUseCase: CheckTaskUseCase,
@@ -37,6 +38,7 @@ class TasksViewModel(
             ShowDialogInput -> flowOf(ShowDialogEffect)
             HideDialogInput -> flowOf(HideDialogEffect)
         }
+
 
     private fun onLoadTasks(): Flow<Result> = getTasksUseCase.invoke()
         .flatMapConcat { tasks ->

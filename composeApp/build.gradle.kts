@@ -8,6 +8,7 @@ plugins {
     alias(libs.plugins.composeCompiler)
     alias(libs.plugins.kotlinxSerialization)
     alias(libs.plugins.sqldelight)
+//    alias(libs.plugins.room)
 //    alias(libs.plugins.ksp)
 }
 
@@ -37,11 +38,11 @@ kotlin {
         androidMain.dependencies {
             implementation(compose.preview)
             implementation(libs.androidx.activity.compose)
+            implementation(libs.androidx.compose.material3)
+            implementation(libs.androidx.lifecycle.viewmodel.compose)
             implementation(libs.ktor.client.android)
             implementation(libs.sql.delight.android.driver)
-            implementation(libs.androidx.compose.material3)
             implementation(libs.koin.androidx.compose)
-            implementation(libs.androidx.lifecycle.viewmodel.compose)
         }
         commonMain.dependencies {
             implementation(compose.runtime)
@@ -76,6 +77,8 @@ kotlin {
 
             implementation(libs.sql.delight.runtime)
             implementation(libs.sql.delight.coroutines.extensions)
+
+//            implementation(libs.androidx.room.runtime)
         }
         iosMain.dependencies {
             implementation(libs.ktor.client.darwin)
@@ -118,7 +121,15 @@ android {
 
 dependencies {
     debugImplementation(compose.uiTooling)
+//    add("kspAndroid", libs.androidx.room.compiler)
+//    add("kspIosSimulatorArm64", libs.androidx.room.compiler)
+//    add("kspIosX64", libs.androidx.room.compiler)
+//    add("kspIosArm64", libs.androidx.room.compiler)
 }
+
+//room {
+//    schemaDirectory("$projectDir/schemas")
+//}
 
 compose.desktop {
     application {
@@ -133,6 +144,7 @@ compose.desktop {
 }
 
 sqldelight {
+    linkSqlite = true
     databases {
         create("PlaygroundDB") {
             packageName.set("com.zeyadgasser.playground.tasks.data.db")

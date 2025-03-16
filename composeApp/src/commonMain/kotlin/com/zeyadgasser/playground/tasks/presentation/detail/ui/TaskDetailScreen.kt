@@ -37,10 +37,11 @@ import kmpplayground.composeapp.generated.resources.Res
 import kmpplayground.composeapp.generated.resources.app_name
 import kotlinx.coroutines.flow.collectLatest
 import org.jetbrains.compose.resources.stringResource
+import org.koin.compose.koinInject
 
 @Composable
 fun TaskDetailScreenStateHolder(
-    viewModel: TaskDetailViewModel, //= koinViewModel(),
+    viewModel: TaskDetailViewModel = koinInject(),
     taskId: String,
     onBackPressed: () -> Unit,
 ) {
