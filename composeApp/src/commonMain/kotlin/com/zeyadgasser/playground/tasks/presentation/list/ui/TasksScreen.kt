@@ -28,8 +28,11 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.text.style.TextAlign
 import cafe.adriel.voyager.core.screen.Screen
+import cafe.adriel.voyager.navigator.LocalNavigator
+import cafe.adriel.voyager.navigator.currentOrThrow
 import com.zeyadgasser.playground.architecture.presentation.Input
 import com.zeyadgasser.playground.sharedUI.composables.ErrorScreen
+import com.zeyadgasser.playground.tasks.presentation.detail.ui.DetailScreen
 import com.zeyadgasser.playground.tasks.presentation.list.viewmodel.CantCheckTaskEffect
 import com.zeyadgasser.playground.tasks.presentation.list.viewmodel.GoToTaskDetailsEffect
 import com.zeyadgasser.playground.tasks.presentation.list.viewmodel.HideDialogEffect
@@ -55,10 +58,8 @@ data object ListScreen : Screen {
     }
 
     @Composable
-    fun TasksScreenStateHolder(
-        viewModel: TasksViewModel = koinInject(),
-//    onTaskClick: (String) -> Unit
-    ) {
+    fun TasksScreenStateHolder(viewModel: TasksViewModel = koinInject()) {
+        val navigator = LocalNavigator.currentOrThrow
         val coroutineScope = rememberCoroutineScope()
         val snackBarHostState: SnackbarHostState = remember { SnackbarHostState() }
         val tasksState by viewModel.state.collectAsState()
@@ -66,7 +67,7 @@ data object ListScreen : Screen {
         LaunchedEffect(Unit) {
             viewModel.effect.collectLatest {
                 when (it) {
-                    is GoToTaskDetailsEffect -> Unit //onTaskClick(it.taskId)
+                    is GoToTaskDetailsEffect -> navigator.push(DetailScreen(it.taskId))
                     is CantCheckTaskEffect -> coroutineScope.launch {
                         snackBarHostState.showSnackbar(
                             "Cant check a task as done that still has dependencies", // fixme

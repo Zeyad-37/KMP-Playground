@@ -1,11 +1,9 @@
 package com.zeyadgasser.playground.networking
 
-import io.github.oshai.kotlinlogging.KotlinLogging
+import io.github.oshai.kotlinlogging.KLogger
 import io.ktor.client.HttpClient
-import io.ktor.client.engine.cio.CIO
 import io.ktor.client.plugins.HttpTimeout
 import io.ktor.client.plugins.contentnegotiation.ContentNegotiation
-import io.ktor.client.plugins.logging.DEFAULT
 import io.ktor.client.plugins.logging.LogLevel
 import io.ktor.client.plugins.logging.Logger
 import io.ktor.client.plugins.logging.Logging
@@ -16,7 +14,16 @@ import kotlinx.serialization.json.Json
 
 object KtorHttpClient {
 
-    fun httpClient() = HttpClient {
+    fun json() = Json {
+        isLenient = true
+        ignoreUnknownKeys = true
+        explicitNulls = false
+        prettyPrint = true
+        encodeDefaults = true
+        classDiscriminator = "#class"
+    }
+
+    fun httpClient(json: Json, kLogger: KLogger) = HttpClient {
         expectSuccess = false
         install(HttpTimeout) {
             val timeout = 10_000.toLong()
@@ -27,30 +34,20 @@ object KtorHttpClient {
         install(ResponseObserver) {
             onResponse { response ->
                 val body = response.bodyAsText()
-                KotlinLogging.logger("Networking").apply {
+                kLogger.apply {
                     debug { "HTTP status: ${response.status.value}" }
                     debug { "HTTP ResponseObserver status: $body" }
                 }
             }
         }
         install(Logging) {
-//            logger = Logger.DEFAULT
             level = LogLevel.ALL
             logger = object : Logger {
                 override fun log(message: String) {
-                    KotlinLogging.logger("Networking").debug { "KtorHttpClient message:$message" }
+                    kLogger.debug { "KtorHttpClient message:$message" }
                 }
             }
         }
-        install(ContentNegotiation) {
-            json(Json {
-                explicitNulls = false
-                ignoreUnknownKeys = true
-                isLenient = true
-                prettyPrint = true
-                encodeDefaults = true
-                classDiscriminator = "#class"
-            })
-        }
+        install(ContentNegotiation) { json(json) }
     }
 }

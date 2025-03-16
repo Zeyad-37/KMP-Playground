@@ -41,8 +41,10 @@ kotlin {
             implementation(libs.androidx.compose.material3)
             implementation(libs.androidx.lifecycle.viewmodel.compose)
             implementation(libs.ktor.client.android)
+//            implementation(libs.ktor.client.okhttp)
             implementation(libs.sql.delight.android.driver)
             implementation(libs.koin.androidx.compose)
+            implementation(libs.kotlinx.coroutines.android)
         }
         commonMain.dependencies {
             implementation(compose.runtime)

@@ -1,8 +1,11 @@
 package com.zeyadgasser.playground.tasks.presentation.detail.viewmodel
 
+import cafe.adriel.voyager.core.model.ScreenModel
 import com.zeyadgasser.playground.architecture.presentation.ViewModel
 import com.zeyadgasser.playground.architecture.presentation.Result
 import com.zeyadgasser.playground.tasks.domain.TaskRepository
+import com.zeyadgasser.playground.tasks.presentation.detail.viewmodel.TaskDetailState.InitialState
+import com.zeyadgasser.playground.tasks.presentation.detail.viewmodel.TaskDetailState.SuccessState
 import com.zeyadgasser.playground.tasks.sharedPresentation.TaskPresentationMapper
 import kotlinx.coroutines.CoroutineDispatcher
 import kotlinx.coroutines.Dispatchers
@@ -18,7 +21,7 @@ class TaskDetailViewModel(
 ) : ViewModel<TaskDetailInput, Result, TaskDetailState, TaskDetailEffect>(
     initialState,
     dispatcher = dispatcher
-) {
+), ScreenModel {
 
     override fun resolve(input: TaskDetailInput, state: TaskDetailState): Flow<Result> =
         when (input) {

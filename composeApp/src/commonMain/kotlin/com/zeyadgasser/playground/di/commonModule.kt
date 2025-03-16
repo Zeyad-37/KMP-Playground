@@ -8,29 +8,36 @@ import com.zeyadgasser.playground.tasks.domain.TaskRepository
 import com.zeyadgasser.playground.tasks.domain.usecase.CheckTaskUseCase
 import com.zeyadgasser.playground.tasks.domain.usecase.GetTasksUseCase
 import com.zeyadgasser.playground.tasks.domain.usecase.GetUpcomingTasksUseCase
+import com.zeyadgasser.playground.tasks.presentation.detail.viewmodel.TaskDetailState
 import com.zeyadgasser.playground.tasks.presentation.detail.viewmodel.TaskDetailViewModel
 import com.zeyadgasser.playground.tasks.presentation.list.viewmodel.TasksReducer
 import com.zeyadgasser.playground.tasks.presentation.list.viewmodel.TasksState
 import com.zeyadgasser.playground.tasks.presentation.list.viewmodel.TasksViewModel
 import com.zeyadgasser.playground.tasks.sharedPresentation.TaskPresentationMapper
+import io.github.oshai.kotlinlogging.KotlinLogging
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.IO
-import kotlinx.serialization.json.Json
+import org.koin.core.qualifier.named
 import org.koin.dsl.module
 
-val commonModule = module {
-    single { Dispatchers.IO }
+const val IO = "io"
+const val COMPUTATION = "default"
+val commonModule = module { // todo separate into separate modules
+    single(named(IO)) { Dispatchers.IO }
+    single(named(COMPUTATION)) { Dispatchers.Default }
+    single { KotlinLogging.logger("Networking") }
     single { TaskDataMapper() }
-    single { Json { isLenient = true; ignoreUnknownKeys = true } }
-    single { KtorHttpClient.httpClient() }
+    single { KtorHttpClient.json() }
+    single { KtorHttpClient.httpClient(get(), get()) }
     single { TasksAPI(get()) }
-    single<TaskRepository> { TaskRepositoryImpl(get(), get(), get()) }
+    single<TaskRepository> { TaskRepositoryImpl(get(), get(), get(named(IO))) }
     single { GetUpcomingTasksUseCase() }
     single { CheckTaskUseCase(get()) }
-    single { GetTasksUseCase(taskRepository =  get()) }
+    single { GetTasksUseCase(get()) }
     single { TasksReducer() }
     single { TaskPresentationMapper }
     single<TasksState> { TasksState.InitialState(false) }
-    factory { TasksViewModel(get(), get(), get(), get(), get(), get()) }
-    factory { TaskDetailViewModel(get(), get(), get(), get()) }
+    single<TaskDetailState> { TaskDetailState.InitialState(false, "") }
+    factory { TasksViewModel(get(), get(), get(), get(), get(), get(), get(named(COMPUTATION))) }
+    factory { TaskDetailViewModel(get(), get(), get(), get(named(COMPUTATION))) }
 }

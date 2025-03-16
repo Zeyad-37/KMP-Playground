@@ -23,15 +23,18 @@ import androidx.compose.runtime.setValue
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.text.style.TextAlign
+import cafe.adriel.voyager.core.screen.Screen
+import cafe.adriel.voyager.navigator.LocalNavigator
+import cafe.adriel.voyager.navigator.currentOrThrow
 import com.zeyadgasser.playground.sharedUI.composables.ErrorScreen
 import com.zeyadgasser.playground.tasks.presentation.detail.viewmodel.BackButtonTappedInput
-import com.zeyadgasser.playground.tasks.presentation.detail.viewmodel.ErrorState
 import com.zeyadgasser.playground.tasks.presentation.detail.viewmodel.GoBackEffect
-import com.zeyadgasser.playground.tasks.presentation.detail.viewmodel.InitialState
 import com.zeyadgasser.playground.tasks.presentation.detail.viewmodel.LoadTaskInput
-import com.zeyadgasser.playground.tasks.presentation.detail.viewmodel.SuccessState
 import com.zeyadgasser.playground.tasks.presentation.detail.viewmodel.TaskDetailInput
 import com.zeyadgasser.playground.tasks.presentation.detail.viewmodel.TaskDetailState
+import com.zeyadgasser.playground.tasks.presentation.detail.viewmodel.TaskDetailState.ErrorState
+import com.zeyadgasser.playground.tasks.presentation.detail.viewmodel.TaskDetailState.InitialState
+import com.zeyadgasser.playground.tasks.presentation.detail.viewmodel.TaskDetailState.SuccessState
 import com.zeyadgasser.playground.tasks.presentation.detail.viewmodel.TaskDetailViewModel
 import kmpplayground.composeapp.generated.resources.Res
 import kmpplayground.composeapp.generated.resources.app_name
@@ -39,65 +42,71 @@ import kotlinx.coroutines.flow.collectLatest
 import org.jetbrains.compose.resources.stringResource
 import org.koin.compose.koinInject
 
-@Composable
-fun TaskDetailScreenStateHolder(
-    viewModel: TaskDetailViewModel = koinInject(),
-    taskId: String,
-    onBackPressed: () -> Unit,
-) {
-    val snackBarHostState: SnackbarHostState = remember { SnackbarHostState() }
-    val taskDetailState by viewModel.state.collectAsState(InitialState(false, taskId))
-    LaunchedEffect(Unit) {
-        viewModel.effect.collectLatest {
-            when (it) {
-                GoBackEffect -> onBackPressed()
+data class DetailScreen(val taskId: String) : Screen {
+    @Composable
+    override fun Content() {
+        TaskDetailScreenStateHolder(taskId = taskId)
+    }
+
+    @Composable
+    fun TaskDetailScreenStateHolder(
+        taskId: String,
+        viewModel: TaskDetailViewModel = koinInject(),
+    ) {
+        val navigator = LocalNavigator.currentOrThrow
+        val snackBarHostState: SnackbarHostState = remember { SnackbarHostState() }
+        val taskDetailState by viewModel.state.collectAsState(InitialState(false, taskId))
+        LaunchedEffect(Unit) {
+            viewModel.effect.collectLatest {
+                when (it) {
+                    GoBackEffect -> navigator.pop()
+                }
             }
         }
+        TaskDetailScreenContent(Modifier, taskDetailState, snackBarHostState) { viewModel.process(it) }
     }
-    TaskDetailScreenContent(Modifier, taskDetailState, snackBarHostState) { viewModel.process(it) }
-}
 
-@Composable
-fun TaskDetailScreenContent(
-    modifier: Modifier = Modifier,
-    state: TaskDetailState,
-    snackBarHostState: SnackbarHostState,
-    process: (TaskDetailInput) -> Unit,
-) {
-    var taskId by remember { mutableStateOf("") }
-    Scaffold(
-        modifier.fillMaxSize(),
-        topBar = {
-            TopAppBar(
-                {
-                    Text(
-                        text = stringResource(Res.string.app_name),
-                        modifier = Modifier.fillMaxWidth(),
-                        textAlign = TextAlign.Start,
-                        color = MaterialTheme.colors.onBackground,
-                        style = MaterialTheme.typography.h3
-                    )
-                },
-                navigationIcon = {
-                    IconButton(onClick = { process(BackButtonTappedInput) }) {
-                        Icon(
-                            imageVector = Icons.AutoMirrored.Filled.ArrowBack,
-                            contentDescription = "Localized description"
+    @Composable
+    fun TaskDetailScreenContent(
+        modifier: Modifier = Modifier,
+        state: TaskDetailState,
+        snackBarHostState: SnackbarHostState,
+        process: (TaskDetailInput) -> Unit,
+    ) {
+        var taskId by remember { mutableStateOf("") }
+        Scaffold(
+            modifier.fillMaxSize(),
+            topBar = {
+                TopAppBar(
+                    {
+                        Text(
+                            text = stringResource(Res.string.app_name),
+                            modifier = Modifier.fillMaxWidth(),
+                            textAlign = TextAlign.Start,
+                            color = MaterialTheme.colors.onBackground,
+                            style = MaterialTheme.typography.h3
                         )
-                    }
-                },
+                    },
+                    navigationIcon = {
+                        IconButton(onClick = { process(BackButtonTappedInput) }) {
+                            Icon(
+                                imageVector = Icons.AutoMirrored.Filled.ArrowBack,
+                                contentDescription = "Localized description"
+                            )
+                        }
+                    },
 //                colors = TopAppBarDefaults.topAppBarColors(
 //                    containerColor = MaterialTheme.colors.onPrimary,
 //                )
-            )
-        },
-        snackbarHost = {
-            SnackbarHost(
-                hostState = snackBarHostState,
-                snackbar = { Snackbar(it, contentColor = Color.Red) }
-            )
-        },
-    ) { innerPadding ->
+                )
+            },
+            snackbarHost = {
+                SnackbarHost(
+                    hostState = snackBarHostState,
+                    snackbar = { Snackbar(it, contentColor = Color.Red) }
+                )
+            },
+        ) { innerPadding ->
 //        PullToRefreshBox(
 //            state.isLoading,
 //            { process(LoadTaskInput(taskId)) },
@@ -111,5 +120,6 @@ fun TaskDetailScreenContent(
                 is SuccessState -> TaskDetail(Modifier, state.task)
             }
 //        }
+        }
     }
 }

@@ -12,10 +12,11 @@ data object BackButtonTappedInput : TaskDetailInput()
 sealed class TaskDetailEffect : Effect
 data object GoBackEffect : TaskDetailEffect()
 
-sealed class TaskDetailState(open val isLoading: Boolean) : State
+sealed class TaskDetailState(open val isLoading: Boolean) : State {
 
-data class InitialState(override val isLoading: Boolean, val taskId: String) : TaskDetailState(isLoading)
+    data class InitialState(override val isLoading: Boolean, val taskId: String) : TaskDetailState(isLoading)
 
-data class ErrorState(val message: String, override val isLoading: Boolean) : TaskDetailState(isLoading)
+    data class ErrorState(val message: String, override val isLoading: Boolean) : TaskDetailState(isLoading)
 
-data class SuccessState(val task: TaskPM, override val isLoading: Boolean) : TaskDetailState(isLoading)
+    data class SuccessState(val task: TaskPM, override val isLoading: Boolean) : TaskDetailState(isLoading)
+}

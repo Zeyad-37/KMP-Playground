@@ -1,5 +1,6 @@
 package com.zeyadgasser.playground.tasks.presentation.list.viewmodel
 
+import cafe.adriel.voyager.core.model.ScreenModel
 import com.zeyadgasser.playground.architecture.presentation.Result
 import com.zeyadgasser.playground.architecture.presentation.ViewModel
 import com.zeyadgasser.playground.tasks.domain.usecase.CheckTaskUseCase
@@ -7,6 +8,7 @@ import com.zeyadgasser.playground.tasks.domain.usecase.GetTasksUseCase
 import com.zeyadgasser.playground.tasks.domain.usecase.GetUpcomingTasksUseCase
 import com.zeyadgasser.playground.tasks.sharedPresentation.TaskPM
 import com.zeyadgasser.playground.tasks.sharedPresentation.TaskPresentationMapper
+import kotlinx.coroutines.CoroutineDispatcher
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.flow.Flow
 import kotlinx.coroutines.flow.flatMapConcat
@@ -23,12 +25,9 @@ class TasksViewModel(
     private val taskPresentationMapper: TaskPresentationMapper,
     initialState: TasksState,
     reducer: TasksReducer,
-//    @Dispatcher(PlaygroundDispatchers.Default) coroutineDispatcher: CoroutineDispatcher,
-) : ViewModel<TasksInput, TasksResult, TasksState, TasksEffect>(
-    initialState,
-    reducer,
-    Dispatchers.Default
-) {
+    coroutineDispatcher: CoroutineDispatcher = Dispatchers.Default,
+) : ViewModel<TasksInput, TasksResult, TasksState, TasksEffect>(initialState, reducer, coroutineDispatcher),
+    ScreenModel {
 
     override fun resolve(input: TasksInput, state: TasksState): Flow<Result> =
         when (input) {
