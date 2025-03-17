@@ -1,5 +1,6 @@
 package com.zeyadgasser.playground
 
+import androidx.compose.ui.Modifier
 import androidx.compose.ui.window.ComposeUIViewController
 import com.zeyadgasser.playground.di.commonModule
 import com.zeyadgasser.playground.di.iosModule
@@ -10,5 +11,5 @@ import org.koin.core.context.startKoin
 fun MainViewController() = ComposeUIViewController {
     Napier.base(DebugAntilog())
     startKoin { modules(commonModule + iosModule) }
-    App()
+    App(Modifier)
 }

@@ -42,15 +42,16 @@ import kotlinx.coroutines.flow.collectLatest
 import org.jetbrains.compose.resources.stringResource
 import org.koin.compose.koinInject
 
-data class DetailScreen(val taskId: String) : Screen {
+data class DetailScreen(val taskId: String, val modifier: Modifier) : Screen {
     @Composable
     override fun Content() {
-        TaskDetailScreenStateHolder(taskId = taskId)
+        TaskDetailScreenStateHolder(taskId = taskId, modifier = modifier)
     }
 
     @Composable
     fun TaskDetailScreenStateHolder(
         taskId: String,
+        modifier: Modifier = Modifier,
         viewModel: TaskDetailViewModel = koinInject(),
     ) {
         val navigator = LocalNavigator.currentOrThrow
@@ -63,7 +64,7 @@ data class DetailScreen(val taskId: String) : Screen {
                 }
             }
         }
-        TaskDetailScreenContent(Modifier, taskDetailState, snackBarHostState) { viewModel.process(it) }
+        TaskDetailScreenContent(modifier, taskDetailState, snackBarHostState) { viewModel.process(it) }
     }
 
     @Composable
@@ -95,9 +96,6 @@ data class DetailScreen(val taskId: String) : Screen {
                             )
                         }
                     },
-//                colors = TopAppBarDefaults.topAppBarColors(
-//                    containerColor = MaterialTheme.colors.onPrimary,
-//                )
                 )
             },
             snackbarHost = {
@@ -107,19 +105,11 @@ data class DetailScreen(val taskId: String) : Screen {
                 )
             },
         ) { innerPadding ->
-//        PullToRefreshBox(
-//            state.isLoading,
-//            { process(LoadTaskInput(taskId)) },
-//            Modifier
-//                .fillMaxSize()
-//                .padding(innerPadding),
-//        ) {
             when (state) {
                 is InitialState -> process(LoadTaskInput(state.taskId)).also { taskId = state.taskId }
                 is ErrorState -> ErrorScreen(state.message)
                 is SuccessState -> TaskDetail(Modifier, state.task)
             }
-//        }
         }
     }
 }

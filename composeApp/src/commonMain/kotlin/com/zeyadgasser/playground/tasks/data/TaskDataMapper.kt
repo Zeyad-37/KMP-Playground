@@ -10,7 +10,7 @@ import kotlinx.datetime.format.DateTimeFormat
 import kotlinx.datetime.format.char
 import kotlinx.datetime.toLocalDateTime
 
-//class TaskDataMapper(private val cryptoHelper: CryptoHelper) {
+//class TaskDataMapper(private val cryptoHelper: CryptoHelper) { // todo for android
 object TaskDataMapper {
     private val dateTimeComponentFormat: DateTimeFormat<LocalDateTime> = LocalDateTime.Format {
         year()
@@ -42,7 +42,7 @@ object TaskDataMapper {
     fun mapDTOsToDomains(taskDTOs: List<TaskDTO>): List<TaskDomain> = taskDTOs.map { mapDTOToDomain(it) }
 
     fun mapDomainToDTO(task: TaskDomain): TaskDTO = with(task) {
-        TaskDTO(creationDate, dueDate, encryptedDescription, encryptedTitle, id, image, emptyList())
+        TaskDTO(creationDate, dueDate, encryptedDescription, encryptedTitle, id, image, dependencies)
     }
 
     private fun formatDate(date: String): String =

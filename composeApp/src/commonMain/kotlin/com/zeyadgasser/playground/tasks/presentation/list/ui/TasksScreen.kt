@@ -51,14 +51,14 @@ import kotlinx.coroutines.launch
 import org.jetbrains.compose.resources.stringResource
 import org.koin.compose.koinInject
 
-data object ListScreen : Screen {
+data class ListScreen(val modifier: Modifier) : Screen {
     @Composable
     override fun Content() {
-        TasksScreenStateHolder()
+        TasksScreenStateHolder(modifier)
     }
 
     @Composable
-    fun TasksScreenStateHolder(viewModel: TasksViewModel = koinInject()) {
+    fun TasksScreenStateHolder(modifier: Modifier, viewModel: TasksViewModel = koinInject()) {
         val navigator = LocalNavigator.currentOrThrow
         val coroutineScope = rememberCoroutineScope()
         val snackBarHostState: SnackbarHostState = remember { SnackbarHostState() }
@@ -67,7 +67,7 @@ data object ListScreen : Screen {
         LaunchedEffect(Unit) {
             viewModel.effect.collectLatest {
                 when (it) {
-                    is GoToTaskDetailsEffect -> navigator.push(DetailScreen(it.taskId))
+                    is GoToTaskDetailsEffect -> navigator.push(DetailScreen(it.taskId, modifier))
                     is CantCheckTaskEffect -> coroutineScope.launch {
                         snackBarHostState.showSnackbar(
                             "Cant check a task as done that still has dependencies", // fixme
@@ -80,7 +80,7 @@ data object ListScreen : Screen {
                 }
             }
         }
-        TasksScreenContent(Modifier, tasksState, showDialog, snackBarHostState) { viewModel.process(it) }
+        TasksScreenContent(modifier, tasksState, showDialog, snackBarHostState) { viewModel.process(it) }
     }
 
     @Composable
@@ -109,9 +109,6 @@ data object ListScreen : Screen {
                             style = MaterialTheme.typography.h3
                         )
                     },
-//                colors = TopAppBarDefaults.topAppBarColors(
-//                    containerColor = MaterialTheme.colors.onPrimary,
-//                )
                 )
             },
             snackbarHost = {
