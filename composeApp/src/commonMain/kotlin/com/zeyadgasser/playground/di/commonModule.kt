@@ -15,7 +15,6 @@ import com.zeyadgasser.playground.tasks.presentation.list.viewmodel.TasksReducer
 import com.zeyadgasser.playground.tasks.presentation.list.viewmodel.TasksState
 import com.zeyadgasser.playground.tasks.presentation.list.viewmodel.TasksViewModel
 import com.zeyadgasser.playground.tasks.sharedPresentation.TaskPresentationMapper
-import io.github.oshai.kotlinlogging.KotlinLogging
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.IO
 import org.koin.core.qualifier.named
@@ -23,18 +22,17 @@ import org.koin.dsl.module
 
 const val IO = "io"
 const val COMPUTATION = "default"
-val commonModule = module { // todo separate into separate modules
+val commonModule = module {
     single(named(IO)) { Dispatchers.IO }
     single(named(COMPUTATION)) { Dispatchers.Default }
-    single { KotlinLogging.logger("Networking") }
     single { TaskDataMapper() }
     single { KtorHttpClient.json() }
-    single { KtorHttpClient.httpClient(get(), get()) }
+    single { KtorHttpClient.httpClient(get()) }
     single { TasksAPI(get()) }
     single { PlaygroundDataBase(get()) }
 //    single<TaskRepository> { TaskRepositoryImpl(get(), get(), get(), get(named(IO))) }
     single<TaskRepository> { TaskRepositoryImpl(get(), get(), get(named(IO))) }
-    single { GetUpcomingTasksUseCase() }
+    single { GetUpcomingTasksUseCase }
     single { CheckTaskUseCase(get()) }
     single { GetTasksUseCase(get()) }
     single { TasksReducer() }

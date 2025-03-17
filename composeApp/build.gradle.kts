@@ -64,7 +64,7 @@ kotlin {
             implementation(libs.kotlinx.datetime)
             implementation(libs.kotlinx.coroutines.core)
 
-            implementation(libs.kotlin.logging)
+            implementation(libs.napier)
 
             implementation(libs.ktor.client.core)
             implementation(libs.ktor.client.content.negotiation)

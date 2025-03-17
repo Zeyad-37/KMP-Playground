@@ -3,8 +3,7 @@ package com.zeyadgasser.playground.architecture.presentation
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import com.zeyadgasser.playground.utils.AtomicBoolean
-import io.github.oshai.kotlinlogging.KLogger
-import io.github.oshai.kotlinlogging.KotlinLogging
+import io.github.aakira.napier.Napier
 import kotlinx.coroutines.CoroutineDispatcher
 import kotlinx.coroutines.CoroutineExceptionHandler
 import kotlinx.coroutines.Dispatchers
@@ -46,13 +45,11 @@ abstract class ViewModel<I : Input, R : Result, S : State, E : Effect>(
      */
     private val tag: String = this::class.simpleName ?: "ViewModel"
 
-    private val logger: KLogger = KotlinLogging.logger(tag)
-
     /**
      * Log uncaught exceptions in [resolve]
      */
     private val logUncaughtExceptions =
-        CoroutineExceptionHandler { _, throwable -> logger.error(throwable) { throwable.message } }
+        CoroutineExceptionHandler { _, throwable -> Napier.e(throwable.message.orEmpty(), throwable, tag) }
 
     private val _state: MutableStateFlow<S> = MutableStateFlow(initialState)
 
@@ -166,5 +163,5 @@ abstract class ViewModel<I : Input, R : Result, S : State, E : Effect>(
     /**
      * Log [Input]'s and the resulting [Result]'s, [Effect]'s and [State]
      */
-    private fun log(type: String, item: Any) = logger.debug { "$type : $item" }
+    private fun log(type: String, item: Any) = Napier.d("$type : $item", tag = tag)
 }

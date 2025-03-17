@@ -1,6 +1,6 @@
 package com.zeyadgasser.playground.networking
 
-import io.github.oshai.kotlinlogging.KLogger
+import io.github.aakira.napier.Napier
 import io.ktor.client.HttpClient
 import io.ktor.client.plugins.HttpTimeout
 import io.ktor.client.plugins.contentnegotiation.ContentNegotiation
@@ -23,7 +23,7 @@ object KtorHttpClient {
         classDiscriminator = "#class"
     }
 
-    fun httpClient(json: Json, kLogger: KLogger) = HttpClient {
+    fun httpClient(json: Json = json()) = HttpClient {
         expectSuccess = false
         install(HttpTimeout) {
             val timeout = 10_000.toLong()
@@ -34,17 +34,14 @@ object KtorHttpClient {
         install(ResponseObserver) {
             onResponse { response ->
                 val body = response.bodyAsText()
-                kLogger.apply {
-                    debug { "HTTP status: ${response.status.value}" }
-                    debug { "HTTP ResponseObserver status: $body" }
-                }
+                Napier.d(body, tag = "KtorHttpClient")
             }
         }
         install(Logging) {
-            level = LogLevel.ALL
+            level = LogLevel.BODY
             logger = object : Logger {
                 override fun log(message: String) {
-                    kLogger.debug { "KtorHttpClient message:$message" }
+                    Napier.d(message, tag = "KtorHttpClient")
                 }
             }
         }
