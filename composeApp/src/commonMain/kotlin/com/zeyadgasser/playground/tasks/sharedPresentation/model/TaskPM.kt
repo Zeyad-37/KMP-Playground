@@ -1,4 +1,4 @@
-package com.zeyadgasser.playground.tasks.sharedPresentation
+package com.zeyadgasser.playground.tasks.sharedPresentation.model
 
 data class TaskPM(
     val creationDate: String,

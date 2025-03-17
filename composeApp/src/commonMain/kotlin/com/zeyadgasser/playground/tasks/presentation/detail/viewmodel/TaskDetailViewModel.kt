@@ -6,7 +6,7 @@ import com.zeyadgasser.playground.architecture.presentation.ViewModel
 import com.zeyadgasser.playground.tasks.domain.TaskRepository
 import com.zeyadgasser.playground.tasks.presentation.detail.viewmodel.TaskDetailState.InitialState
 import com.zeyadgasser.playground.tasks.presentation.detail.viewmodel.TaskDetailState.SuccessState
-import com.zeyadgasser.playground.tasks.sharedPresentation.TaskPresentationMapper
+import com.zeyadgasser.playground.tasks.sharedPresentation.mapper.TaskPresentationMapper
 import kotlinx.coroutines.CoroutineDispatcher
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.flow.Flow

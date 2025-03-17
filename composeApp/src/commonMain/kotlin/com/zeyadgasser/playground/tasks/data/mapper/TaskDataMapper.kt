@@ -1,4 +1,4 @@
-package com.zeyadgasser.playground.tasks.data
+package com.zeyadgasser.playground.tasks.data.mapper
 
 import com.zeyadgasser.playground.tasks.data.network.TaskDTO
 import com.zeyadgasser.playground.tasks.domain.model.TaskDomain

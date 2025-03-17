@@ -15,7 +15,6 @@ Learn more about [Kotlin Multiplatform](https://www.jetbrains.com/help/kotlin-mu
 
 TODO:
 - Fix DB
-- Organize DI
 - Setup & Add tests
 - build-logic module with plugins 
 - Modularize

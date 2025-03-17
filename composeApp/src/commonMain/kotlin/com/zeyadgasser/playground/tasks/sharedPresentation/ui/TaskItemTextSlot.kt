@@ -1,4 +1,4 @@
-package com.zeyadgasser.playground.tasks.sharedPresentation
+package com.zeyadgasser.playground.tasks.sharedPresentation.ui
 
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.Row
