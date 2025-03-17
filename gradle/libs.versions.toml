@@ -82,7 +82,7 @@ sql-delight-android-driver = { module = "app.cash.sqldelight:android-driver", ve
 sql-delight-native-driver = { module = "app.cash.sqldelight:native-driver", version.ref = "sqlDelight" }
 sql-delight-jvm-driver = { module = "app.cash.sqldelight:sqlite-driver", version.ref = "sqliteDriver" }
 sql-delight-runtime = { module = "app.cash.sqldelight:runtime", version.ref = "sqlDelight" }
-sql-delight-coroutines-extensions = { module = "com.squareup.sqldelight:coroutines-extensions", version.ref = "coroutinesExtensions" }
+sql-delight-coroutines-extensions = { module = "app.cash.sqldelight:coroutines-extensions", version.ref = "sqlDelight" }
 
 androidx-room-compiler = { module = "androidx.room:room-compiler", version.ref = "room" }
 androidx-room-ktx = { module = "androidx.room:room-ktx", version.ref = "room" }

@@ -29,7 +29,7 @@ class TasksViewModel(
 ) : ViewModel<TasksInput, TasksResult, TasksState, TasksEffect>(initialState, reducer, coroutineDispatcher),
     ScreenModel {
 
-    override fun resolve(input: TasksInput, state: TasksState): Flow<Result> =
+    override suspend fun resolve(input: TasksInput, state: TasksState): Flow<Result> =
         when (input) {
             LoadTasksInput -> onLoadTasks()
             is TaskCheckedInput -> onTaskChecked(input.task)
@@ -39,7 +39,7 @@ class TasksViewModel(
         }
 
 
-    private fun onLoadTasks(): Flow<Result> = getTasksUseCase.invoke()
+    private suspend fun onLoadTasks(): Flow<Result> = getTasksUseCase.invoke()
         .flatMapConcat { tasks ->
             flowOf(
                 LoadTasksResult(

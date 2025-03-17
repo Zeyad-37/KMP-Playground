@@ -8,8 +8,10 @@ import kotlinx.coroutines.flow.map
 
 class GetTasksUseCase(private val taskRepository: TaskRepository) {
 
-    fun invoke(): Flow<List<TaskDomain>> =
-        taskRepository.getTasksOfflineFirst()
+    suspend fun invoke(): Flow<List<TaskDomain>> {
+        taskRepository.getTasks() // todo: work manager on android
+        return taskRepository.getTasksOfflineFirst()
             .distinctUntilChanged()
             .map { list -> list.sortedBy { it.creationDate } }
+    }
 }

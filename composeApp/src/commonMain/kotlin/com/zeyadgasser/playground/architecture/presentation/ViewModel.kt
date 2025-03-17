@@ -16,7 +16,7 @@ import kotlinx.coroutines.flow.StateFlow
 import kotlinx.coroutines.flow.filter
 import kotlinx.coroutines.flow.flatMapConcat
 import kotlinx.coroutines.flow.flatMapMerge
-import kotlinx.coroutines.flow.flowOf
+import kotlinx.coroutines.flow.flow
 import kotlinx.coroutines.flow.flowOn
 import kotlinx.coroutines.flow.launchIn
 import kotlinx.coroutines.flow.map
@@ -78,7 +78,8 @@ abstract class ViewModel<I : Input, R : Result, S : State, E : Effect>(
         if (input is CancelInput<*>) {
             cancellableInputsMap[input.clazz as KClass<I>] = AtomicBoolean(true)
         } else {
-            flowOf(InputResultFlow(input, resolve(input as I, _state.value)))
+            flow { emit(InputResultFlow(input, resolve(input as I, _state.value))) } // todo review
+//            flowOf(InputResultFlow(input, resolve(input as I, _state.value)))
                 .shareIn(viewModelScope, Lazily)
                 .run {
                     // create two streams one for sync and one for async processing
@@ -158,7 +159,7 @@ abstract class ViewModel<I : Input, R : Result, S : State, E : Effect>(
      *
      * @return a [Flow] of [Result] representing the result of handling the input
      */
-    protected abstract fun resolve(input: I, state: S): Flow<Result>
+    protected abstract suspend fun resolve(input: I, state: S): Flow<Result>
 
     /**
      * Log [Input]'s and the resulting [Result]'s, [Effect]'s and [State]

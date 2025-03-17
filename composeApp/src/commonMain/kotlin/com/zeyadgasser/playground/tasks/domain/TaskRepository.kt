@@ -6,8 +6,6 @@ import kotlinx.coroutines.flow.Flow
 
 interface TaskRepository : Repository {
 
-    fun test(): Any
-
     suspend fun getTasks(): List<TaskDomain>
 
     suspend fun syncTasks(): Boolean

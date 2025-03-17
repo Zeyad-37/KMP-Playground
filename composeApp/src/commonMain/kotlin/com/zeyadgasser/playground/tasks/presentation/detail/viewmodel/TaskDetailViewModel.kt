@@ -1,8 +1,8 @@
 package com.zeyadgasser.playground.tasks.presentation.detail.viewmodel
 
 import cafe.adriel.voyager.core.model.ScreenModel
-import com.zeyadgasser.playground.architecture.presentation.ViewModel
 import com.zeyadgasser.playground.architecture.presentation.Result
+import com.zeyadgasser.playground.architecture.presentation.ViewModel
 import com.zeyadgasser.playground.tasks.domain.TaskRepository
 import com.zeyadgasser.playground.tasks.presentation.detail.viewmodel.TaskDetailState.InitialState
 import com.zeyadgasser.playground.tasks.presentation.detail.viewmodel.TaskDetailState.SuccessState
@@ -19,11 +19,10 @@ class TaskDetailViewModel(
     initialState: TaskDetailState = InitialState(false, ""),
     dispatcher: CoroutineDispatcher = Dispatchers.Default,
 ) : ViewModel<TaskDetailInput, Result, TaskDetailState, TaskDetailEffect>(
-    initialState,
-    dispatcher = dispatcher
+    initialState, dispatcher = dispatcher
 ), ScreenModel {
 
-    override fun resolve(input: TaskDetailInput, state: TaskDetailState): Flow<Result> =
+    override suspend fun resolve(input: TaskDetailInput, state: TaskDetailState): Flow<Result> =
         when (input) {
             is LoadTaskInput -> onLoadTask(input.taskId)
             BackButtonTappedInput -> flowOf(GoBackEffect)
