@@ -17,5 +17,6 @@ TODO:
 - Fix logging
 - Fix DB
 - Organize DI
-- Modularize
 - Setup & Add tests
+- build-logic module with plugins 
+- Modularize

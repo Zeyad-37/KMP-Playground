@@ -2,30 +2,47 @@ package com.zeyadgasser.playground.tasks.data
 
 import com.zeyadgasser.playground.tasks.data.network.TaskDTO
 import com.zeyadgasser.playground.tasks.domain.model.TaskDomain
+import kotlinx.datetime.Instant
+import kotlinx.datetime.LocalDateTime
+import kotlinx.datetime.TimeZone
+import kotlinx.datetime.format
+import kotlinx.datetime.format.DateTimeFormat
+import kotlinx.datetime.format.char
+import kotlinx.datetime.toLocalDateTime
 
 //class TaskDataMapper(private val cryptoHelper: CryptoHelper) {
-class TaskDataMapper() {
-
-    fun mapDTOsToDomains(taskDTOs: List<TaskDTO>): List<TaskDomain> = taskDTOs.map {
-        with(it) {
-            TaskDomain(
-                creationDate,
-//                formatDate(creationDate),
-//                formatDate(dueDate),
-                dueDate,
-//                cryptoHelper.instance.decrypt(encryptedDescription).getOrDefault("error"),
-                encryptedDescription,
-                encryptedTitle,
-//                cryptoHelper.instance.decrypt(encryptedTitle).getOrDefault("error"),
-                id,
-                image,
-                false,
-                dependencies.orEmpty()
-            )
-        }
+class TaskDataMapper {
+    private val dateTimeComponentFormat: DateTimeFormat<LocalDateTime> = LocalDateTime.Format {
+        year()
+        char('-')
+        monthNumber()
+        char('-')
+        dayOfMonth()
+        char(' ')
+        hour()
+        char(':')
+        minute()
     }
 
-//    fun mapEntityToDomain(taskWithDependencies: TaskWithDependencies): TaskDomain =
+    fun mapDTOToDomain(taskDTO: TaskDTO): TaskDomain = with(taskDTO) {
+        TaskDomain(
+            formatDate(creationDate),
+            formatDate(dueDate),
+//                cryptoHelper.instance.decrypt(encryptedDescription).getOrDefault("error"),
+            encryptedDescription,
+            encryptedTitle,
+//                cryptoHelper.instance.decrypt(encryptedTitle).getOrDefault("error"),
+            id,
+            image,
+            false,
+            dependencies.orEmpty()
+        )
+    }
+
+    fun mapDTOsToDomains(taskDTOs: List<TaskDTO>): List<TaskDomain> =
+        taskDTOs.map { mapDTOToDomain(it) }
+
+    //    fun mapEntityToDomain(taskWithDependencies: TaskWithDependencies): TaskDomain =
 //        with(taskWithDependencies.task) {
 //            TaskDomain(
 //                creationDate,
@@ -58,17 +75,14 @@ class TaskDataMapper() {
 //        }
 //    }
 //
-//    fun mapDomainToEntity(task: TaskDomain): TaskEntity = with(task) {
-//        TaskEntity(creationDate, dueDate, encryptedDescription, encryptedTitle, id, image, done)
-//    }
+    fun mapDomainToDTO(task: TaskDomain): TaskDTO = with(task) {
+        TaskDTO(creationDate, dueDate, encryptedDescription, encryptedTitle, id, image, emptyList())
+    }
 //
 //    fun taskDependenciesFromDTO(task: TaskDTO): List<TaskDependencyEntity> = with(task) {
 //        dependencies?.map { dependencyId -> TaskDependencyEntity(id, dependencyId) } ?: emptyList()
 //    }
 
-//    private fun formatDate(date: String): String = with(Locale.getDefault()) {
-//        SimpleDateFormat("yyyy-MM-dd'T'HH:mm:ss", this).parse(date)
-//            ?.let { SimpleDateFormat("yyyy-MM-dd HH:mm", this).format(it) }
-//            ?: date
-//    }
+    private fun formatDate(date: String): String =
+        Instant.parse(date).toLocalDateTime(TimeZone.currentSystemDefault()).format(dateTimeComponentFormat)
 }

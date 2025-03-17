@@ -2,7 +2,7 @@ package com.zeyadgasser.playground.tasks.domain.usecase
 
 import com.zeyadgasser.playground.tasks.domain.model.TaskDomain
 
-class GetUpcomingTasksUseCase() {
+object GetUpcomingTasksUseCase {
 
     fun invoke(tasks: List<TaskDomain>): List<TaskDomain> {
         // Filter tasks that are not done
@@ -28,10 +28,8 @@ class GetUpcomingTasksUseCase() {
             return result
         }
         // First, sort by creation date
-//        val formatter = DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm")
-//        val sortedByCreationDate = upcomingTasks.sortedBy { LocalDate.parse(it.creationDate, formatter) }
-//         Then, perform topological sort to respect dependencies and return
-//        return topologicalSort(sortedByCreationDate)
-        return emptyList() // fixme
+        val sortedByCreationDate = upcomingTasks.sortedBy { it.creationDate }
+        // Then, perform topological sort to respect dependencies and return
+        return topologicalSort(sortedByCreationDate)
     }
 }
