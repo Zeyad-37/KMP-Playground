@@ -1,5 +1,6 @@
 package com.zeyadgasser.playground
 
+import androidx.compose.ui.Modifier
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.window.Window
 import androidx.compose.ui.window.WindowPosition
@@ -13,6 +14,6 @@ fun main() = application {
     val state = rememberWindowState(position = WindowPosition(300.dp, 300.dp))
     Window(onCloseRequest = ::exitApplication, title = "KMP Playground", state = state) {
         startKoin { modules(commonModule + desktopModule) }
-        App()
+        App(Modifier)
     }
 }
