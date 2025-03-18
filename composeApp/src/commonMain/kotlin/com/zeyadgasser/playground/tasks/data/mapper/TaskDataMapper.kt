@@ -24,10 +24,10 @@ object TaskDataMapper {
         minute()
     }
 
-    fun mapDTOToDomain(taskDTO: TaskDTO): TaskDomain = with(taskDTO) {
+    fun mapDTOToDomain(taskDTO: TaskDTO, format: Boolean): TaskDomain = with(taskDTO) {
         TaskDomain(
-            formatDate(creationDate),
-            formatDate(dueDate),
+            if (format) formatDate(creationDate) else creationDate,
+            if (format) formatDate(dueDate) else dueDate,
 //                cryptoHelper.instance.decrypt(encryptedDescription).getOrDefault("error"),
             encryptedDescription,
             encryptedTitle,
@@ -39,7 +39,7 @@ object TaskDataMapper {
         )
     }
 
-    fun mapDTOsToDomains(taskDTOs: List<TaskDTO>): List<TaskDomain> = taskDTOs.map { mapDTOToDomain(it) }
+    fun mapDTOsToDomains(taskDTOs: List<TaskDTO>): List<TaskDomain> = taskDTOs.map { mapDTOToDomain(it, false) }
 
     fun mapDomainToDTO(task: TaskDomain): TaskDTO = with(task) {
         TaskDTO(creationDate, dueDate, encryptedDescription, encryptedTitle, id, image, dependencies)

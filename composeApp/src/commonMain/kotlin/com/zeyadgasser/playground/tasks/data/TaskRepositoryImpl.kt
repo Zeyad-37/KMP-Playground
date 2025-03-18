@@ -28,7 +28,7 @@ class TaskRepositoryImpl(
             taskDataMapper.mapDTOsToDomains(tasksDTOs)
         } catch (e: IOException) {
             Napier.e(e.message.orEmpty(), e, "TaskRepository")
-            tasksDB.getAllTasks().map { taskDataMapper.mapDTOToDomain(it) }
+            tasksDB.getAllTasks().map { taskDataMapper.mapDTOToDomain(it, true) }
         }
 
     override suspend fun syncTasks(): Boolean =
@@ -47,7 +47,7 @@ class TaskRepositoryImpl(
         .flowOn(ioDispatcher)
 
     override suspend fun getTask(taskId: String): TaskDomain =
-        taskDataMapper.mapDTOToDomain(tasksDB.getTaskWithDependency(taskId))
+        taskDataMapper.mapDTOToDomain(tasksDB.getTaskWithDependency(taskId), false)
 
     override suspend fun insertTask(task: TaskDomain): Boolean =
         tasksDB.insertTasks(listOf(taskDataMapper.mapDomainToDTO(task))).let { task.done }
