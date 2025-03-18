@@ -5,12 +5,14 @@ import com.zeyadgasser.playground.tasks.data.network.TaskDTO
 import com.zeyadgasser.playground.tasks.data.network.TasksAPI
 import com.zeyadgasser.playground.tasks.domain.TaskRepository
 import com.zeyadgasser.playground.tasks.domain.model.TaskDomain
+import io.github.aakira.napier.Napier
 import kotlinx.coroutines.CoroutineDispatcher
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.IO
 import kotlinx.coroutines.flow.Flow
 import kotlinx.coroutines.flow.flowOn
 import kotlinx.coroutines.flow.map
+import kotlinx.coroutines.flow.onStart
 import kotlinx.io.IOException
 
 class TaskRepositoryImpl(
@@ -25,30 +27,30 @@ class TaskRepositoryImpl(
             val tasksDTOs = syncTasksHelper()
             taskDataMapper.mapDTOsToDomains(tasksDTOs)
         } catch (e: IOException) {
-//            Log.e("TaskRepository", e.message.orEmpty())
-            tasksDB.getAllTasks().map { taskDataMapper.mapDTOToDomain(it) }
-//            throw NotImplementedError()
+            Napier.e(e.message.orEmpty(), e, "TaskRepository")
+            tasksDB.getAllTasks().map { taskDataMapper.mapDTOToDomain(it, true) }
         }
 
     override suspend fun syncTasks(): Boolean =
         try {
             syncTasksHelper().let { true }
         } catch (e: IOException) {
-//            Log.e("TaskRepository", e.message.orEmpty())
+            Napier.e(e.message.orEmpty(), e, "TaskRepository")
             false
         }
 
     private suspend fun syncTasksHelper(): List<TaskDTO> =
         tasksAPI.getTasks().apply { tasksDB.insertTasks(this) }
 
-    override fun getTasksOfflineFirst(): Flow<List<TaskDomain>> = //flow { emit(getTasks()) }
+    override fun getTasksOfflineFirst(): Flow<List<TaskDomain>> =
         tasksDB.getAllTasksFlow()
+            .onStart { getTasks() }
             .map { taskDataMapper.mapDTOsToDomains(it) }
             .flowOn(ioDispatcher)
 
-    override suspend fun getTask(taskId: String): TaskDomain = //throw NotImplementedError()
-        taskDataMapper.mapDTOToDomain(tasksDB.getTaskWithDependency(taskId))
+    override suspend fun getTask(taskId: String): TaskDomain =
+        taskDataMapper.mapDTOToDomain(tasksDB.getTaskWithDependency(taskId), false)
 
-    override suspend fun insertTask(task: TaskDomain): Boolean = //throw NotImplementedError()
+    override suspend fun insertTask(task: TaskDomain): Boolean =
         tasksDB.insertTasks(listOf(taskDataMapper.mapDomainToDTO(task))).let { task.done }
 }
