@@ -6,7 +6,7 @@ import com.zeyadgasser.playground.di.commonModule
 import com.zeyadgasser.playground.tasks.data.di.taskSharedDataModule
 import com.zeyadgasser.playground.tasks.presentation.detail.di.taskDetailModule
 import com.zeyadgasser.playground.tasks.presentation.list.di.taskListModule
-import com.zeyadgasser.playground.tasks.sharedPresentation.di.presentationModule
+import com.zeyadgasser.playground.tasks.sharedPresentation.di.taskPresentationModule
 import io.github.aakira.napier.DebugAntilog
 import io.github.aakira.napier.Napier
 import org.koin.android.ext.koin.androidContext
@@ -19,11 +19,11 @@ class PlaygroundApplication : Application() {
         startKoin {
             androidContext(this@PlaygroundApplication)
             modules(
-                commonModule + taskSharedDataModule
-                        + presentationModule
+                appModule + commonModule
                         + taskListModule
                         + taskDetailModule
-                        + appModule
+                        + taskPresentationModule
+                        + taskSharedDataModule
             )
         }
     }

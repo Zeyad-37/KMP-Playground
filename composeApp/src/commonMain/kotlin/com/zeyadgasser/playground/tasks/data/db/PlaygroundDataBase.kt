@@ -32,7 +32,7 @@ class PlaygroundDataBase(
             }
         }
 
-    fun getAllTasksFlow(): Flow<List<TaskDTO>> =
+    fun getAllTasksFlow(): Flow<List<TaskDTO>> = //throw NotImplementedError()
         dbQueries.getAllTasksWithDependencies().asFlow().mapToList(ioDispatcher)
             .map { result: List<GetAllTasksWithDependencies> ->
                 result.map {

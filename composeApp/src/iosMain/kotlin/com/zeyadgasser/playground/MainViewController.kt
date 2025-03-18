@@ -7,7 +7,7 @@ import com.zeyadgasser.playground.di.iosModule
 import com.zeyadgasser.playground.tasks.data.di.taskSharedDataModule
 import com.zeyadgasser.playground.tasks.presentation.detail.di.taskDetailModule
 import com.zeyadgasser.playground.tasks.presentation.list.di.taskListModule
-import com.zeyadgasser.playground.tasks.sharedPresentation.di.presentationModule
+import com.zeyadgasser.playground.tasks.sharedPresentation.di.taskPresentationModule
 import io.github.aakira.napier.DebugAntilog
 import io.github.aakira.napier.Napier
 import org.koin.core.context.startKoin
@@ -16,11 +16,11 @@ fun MainViewController() = ComposeUIViewController {
     Napier.base(DebugAntilog())
     startKoin {
         modules(
-            commonModule + taskSharedDataModule
-                    + presentationModule
+            commonModule + iosModule
                     + taskListModule
                     + taskDetailModule
-                    + iosModule
+                    + taskPresentationModule
+                    + taskSharedDataModule
         )
     }
     App(Modifier)

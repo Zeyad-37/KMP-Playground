@@ -1,7 +1,6 @@
 package com.zeyadgasser.playground.tasks.data
 
 import com.zeyadgasser.playground.tasks.data.db.PlaygroundDataBase
-import com.zeyadgasser.playground.tasks.data.mapper.TaskDataMapper
 import com.zeyadgasser.playground.tasks.data.network.TaskDTO
 import com.zeyadgasser.playground.tasks.data.network.TasksAPI
 import com.zeyadgasser.playground.tasks.domain.TaskRepository
@@ -13,6 +12,7 @@ import kotlinx.coroutines.IO
 import kotlinx.coroutines.flow.Flow
 import kotlinx.coroutines.flow.flowOn
 import kotlinx.coroutines.flow.map
+import kotlinx.coroutines.flow.onStart
 import kotlinx.io.IOException
 
 class TaskRepositoryImpl(
@@ -43,8 +43,10 @@ class TaskRepositoryImpl(
         tasksAPI.getTasks().apply { tasksDB.insertTasks(this) }
 
     override fun getTasksOfflineFirst(): Flow<List<TaskDomain>> =
-    tasksDB.getAllTasksFlow().map { taskDataMapper.mapDTOsToDomains(it) }
-        .flowOn(ioDispatcher)
+        tasksDB.getAllTasksFlow()
+            .onStart { getTasks() }
+            .map { taskDataMapper.mapDTOsToDomains(it) }
+            .flowOn(ioDispatcher)
 
     override suspend fun getTask(taskId: String): TaskDomain =
         taskDataMapper.mapDTOToDomain(tasksDB.getTaskWithDependency(taskId), false)

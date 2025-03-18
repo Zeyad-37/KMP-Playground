@@ -79,7 +79,7 @@ kotlin {
 
             implementation(libs.sql.delight.runtime)
             implementation(libs.sql.delight.coroutines.extensions)
-
+            implementation(libs.sql.delight.coroutines.extensions.correct)
 //            implementation(libs.androidx.room.runtime)
         }
         iosMain.dependencies {
