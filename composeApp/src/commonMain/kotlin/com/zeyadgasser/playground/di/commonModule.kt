@@ -29,9 +29,8 @@ val commonModule = module {
     single { KtorHttpClient.json() }
     single { KtorHttpClient.httpClient(get()) }
     single { TasksAPI(get()) }
-    single { PlaygroundDataBase(get()) }
-//    single<TaskRepository> { TaskRepositoryImpl(get(), get(), get(), get(named(IO))) }
-    single<TaskRepository> { TaskRepositoryImpl(get(), get(), get(named(IO))) }
+    single { PlaygroundDataBase(get(), get(named(IO))) }
+    single<TaskRepository> { TaskRepositoryImpl(get(), get(), get(), get(named(IO))) }
     single { GetUpcomingTasksUseCase }
     single { CheckTaskUseCase(get()) }
     single { GetTasksUseCase(get()) }

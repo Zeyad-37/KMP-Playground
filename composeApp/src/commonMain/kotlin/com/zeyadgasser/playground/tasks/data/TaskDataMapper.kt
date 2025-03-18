@@ -39,49 +39,11 @@ class TaskDataMapper {
         )
     }
 
-    fun mapDTOsToDomains(taskDTOs: List<TaskDTO>): List<TaskDomain> =
-        taskDTOs.map { mapDTOToDomain(it) }
+    fun mapDTOsToDomains(taskDTOs: List<TaskDTO>): List<TaskDomain> = taskDTOs.map { mapDTOToDomain(it) }
 
-    //    fun mapEntityToDomain(taskWithDependencies: TaskWithDependencies): TaskDomain =
-//        with(taskWithDependencies.task) {
-//            TaskDomain(
-//                creationDate,
-//                dueDate,
-//                cryptoHelper.instance.decrypt(encryptedDescription).getOrDefault("error"),
-//                cryptoHelper.instance.decrypt(encryptedTitle).getOrDefault("error"),
-//                id,
-//                image,
-//                done,
-//                taskWithDependencies.dependencies.map { it.dependencyId }
-//            )
-//        }
-//
-//    fun mapEntitiesToDomains(taskWithDependencies: List<TaskWithDependencies>): List<TaskDomain> =
-//        taskWithDependencies.map { mapEntityToDomain(it) }
-//
-//    fun mapDTOsToEntities(taskDTOs: List<TaskDTO>): List<TaskEntity> = taskDTOs.map {
-//        with(it) {
-//            TaskEntity(
-//                formatDate(creationDate),
-//                formatDate(dueDate),
-//                //                cryptoHelper.instance.decrypt(encryptedDescription).getOrDefault("error"),
-//                encryptedDescription,
-//                encryptedTitle,
-////                cryptoHelper.instance.decrypt(encryptedTitle).getOrDefault("error"),
-//                id,
-//                image,
-//                false,
-//            )
-//        }
-//    }
-//
     fun mapDomainToDTO(task: TaskDomain): TaskDTO = with(task) {
         TaskDTO(creationDate, dueDate, encryptedDescription, encryptedTitle, id, image, dependencies)
     }
-//
-//    fun taskDependenciesFromDTO(task: TaskDTO): List<TaskDependencyEntity> = with(task) {
-//        dependencies?.map { dependencyId -> TaskDependencyEntity(id, dependencyId) } ?: emptyList()
-//    }
 
     private fun formatDate(date: String): String =
         Instant.parse(date).toLocalDateTime(TimeZone.currentSystemDefault()).format(dateTimeComponentFormat)

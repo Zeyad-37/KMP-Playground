@@ -1,5 +1,5 @@
 -- Create the Tasks table
-CREATE TABLE Tasks (
+CREATE TABLE IF NOT EXISTS Tasks (
     creationDate TEXT NOT NULL,
     dueDate TEXT NOT NULL,
     encryptedDescription TEXT NOT NULL,
@@ -10,7 +10,7 @@ CREATE TABLE Tasks (
 );
 
 -- Create the task_dependencies table
-CREATE TABLE task_dependencies (
+CREATE TABLE IF NOT EXISTS task_dependencies (
     taskId TEXT NOT NULL,
     dependencyId TEXT NOT NULL,
     PRIMARY KEY (taskId, dependencyId),
@@ -18,100 +18,35 @@ CREATE TABLE task_dependencies (
     FOREIGN KEY (dependencyId) REFERENCES Tasks(id) ON DELETE CASCADE
 );
 
--- Get all tasks with their dependencies
+insertTask:
+INSERT OR REPLACE INTO Tasks (
+  creationDate,
+  dueDate,
+  encryptedDescription,
+  encryptedTitle,
+  id,
+  image,
+  done
+)
+VALUES (?, ?, ?, ?, ?, ?, ?);
+
+insertDependency:
+INSERT OR REPLACE INTO task_dependencies (taskId, dependencyId)
+VALUES (?, ?);
+
+getTaskWithDependencies:
+SELECT
+  t.*,
+  GROUP_CONCAT(d.dependencyId) AS dependencies
+FROM Tasks t
+LEFT JOIN task_dependencies d ON t.id = d.taskId
+WHERE t.id = ?
+GROUP BY t.id;
+
 getAllTasksWithDependencies:
 SELECT
-    task.id,
-    task.creationDate,
-    task.dueDate,
-    task.encryptedDescription,
-    task.encryptedTitle,
-    task.image,
-    task.done,
-    GROUP_CONCAT(td.dependencyId) AS dependencyIds
-FROM Tasks task
-LEFT JOIN task_dependencies td ON task.id = td.taskId
-GROUP BY task.id
-ORDER BY task.creationDate ASC;
-
--- Get all tasks with their dependencies as a Flow (offline-first)
-getAllTasksWithDependenciesOfflineFirst:
-SELECT
-    task.id,
-    task.creationDate,
-    task.dueDate,
-    task.encryptedDescription,
-    task.encryptedTitle,
-    task.image,
-    task.done,
-    GROUP_CONCAT(td.dependencyId) AS dependencyIds
-FROM Tasks task
-LEFT JOIN task_dependencies td ON task.id = td.taskId
-GROUP BY task.id
-ORDER BY task.creationDate ASC;
-
--- Get a specific task with its dependencies
-getTaskWithDependency:
-SELECT
-    task.id,
-    task.creationDate,
-    task.dueDate,
-    task.encryptedDescription,
-    task.encryptedTitle,
-    task.image,
-    task.done,
-    GROUP_CONCAT(td.dependencyId) AS dependencyIds
-FROM Tasks task
-LEFT JOIN task_dependencies td ON task.id = td.taskId
-WHERE task.id = :taskId
-GROUP BY task.id;
-
--- Insert or replace tasks
-insertAllReplace:
-INSERT OR REPLACE INTO Tasks (
-    creationDate,
-    dueDate,
-    encryptedDescription,
-    encryptedTitle,
-    id,
-    image,
-    done
-) VALUES (
-    :creationDate,
-    :dueDate,
-    :encryptedDescription,
-    :encryptedTitle,
-    :id,
-    :image,
-    :done
-);
-
--- Insert or replace task dependencies
-insertAllTaskDependency:
-INSERT OR REPLACE INTO task_dependencies (
-    taskId,
-    dependencyId
-) VALUES (
-    :taskId,
-    :dependencyId
-);
-
--- Insert tasks while ignoring conflicts
-insertAllIgnore:
-INSERT OR IGNORE INTO Tasks (
-    creationDate,
-    dueDate,
-    encryptedDescription,
-    encryptedTitle,
-    id,
-    image,
-    done
-) VALUES (
-    :creationDate,
-    :dueDate,
-    :encryptedDescription,
-    :encryptedTitle,
-    :id,
-    :image,
-    :done
-);
+  t.*,
+  GROUP_CONCAT(d.dependencyId) AS dependencies
+FROM Tasks t
+LEFT JOIN task_dependencies d ON t.id = d.taskId
+GROUP BY t.id;
