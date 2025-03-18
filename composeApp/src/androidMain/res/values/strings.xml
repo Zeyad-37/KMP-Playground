@@ -1,3 +1,6 @@
 <resources>
     <string name="app_name">KMP Playground</string>
+    <string name="sync_work_notification_title">@string/app_name</string>
+    <string name="sync_work_notification_channel_name">Sync</string>
+    <string name="sync_work_notification_channel_description">Background tasks for @string/app_name</string>
 </resources>

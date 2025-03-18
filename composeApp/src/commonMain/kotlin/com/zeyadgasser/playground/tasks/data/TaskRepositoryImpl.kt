@@ -42,9 +42,9 @@ class TaskRepositoryImpl(
     private suspend fun syncTasksHelper(): List<TaskDTO> =
         tasksAPI.getTasks().apply { tasksDB.insertTasks(this) }
 
-    override fun getTasksOfflineFirst(): Flow<List<TaskDomain>> =
+    override fun getTasksOfflineFirst(isAndroid: Boolean): Flow<List<TaskDomain>> =
         tasksDB.getAllTasksFlow()
-            .onStart { getTasks() }
+            .onStart { if (!isAndroid) getTasks() }
             .map { taskDataMapper.mapDTOsToDomains(it) }
             .flowOn(ioDispatcher)
 

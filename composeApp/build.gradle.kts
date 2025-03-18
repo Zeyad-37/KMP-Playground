@@ -35,13 +35,20 @@ kotlin {
 
         androidMain.dependencies {
             implementation(compose.preview)
+
             implementation(libs.androidx.activity.compose)
             implementation(libs.androidx.compose.material3)
             implementation(libs.androidx.lifecycle.viewmodel.compose)
+            implementation(libs.androidx.work.runtime)
+
+            implementation(libs.koin.androidx.workmanager)
+            implementation(libs.koin.androidx.compose)
+
             implementation(libs.ktor.client.android)
 //            implementation(libs.ktor.client.okhttp)
+
             implementation(libs.sql.delight.android.driver)
-            implementation(libs.koin.androidx.compose)
+
             implementation(libs.kotlinx.coroutines.android)
         }
         commonMain.dependencies {

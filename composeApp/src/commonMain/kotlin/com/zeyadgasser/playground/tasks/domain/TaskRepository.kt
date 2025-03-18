@@ -10,7 +10,7 @@ interface TaskRepository : Repository {
 
     suspend fun syncTasks(): Boolean
 
-    fun getTasksOfflineFirst(): Flow<List<TaskDomain>>
+    fun getTasksOfflineFirst(isAndroid: Boolean): Flow<List<TaskDomain>>
 
     suspend fun getTask(taskId: String): TaskDomain
 

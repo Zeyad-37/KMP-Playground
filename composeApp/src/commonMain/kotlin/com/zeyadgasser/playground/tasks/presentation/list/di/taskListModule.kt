@@ -13,7 +13,7 @@ import org.koin.dsl.module
 val taskListModule = module {
     single { GetUpcomingTasksUseCase }
     single { CheckTaskUseCase(get()) }
-    single { GetTasksUseCase(get()) }
+    single { GetTasksUseCase(get(), get(named("isAndroid"))) }
     single { TasksReducer() }
     single<TasksState> { TasksState.InitialState(false) }
     factory { TasksViewModel(get(), get(), get(), get(), get(), get(), get(named(COMPUTATION))) }
