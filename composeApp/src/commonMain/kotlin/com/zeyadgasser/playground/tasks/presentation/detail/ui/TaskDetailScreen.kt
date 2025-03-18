@@ -2,6 +2,7 @@ package com.zeyadgasser.playground.tasks.presentation.detail.ui
 
 import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.fillMaxWidth
+import androidx.compose.foundation.layout.padding
 import androidx.compose.material.Icon
 import androidx.compose.material.IconButton
 import androidx.compose.material.MaterialTheme
@@ -27,6 +28,7 @@ import cafe.adriel.voyager.core.screen.Screen
 import cafe.adriel.voyager.navigator.LocalNavigator
 import cafe.adriel.voyager.navigator.currentOrThrow
 import com.zeyadgasser.playground.sharedUI.composables.ErrorScreen
+import com.zeyadgasser.playground.sharedUI.composables.LoadingView
 import com.zeyadgasser.playground.tasks.presentation.detail.viewmodel.BackButtonTappedInput
 import com.zeyadgasser.playground.tasks.presentation.detail.viewmodel.GoBackEffect
 import com.zeyadgasser.playground.tasks.presentation.detail.viewmodel.LoadTaskInput
@@ -105,6 +107,9 @@ data class DetailScreen(val taskId: String, val modifier: Modifier) : Screen {
                 )
             },
         ) { innerPadding ->
+            if (state.isLoading) {
+                LoadingView(modifier.padding(innerPadding))
+            }
             when (state) {
                 is InitialState -> process(LoadTaskInput(state.taskId)).also { taskId = state.taskId }
                 is ErrorState -> ErrorScreen(state.message)

@@ -1,9 +1,14 @@
 package com.zeyadgasser.playground.tasks.presentation.list.ui
 
 import androidx.compose.foundation.clickable
+import androidx.compose.foundation.layout.Arrangement
+import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.fillMaxWidth
+import androidx.compose.foundation.layout.padding
+import androidx.compose.foundation.layout.requiredSize
 import androidx.compose.material.AlertDialog
+import androidx.compose.material.CircularProgressIndicator
 import androidx.compose.material.MaterialTheme
 import androidx.compose.material.Scaffold
 import androidx.compose.material.Snackbar
@@ -24,14 +29,17 @@ import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.remember
 import androidx.compose.runtime.rememberCoroutineScope
 import androidx.compose.runtime.setValue
+import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.text.style.TextAlign
+import androidx.compose.ui.unit.dp
 import cafe.adriel.voyager.core.screen.Screen
 import cafe.adriel.voyager.navigator.LocalNavigator
 import cafe.adriel.voyager.navigator.currentOrThrow
 import com.zeyadgasser.playground.architecture.presentation.Input
 import com.zeyadgasser.playground.sharedUI.composables.ErrorScreen
+import com.zeyadgasser.playground.sharedUI.composables.LoadingView
 import com.zeyadgasser.playground.tasks.presentation.detail.ui.DetailScreen
 import com.zeyadgasser.playground.tasks.presentation.list.viewmodel.CantCheckTaskEffect
 import com.zeyadgasser.playground.tasks.presentation.list.viewmodel.GoToTaskDetailsEffect
@@ -118,13 +126,6 @@ data class ListScreen(val modifier: Modifier) : Screen {
                 )
             },
         ) { innerPadding ->
-//        PullToRefreshBox(
-//            state.isLoading,
-//            { process(LoadTasksInput) },
-//            Modifier
-//                .fillMaxSize()
-//                .padding(innerPadding),
-//        ) {
             TabRow(selectedTabIndex = selectedTabIndex) {
                 Tab(
                     text = { Text(allTabLabel, color = MaterialTheme.colors.onBackground) },
@@ -146,6 +147,9 @@ data class ListScreen(val modifier: Modifier) : Screen {
                     text = { Text("Dialog effect!") },
                 )
             }
+            if (state.isLoading) {
+                LoadingView(modifier.padding(innerPadding))
+            }
             when (state) {
                 is TasksState.InitialState -> process(LoadTasksInput)
                 is TasksState.ErrorState -> ErrorScreen(state.message)
@@ -159,7 +163,6 @@ data class ListScreen(val modifier: Modifier) : Screen {
                     }
                 }
             }
-//        }
         }
     }
 }
