@@ -12,11 +12,14 @@ import com.zeyadgasser.playground.tasks.data.di.taskSharedDataModule
 import com.zeyadgasser.playground.tasks.presentation.detail.di.taskDetailModule
 import com.zeyadgasser.playground.tasks.presentation.list.di.taskListModule
 import com.zeyadgasser.playground.tasks.sharedPresentation.di.taskPresentationModule
+import io.github.aakira.napier.DebugAntilog
+import io.github.aakira.napier.Napier
 import org.koin.core.context.startKoin
 
 fun main() = application {
     val state = rememberWindowState(position = WindowPosition(300.dp, 300.dp))
     Window(onCloseRequest = ::exitApplication, title = "KMP Playground", state = state) {
+        Napier.base(DebugAntilog())
         startKoin {
             modules(
                 commonModule + desktopModule
