@@ -15,5 +15,5 @@ Learn more about [Kotlin Multiplatform](https://www.jetbrains.com/help/kotlin-mu
 
 TODO:
 - Setup & Add tests
-- build-logic module with plugins 
+- Add plugins 
 - Modularize
