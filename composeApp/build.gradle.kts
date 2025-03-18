@@ -1,5 +1,8 @@
+import dev.mokkery.gradle.mokkery
 import org.jetbrains.compose.desktop.application.dsl.TargetFormat
+import org.jetbrains.kotlin.gradle.ExperimentalKotlinGradlePluginApi
 import org.jetbrains.kotlin.gradle.dsl.JvmTarget
+import org.jetbrains.kotlin.gradle.plugin.KotlinSourceSetTree
 
 plugins {
     alias(libs.plugins.kotlinMultiplatform)
@@ -8,12 +11,25 @@ plugins {
     alias(libs.plugins.composeCompiler)
     alias(libs.plugins.kotlinxSerialization)
     alias(libs.plugins.sqldelight)
+    alias(libs.plugins.mokkery)
+    alias(libs.plugins.all.open)
 }
 
 kotlin {
     androidTarget {
         compilerOptions {
             jvmTarget.set(JvmTarget.JVM_17)
+        }
+        @OptIn(
+            ExperimentalKotlinGradlePluginApi::class,
+            ExperimentalKotlinGradlePluginApi::class
+        )
+        instrumentedTestVariant {
+            sourceSetTree.set(KotlinSourceSetTree.test)
+            dependencies {
+                implementation(libs.androidx.ui.test.junit4.android)
+                debugImplementation(libs.androidx.ui.test.manifest)
+            }
         }
     }
 
@@ -29,6 +45,14 @@ kotlin {
     }
 
     jvm("desktop")
+
+    targets.configureEach {
+        compilations.configureEach {
+            compileTaskProvider.get().compilerOptions {
+                freeCompilerArgs.add("-Xexpect-actual-classes")
+            }
+        }
+    }
 
     sourceSets {
         val desktopMain by getting
@@ -46,12 +70,12 @@ kotlin {
             implementation(libs.koin.androidx.compose)
 
             implementation(libs.ktor.client.android)
-//            implementation(libs.ktor.client.okhttp)
 
             implementation(libs.sql.delight.android.driver)
 
             implementation(libs.kotlinx.coroutines.android)
         }
+
         commonMain.dependencies {
             implementation(compose.runtime)
             implementation(compose.foundation)
@@ -87,6 +111,19 @@ kotlin {
             implementation(libs.sql.delight.coroutines.extensions)
             implementation(libs.sql.delight.coroutines.extensions.correct)
         }
+
+        commonTest.dependencies {
+            implementation(libs.kotlin.test)
+            implementation(kotlin("test-common"))
+            implementation(kotlin("test-annotations-common"))
+            implementation(libs.kotlinx.coroutines.test)
+            implementation(libs.turbine)
+            implementation(mokkery("coroutines"))
+            implementation(libs.ktor.mock)
+            @OptIn(org.jetbrains.compose.ExperimentalComposeLibrary::class)
+            implementation(compose.uiTest)
+        }
+
         iosMain.dependencies {
             implementation(libs.ktor.client.darwin)
             implementation(libs.sql.delight.native.driver)
@@ -99,6 +136,9 @@ kotlin {
     }
 }
 
+val isTesting = gradle.startParameter.taskNames.any { it.endsWith("Test") }
+if (isTesting) allOpen { annotation("com.zeyadgasser.playground.utils.OpenForMokkery") }
+
 android {
     namespace = "com.zeyadgasser.playground"
     compileSdk = libs.versions.android.compileSdk.get().toInt()
@@ -109,6 +149,7 @@ android {
         targetSdk = libs.versions.android.targetSdk.get().toInt()
         versionCode = 1
         versionName = "1.0"
+        testInstrumentationRunner = "androidx.test.runner.AndroidJUnitRunner"
     }
     packaging {
         resources {
