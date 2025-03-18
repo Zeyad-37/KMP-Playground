@@ -34,6 +34,7 @@ kotlin {
         val desktopMain by getting
 
         androidMain.dependencies {
+            implementation(files("../libs/crypto.aar"))
             implementation(compose.preview)
 
             implementation(libs.androidx.activity.compose)
