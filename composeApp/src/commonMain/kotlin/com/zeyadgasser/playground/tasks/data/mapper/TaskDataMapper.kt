@@ -26,8 +26,8 @@ class TaskDataMapper(private val cryptoHelper: CryptoHelper) {
             cryptoHelper.decrypt(encryptedTitle),
             id,
             image,
-            false,
-            dependencies.orEmpty()
+            done == true,
+            dependencies.orEmpty(),
         )
     }
 
@@ -35,7 +35,7 @@ class TaskDataMapper(private val cryptoHelper: CryptoHelper) {
         taskDTOs.map { mapDTOToDomain(it, false) }
 
     fun mapDomainToDTO(task: TaskDomain): TaskDTO = with(task) {
-        TaskDTO(creationDate, dueDate, encryptedDescription, encryptedTitle, id, image, dependencies)
+        TaskDTO(creationDate, dueDate, encryptedDescription, encryptedTitle, id, image, dependencies, done)
     }
 
     private fun formatDate(date: String): String =

@@ -29,7 +29,8 @@ class PlaygroundDataBase(
                     encryptedTitle,
                     id,
                     image,
-                    dependencies?.split(",") ?: emptyList()
+                    dependencies?.split(",") ?: emptyList(),
+                    done == 1L,
                 )
             }
         }
@@ -46,7 +47,8 @@ class PlaygroundDataBase(
                             encryptedTitle,
                             id,
                             image,
-                            dependencies?.split(",") ?: emptyList()
+                            dependencies?.split(",") ?: emptyList(),
+                            done == 1L,
                         )
                     }
                 }
@@ -77,7 +79,7 @@ class PlaygroundDataBase(
                     encryptedTitle = task.encryptedTitle,
                     id = task.id,
                     image = task.image,
-                    done = 0,
+                    done = if (task.done == true) 1 else 0,
                 )
                 task.dependencies?.forEach { dbQueries.insertDependency(it, task.id) }
             }

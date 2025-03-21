@@ -4,7 +4,7 @@ import com.zeyadgasser.playground.tasks.domain.model.TaskDomain
 import com.zeyadgasser.playground.utils.OpenForMokkery
 
 @OpenForMokkery
-object GetUpcomingTasksUseCase {
+class GetUpcomingTasksUseCase {
 
     fun invoke(tasks: List<TaskDomain>): List<TaskDomain> {
         // Filter tasks that are not done

@@ -11,7 +11,7 @@ import org.koin.core.qualifier.named
 import org.koin.dsl.module
 
 val taskListModule = module {
-    single { GetUpcomingTasksUseCase }
+    single { GetUpcomingTasksUseCase() }
     single { CheckTaskUseCase(get()) }
     single { GetTasksUseCase(get(), get(named("isAndroid"))) }
     single { TasksReducer() }

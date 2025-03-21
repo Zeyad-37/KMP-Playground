@@ -4,5 +4,5 @@ import com.zeyadgasser.playground.tasks.sharedPresentation.mapper.TaskPresentati
 import org.koin.dsl.module
 
 val taskPresentationModule = module {
-    single { TaskPresentationMapper }
+    single { TaskPresentationMapper() }
 }

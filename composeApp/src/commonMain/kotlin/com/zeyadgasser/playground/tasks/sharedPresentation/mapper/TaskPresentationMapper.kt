@@ -2,8 +2,10 @@ package com.zeyadgasser.playground.tasks.sharedPresentation.mapper
 
 import com.zeyadgasser.playground.tasks.domain.model.TaskDomain
 import com.zeyadgasser.playground.tasks.sharedPresentation.model.TaskPM
+import com.zeyadgasser.playground.utils.OpenForMokkery
 
-object TaskPresentationMapper {
+@OpenForMokkery
+class TaskPresentationMapper() {
 
     fun mapDomainToPresentation(taskDomain: TaskDomain): TaskPM = with(taskDomain) {
         TaskPM(creationDate, dueDate, encryptedDescription, encryptedTitle, id, image, done, dependencies)

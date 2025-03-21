@@ -38,8 +38,7 @@ class TasksViewModel(
             HideDialogInput -> flowOf(HideDialogEffect)
         }
 
-
-    private suspend fun onLoadTasks(): Flow<Result> = getTasksUseCase.invoke()
+    private fun onLoadTasks(): Flow<Result> = getTasksUseCase.invoke()
         .flatMapConcat { tasks ->
             flowOf(
                 LoadTasksResult(

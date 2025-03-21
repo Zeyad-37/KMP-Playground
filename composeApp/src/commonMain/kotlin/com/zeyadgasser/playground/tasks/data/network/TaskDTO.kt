@@ -19,4 +19,5 @@ data class TaskDTO(
     val image: String,
     @SerialName("dependencies")
     val dependencies: List<String>? = null,
+    val done: Boolean? = null,
 )
