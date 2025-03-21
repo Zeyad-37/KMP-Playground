@@ -3,6 +3,7 @@ package com.zeyadgasser.playground.tasks.data.db
 import app.cash.sqldelight.coroutines.asFlow
 import app.cash.sqldelight.coroutines.mapToList
 import com.zeyadgasser.playground.tasks.data.network.TaskDTO
+import com.zeyadgasser.playground.utils.OpenForMokkery
 import comzeyadgasserplaygroundtasksdatadb.GetAllTasksWithDependencies
 import comzeyadgasserplaygroundtasksdatadb.GetTaskWithDependencies
 import comzeyadgasserplaygroundtasksdatadb.PlaygroundDBQueries
@@ -10,6 +11,7 @@ import kotlinx.coroutines.CoroutineDispatcher
 import kotlinx.coroutines.flow.Flow
 import kotlinx.coroutines.flow.map
 
+@OpenForMokkery
 class PlaygroundDataBase(
     databaseDriverFactory: DatabaseDriverFactory,
     private val ioDispatcher: CoroutineDispatcher,
@@ -32,7 +34,7 @@ class PlaygroundDataBase(
             }
         }
 
-    fun getAllTasksFlow(): Flow<List<TaskDTO>> = //throw NotImplementedError()
+    fun getAllTasksFlow(): Flow<List<TaskDTO>> =
         dbQueries.getAllTasksWithDependencies().asFlow().mapToList(ioDispatcher)
             .map { result: List<GetAllTasksWithDependencies> ->
                 result.map {

@@ -3,6 +3,7 @@ package com.zeyadgasser.playground.tasks.data.mapper
 import com.zeyadgasser.playground.tasks.data.network.TaskDTO
 import com.zeyadgasser.playground.tasks.domain.model.TaskDomain
 import com.zeyadgasser.playground.utils.CryptoHelper
+import com.zeyadgasser.playground.utils.OpenForMokkery
 import kotlinx.datetime.Instant
 import kotlinx.datetime.LocalDateTime
 import kotlinx.datetime.TimeZone
@@ -11,6 +12,7 @@ import kotlinx.datetime.format.DateTimeFormat
 import kotlinx.datetime.format.char
 import kotlinx.datetime.toLocalDateTime
 
+@OpenForMokkery
 class TaskDataMapper(private val cryptoHelper: CryptoHelper) {
     private val dateTimeComponentFormat: DateTimeFormat<LocalDateTime> = LocalDateTime.Format {
         year(); char('-'); monthNumber(); char('-'); dayOfMonth(); char(' '); hour(); char(':'); minute()

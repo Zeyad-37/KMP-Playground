@@ -1,7 +1,9 @@
 package com.zeyadgasser.playground.tasks.domain.usecase
 
 import com.zeyadgasser.playground.tasks.domain.model.TaskDomain
+import com.zeyadgasser.playground.utils.OpenForMokkery
 
+@OpenForMokkery
 object GetUpcomingTasksUseCase {
 
     fun invoke(tasks: List<TaskDomain>): List<TaskDomain> {
