@@ -36,6 +36,7 @@ room = "2.7.0-rc02"
 ksp = "2.1.0-1.0.29"
 workManager = "2.10.0"
 mokkery = "2.7.1"
+ktlint-gradle = "12.2.0"
 
 [libraries]
 androidx-ui-test-junit4-android = { module = "androidx.compose.ui:ui-test-junit4-android", version.ref = "uiTestJunit4Android" }
@@ -116,3 +117,4 @@ sqldelight = { id = "app.cash.sqldelight", version.ref = "sqlDelight" }
 ksp = { id = "com.google.devtools.ksp", version.ref = "ksp" }
 mokkery = { id = "dev.mokkery", version.ref = "mokkery" }
 all-open = { id = "org.jetbrains.kotlin.plugin.allopen", version.ref = "kotlin" }
+ktlint = { id = "org.jlleitschuh.gradle.ktlint", version.ref = "ktlint-gradle" }

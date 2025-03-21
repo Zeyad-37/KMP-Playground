@@ -1,3 +1,5 @@
+import org.jlleitschuh.gradle.ktlint.KtlintExtension
+
 plugins {
     // this is necessary to avoid the plugins to be loaded multiple times
     // in each subproject's classloader
@@ -7,4 +9,17 @@ plugins {
     alias(libs.plugins.composeCompiler) apply false
     alias(libs.plugins.kotlinMultiplatform) apply false
     alias(libs.plugins.ksp) apply false
+    alias(libs.plugins.ktlint) apply false
+
+}
+
+subprojects {
+    apply(plugin = rootProject.libs.plugins.ktlint.get().pluginId)
+
+    configure<KtlintExtension> {
+        verbose.set(true)
+        filter {
+            exclude { it.file.path.contains("build/") }
+        }
+    }
 }

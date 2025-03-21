@@ -1,3 +1,5 @@
+@file:OptIn(ExperimentalKotlinGradlePluginApi::class)
+
 import dev.mokkery.gradle.mokkery
 import org.jetbrains.compose.desktop.application.dsl.TargetFormat
 import org.jetbrains.kotlin.gradle.ExperimentalKotlinGradlePluginApi
@@ -20,10 +22,7 @@ kotlin {
         compilerOptions {
             jvmTarget.set(JvmTarget.JVM_17)
         }
-        @OptIn(
-            ExperimentalKotlinGradlePluginApi::class,
-            ExperimentalKotlinGradlePluginApi::class
-        )
+//        unitTestVariant.sourceSetTree.set(KotlinSourceSetTree.test)
         instrumentedTestVariant {
             sourceSetTree.set(KotlinSourceSetTree.test)
             dependencies {
@@ -46,13 +45,7 @@ kotlin {
 
     jvm("desktop")
 
-    targets.configureEach {
-        compilations.configureEach {
-            compileTaskProvider.get().compilerOptions {
-                freeCompilerArgs.add("-Xexpect-actual-classes")
-            }
-        }
-    }
+    compilerOptions.freeCompilerArgs.add("-Xexpect-actual-classes")
 
     sourceSets {
         val desktopMain by getting
@@ -178,6 +171,19 @@ android {
     compileOptions {
         sourceCompatibility = JavaVersion.VERSION_17
         targetCompatibility = JavaVersion.VERSION_17
+//        isCoreLibraryDesugaringEnabled = true
+    }
+
+    testOptions.unitTests.isIncludeAndroidResources = true
+
+    lint {
+        warningsAsErrors = false
+        abortOnError = true
+    }
+
+    buildFeatures {
+        compose = true
+        buildConfig = true
     }
 }
 
