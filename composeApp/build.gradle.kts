@@ -56,6 +56,7 @@ kotlin {
 
     sourceSets {
         val desktopMain by getting
+        val desktopTest by getting
 
         androidMain.dependencies {
             implementation(files("../libs/crypto.aar"))
@@ -74,6 +75,13 @@ kotlin {
             implementation(libs.sql.delight.android.driver)
 
             implementation(libs.kotlinx.coroutines.android)
+        }
+
+        androidUnitTest.dependencies {
+            implementation(libs.junit)
+            implementation(libs.sql.delight.jvm.driver)
+            implementation(libs.androidx.test.junit)
+            implementation(libs.androidx.espresso.core)
         }
 
         commonMain.dependencies {
@@ -128,9 +136,15 @@ kotlin {
             implementation(libs.ktor.client.darwin)
             implementation(libs.sql.delight.native.driver)
         }
+        iosTest.dependencies {
+            implementation(libs.sql.delight.native.driver)
+        }
         desktopMain.dependencies {
             implementation(compose.desktop.currentOs)
             implementation(libs.kotlinx.coroutines.swing)
+            implementation(libs.sql.delight.jvm.driver)
+        }
+        desktopTest.dependencies {
             implementation(libs.sql.delight.jvm.driver)
         }
     }
