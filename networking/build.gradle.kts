@@ -1,15 +1,17 @@
 plugins {
     alias(libs.plugins.kotlinMultiplatform)
     alias(libs.plugins.android.kotlin.multiplatform.library)
-//    alias(libs.plugins.playground.multiplatform.lib)
+    alias(libs.plugins.kotlinxSerialization)
+    alias(libs.plugins.playground.networking)// todo move to plugin
 }
 
 kotlin {
+
 // Target declarations - add or remove as needed below. These define
 // which platforms this KMP module supports.
 // See: https://kotlinlang.org/docs/multiplatform-discover-project.html#targets
     androidLibrary {
-        namespace = "com.zeyadgasser.playground.architecture"
+        namespace = "com.zeyad.playground.networking"
         compileSdk = 35
         minSdk = 24
 
@@ -22,6 +24,7 @@ kotlin {
             instrumentationRunner = "androidx.test.runner.AndroidJUnitRunner"
         }
     }
+
 // For iOS targets, this is also where you should
 // configure native binary output. For more information, see:
 // https://kotlinlang.org/docs/multiplatform-build-native-binaries.html#build-xcframeworks
@@ -29,24 +32,8 @@ kotlin {
 // A step-by-step guide on how to include this library in an XCode
 // project can be found here:
 // https://developer.android.com/kotlin/multiplatform/migrate
-    val xcfName = "architectureKit"
-//    iosX64 {
-//        binaries.framework {
-//            baseName = xcfName
-//        }
-//    }
-//
-//    iosArm64 {
-//        binaries.framework {
-//            baseName = xcfName
-//        }
-//    }
-//
-//    iosSimulatorArm64 {
-//        binaries.framework {
-//            baseName = xcfName
-//        }
-//    }
+    val xcfName = "networkingKit"
+
     listOf(
         iosX64(),
         iosArm64(),
@@ -68,10 +55,9 @@ kotlin {
     sourceSets {
         commonMain {
             dependencies {
+                implementation(project(":architecture"))
                 implementation(libs.kotlin.stdlib)
-                implementation(libs.kotlinx.coroutines.core)
-                api(libs.napier)
-                implementation(libs.androidx.lifecycle.viewmodel)
+                // Add KMP dependencies here
             }
         }
 
@@ -107,4 +93,5 @@ kotlin {
             }
         }
     }
+
 }

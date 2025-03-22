@@ -79,6 +79,7 @@ kotlin {
 
         commonMain.dependencies {
             implementation(project(":architecture"))
+            implementation(project(":networking"))
             implementation(compose.runtime)
             implementation(compose.foundation)
             implementation(compose.material)

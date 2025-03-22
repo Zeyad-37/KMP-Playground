@@ -12,8 +12,7 @@ import io.ktor.client.statement.bodyAsText
 import io.ktor.serialization.kotlinx.json.json
 import kotlinx.serialization.json.Json
 
-object KtorHttpClient {
-
+object KtorHttpsClient {
     fun json() = Json {
         isLenient = true
         ignoreUnknownKeys = true

@@ -1,6 +1,6 @@
 package com.zeyadgasser.playground.di
 
-import com.zeyadgasser.playground.networking.KtorHttpClient
+import com.zeyadgasser.playground.networking.KtorHttpsClient
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.IO
 import org.koin.core.qualifier.named
@@ -13,6 +13,6 @@ const val IS_ANDROID = "isAndroid"
 val commonModule = module {
     single(named(IO)) { Dispatchers.IO }
     single(named(COMPUTATION)) { Dispatchers.Default }
-    single { KtorHttpClient.json() }
-    single { KtorHttpClient.httpClient(get()) }
+    single { KtorHttpsClient.json() }
+    single { KtorHttpsClient.httpClient(get()) }
 }
