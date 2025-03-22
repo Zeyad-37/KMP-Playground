@@ -28,12 +28,14 @@ import androidx.compose.runtime.mutableIntStateOf
 import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.remember
 import androidx.compose.runtime.rememberCoroutineScope
+import androidx.compose.runtime.saveable.rememberSaveable
 import androidx.compose.runtime.setValue
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.unit.dp
+import androidx.lifecycle.compose.collectAsStateWithLifecycle
 import cafe.adriel.voyager.core.screen.Screen
 import cafe.adriel.voyager.navigator.LocalNavigator
 import cafe.adriel.voyager.navigator.currentOrThrow
@@ -70,7 +72,7 @@ data class ListScreen(val modifier: Modifier) : Screen {
         val navigator = LocalNavigator.currentOrThrow
         val coroutineScope = rememberCoroutineScope()
         val snackBarHostState: SnackbarHostState = remember { SnackbarHostState() }
-        val tasksState by viewModel.state.collectAsState()
+        val tasksState by viewModel.state.collectAsStateWithLifecycle()
         var showDialog by remember { mutableStateOf(false) }
         LaunchedEffect(Unit) {
             viewModel.effect.collectLatest {
@@ -99,7 +101,7 @@ data class ListScreen(val modifier: Modifier) : Screen {
         snackBarHostState: SnackbarHostState,
         process: (Input) -> Unit,
     ) {
-        var selectedTabIndex by remember { mutableIntStateOf(0) }
+        var selectedTabIndex by rememberSaveable { mutableIntStateOf(0) }
         var allTabLabel by remember { mutableStateOf("All tasks") }
         var upcomingTabLabel by remember { mutableStateOf("Upcoming Tasks") }
         Scaffold(

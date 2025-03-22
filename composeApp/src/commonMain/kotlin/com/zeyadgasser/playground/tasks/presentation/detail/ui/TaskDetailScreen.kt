@@ -24,6 +24,7 @@ import androidx.compose.runtime.setValue
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.text.style.TextAlign
+import androidx.lifecycle.compose.collectAsStateWithLifecycle
 import cafe.adriel.voyager.core.screen.Screen
 import cafe.adriel.voyager.navigator.LocalNavigator
 import cafe.adriel.voyager.navigator.currentOrThrow
@@ -58,7 +59,7 @@ data class DetailScreen(val taskId: String, val modifier: Modifier) : Screen {
     ) {
         val navigator = LocalNavigator.currentOrThrow
         val snackBarHostState: SnackbarHostState = remember { SnackbarHostState() }
-        val taskDetailState by viewModel.state.collectAsState(InitialState(false, taskId))
+        val taskDetailState by viewModel.state.collectAsStateWithLifecycle(InitialState(false, taskId))
         LaunchedEffect(Unit) {
             viewModel.effect.collectLatest {
                 when (it) {
