@@ -23,6 +23,6 @@ TODO:
   - Profile
   - Sign Up/In
   - Forgot password
-  - 2FA
   - KYC
+  - 2FA
   -  

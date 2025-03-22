@@ -9,7 +9,8 @@ import org.gradle.kotlin.dsl.configure
 
 class AndroidLibPlugin : Plugin<Project> {
     override fun apply(target: Project) = with(target) {
-        pluginManager.apply(libs.findPlugin("androidLibrary").get().get().pluginId)
+//        pluginManager.apply(libs.findPlugin("androidLibrary").get().get().pluginId)
+        pluginManager.apply(libs.findPlugin("android.kotlin.multiplatform.library").get().get().pluginId)
         extensions.configure<LibraryExtension> {
             compileSdk = libs.findVersion("android.compileSdk").get().toString().toInt()
             defaultConfig {
