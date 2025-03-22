@@ -15,3 +15,14 @@ Learn more about [Kotlin Multiplatform](https://www.jetbrains.com/help/kotlin-mu
 
 TODO:
 - Modularize
+- Umbrella Module
+- Analytics
+- Observability
+- Add Screens:
+  - Settings
+  - Profile
+  - Sign Up/In
+  - Forgot password
+  - 2FA
+  - KYC
+  -  
