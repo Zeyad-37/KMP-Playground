@@ -78,6 +78,7 @@ kotlin {
         }
 
         commonMain.dependencies {
+            implementation(project(":architecture"))
             implementation(compose.runtime)
             implementation(compose.foundation)
             implementation(compose.material)
