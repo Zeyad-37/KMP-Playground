@@ -44,19 +44,19 @@ class SharedLibPlugin : Plugin<Project> {
 
             sourceSets.apply {
                 androidMain.dependencies {
-                    implementation(libs.findLibrary("kotlinx.coroutines.android"))
+                    implementation(libs.findLibrary("kotlinx.coroutines.android").get())
                 }
 
                 commonMain.dependencies {
 //                    implementation(libs.findLibrary("androidx.lifecycle.viewmodel"))
 //                    implementation(libs.findLibrary("kotlinx.datetime"))
-                    implementation(libs.findLibrary("kotlinx.coroutines.core"))
+                    implementation(libs.findLibrary("kotlinx.coroutines.core").get())
 
-                    implementation(libs.findLibrary("napier"))
+                    implementation(libs.findLibrary("napier").get())
                 }
                 val desktopMain = getByName("desktopMain")
                 desktopMain.dependencies {
-                    implementation(libs.findLibrary("kotlinx.coroutines.swing"))
+                    implementation(libs.findLibrary("kotlinx.coroutines.swing").get())
 
                 }
             }

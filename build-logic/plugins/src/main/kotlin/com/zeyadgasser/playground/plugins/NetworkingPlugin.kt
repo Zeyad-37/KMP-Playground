@@ -16,25 +16,25 @@ class NetworkingPlugin : Plugin<Project> {
         extensions.configure<KotlinMultiplatformExtension> {
             sourceSets.apply {
                 androidMain.dependencies {
-                    implementation(libs.findLibrary("ktor.client.android"))
+                    implementation(libs.findLibrary("ktor.client.android").get())
                 }
 
                 commonMain.dependencies {
-                    implementation(libs.findLibrary("ktor.client.core"))
-                    implementation(libs.findLibrary("ktor.client.content.negotiation"))
-                    implementation(libs.findLibrary("ktor.serialization.kotlinx.json"))
-                    implementation(libs.findLibrary("ktor.logging"))
-                    implementation(libs.findLibrary("ktor.cio"))
+                    implementation(libs.findLibrary("ktor.client.core").get())
+                    implementation(libs.findLibrary("ktor.client.content.negotiation").get())
+                    implementation(libs.findLibrary("ktor.serialization.kotlinx.json").get())
+                    implementation(libs.findLibrary("ktor.logging").get())
+                    implementation(libs.findLibrary("ktor.cio").get())
 
-                    implementation(libs.findLibrary("coil.compose"))
+                    implementation(libs.findLibrary("coil.compose").get())
                 }
 
                 commonTest.dependencies {
-                    implementation(libs.findLibrary("ktor.mock"))
+                    implementation(libs.findLibrary("ktor.mock").get())
                 }
 
                 iosMain.dependencies {
-                    implementation(libs.findLibrary("ktor.client.darwin"))
+                    implementation(libs.findLibrary("ktor.client.darwin").get())
                 }
             }
         }

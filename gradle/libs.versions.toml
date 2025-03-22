@@ -37,6 +37,8 @@ ksp = "2.1.0-1.0.29"
 workManager = "2.10.0"
 mokkery = "2.7.1"
 ktlint-gradle = "12.2.0"
+detekt = "1.23.8"
+kover = "0.9.1"
 
 [libraries]
 androidx-ui-test-junit4-android = { module = "androidx.compose.ui:ui-test-junit4-android", version.ref = "uiTestJunit4Android" }
@@ -106,6 +108,9 @@ voyager-koin = { module = "cafe.adriel.voyager:voyager-koin", version.ref = "voy
 voyager-navigator = { module = "cafe.adriel.voyager:voyager-navigator", version.ref = "voyagerNavigator" }
 voyager-screenmodel = { module = "cafe.adriel.voyager:voyager-screenmodel", version.ref = "voyagerNavigator" }
 
+detekt_api = { module = "io.gitlab.arturbosch.detekt:detekt-api", version.ref = "detekt" }
+detekt_test = { module = "io.gitlab.arturbosch.detekt:detekt-test", version.ref = "detekt" }
+
 [plugins]
 androidApplication = { id = "com.android.application", version.ref = "agp" }
 androidLibrary = { id = "com.android.library", version.ref = "agp" }
@@ -118,3 +123,18 @@ ksp = { id = "com.google.devtools.ksp", version.ref = "ksp" }
 mokkery = { id = "dev.mokkery", version.ref = "mokkery" }
 all-open = { id = "org.jetbrains.kotlin.plugin.allopen", version.ref = "kotlin" }
 ktlint = { id = "org.jlleitschuh.gradle.ktlint", version.ref = "ktlint-gradle" }
+detekt = { id = "io.gitlab.arturbosch.detekt", version.ref = "detekt" }
+kover = { id = "org.jetbrains.kotlinx.kover", version.ref = "kover" }
+
+# Plugins defined by this project
+playground-multiplatform-lib = { id = "playground.multiplatform.lib" }
+playground-compose-multiplatform = { id = "playground.compose.multiplatform" }
+playground-detekt = { id = "playground.detekt" }
+playground-android-library = { id = "playground.android.library" }
+playground-sql-delight = { id = "playground.sql.delight" }
+playground-koin = { id = "playground.koin" }
+playground-testing = { id = "playground.testing" }
+playground-networking = { id = "playground.networking" }
+playground-navigation = { id = "playground.navigation" }
+playground-koverage = { id = "playground.koverage" }
+playground-git-hooks = { id = "playground.git.hooks" }

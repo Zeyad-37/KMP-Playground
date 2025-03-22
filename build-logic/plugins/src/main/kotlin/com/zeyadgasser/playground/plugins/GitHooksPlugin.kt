@@ -10,7 +10,7 @@ class GitHooksPlugin : Plugin<Project> {
         check(project == rootProject) { "This plugin can only be applied at root project" }
         val isCI = !System.getenv("CI").isNullOrEmpty()
         if (!isCI && isUnixOs()) {
-            file("${rootDir}/git-hooks/")
+            file("${rootDir}/config/git-hooks/")
                 .copyRecursively(file("${rootDir}/.git/hooks/"), overwrite = true)
             exec {
                 workingDir = project.rootDir

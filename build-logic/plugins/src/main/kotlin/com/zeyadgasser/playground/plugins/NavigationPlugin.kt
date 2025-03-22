@@ -11,9 +11,9 @@ class NavigationPlugin : Plugin<Project> {
         extensions.configure<KotlinMultiplatformExtension> {
             sourceSets.apply {
                 commonMain.dependencies {
-                    implementation(libs.findLibrary("voyager.navigator"))
-                    implementation(libs.findLibrary("voyager.screenmodel"))
-                    implementation(libs.findLibrary("voyager.koin"))
+                    implementation(libs.findLibrary("voyager.navigator").get())
+                    implementation(libs.findLibrary("voyager.screenmodel").get())
+                    implementation(libs.findLibrary("voyager.koin").get())
                 }
             }
         }

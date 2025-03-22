@@ -17,24 +17,24 @@ class SqlDelightPlugin : Plugin<Project> {
             sourceSets.apply {
                 val desktopMain = getByName("desktopMain")
                 desktopMain.dependencies {
-                    implementation(libs.findLibrary("sql.delight.jvm.driver"))
+                    implementation(libs.findLibrary("sql.delight.jvm.driver").get())
                 }
                 val desktopTest = getByName("desktopTest")
                 desktopTest.dependencies {
-                    implementation(libs.findLibrary("sql.delight.jvm.driver"))
+                    implementation(libs.findLibrary("sql.delight.jvm.driver").get())
                 }
                 androidMain.dependencies {
-                    implementation(libs.findLibrary("sql.delight.android.driver"))
+                    implementation(libs.findLibrary("sql.delight.android.driver").get())
                 }
                 androidUnitTest.dependencies {
-                    implementation(libs.findLibrary("sql.delight.jvm.driver"))
+                    implementation(libs.findLibrary("sql.delight.jvm.driver").get())
                 }
                 commonMain.dependencies {
-                    implementation(libs.findLibrary("sql.delight.runtime"))
-                    implementation(libs.findLibrary("sql.delight.coroutines.extensions.correct"))
+                    implementation(libs.findLibrary("sql.delight.runtime").get())
+                    implementation(libs.findLibrary("sql.delight.coroutines.extensions.correct").get())
                 }
                 iosMain.dependencies {
-                    implementation(libs.findLibrary("sql.delight.native.driver"))
+                    implementation(libs.findLibrary("sql.delight.native.driver").get())
                 }
             }
         }

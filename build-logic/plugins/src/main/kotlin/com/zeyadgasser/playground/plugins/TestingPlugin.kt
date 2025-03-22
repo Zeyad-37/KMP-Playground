@@ -20,7 +20,6 @@ class TestingPlugin : Plugin<Project> {
                     implementation(kotlin("test"))
                     implementation(kotlin("test-common"))
                     implementation(kotlin("test-annotations-common"))
-                    implementation(libs.findLibrary("ktor.mock").get())
                     implementation(libs.findLibrary("coroutines.test").get())
                     implementation(libs.findLibrary("turbine").get())
                     implementation(mokkery("coroutines"))

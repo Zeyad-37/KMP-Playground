@@ -26,28 +26,12 @@ dependencies {
     compileOnly(libs.plugins.sqldelight.toDep())
     compileOnly(libs.plugins.mokkery.toDep())
     compileOnly(libs.plugins.all.open.toDep())
-    compileOnly(libs.plugins.ktlint.toDep())
-
-//    compileOnly(plugin("io.gitlab.arturbosch.detekt", "1.23.8"))
-//    implementation(plugin("org.jetbrains.kotlinx.kover", "0.9.1"))
-//    compileOnly(libs.android.gradlePlugin)
-//    compileOnly(libs.android.tools.common)
-//    compileOnly(libs.compose.gradlePlugin)
-//    compileOnly(libs.firebase.crashlytics.gradlePlugin)
-//    compileOnly(libs.firebase.performance.gradlePlugin)
-//    compileOnly(libs.kotlin.gradlePlugin)
-//    compileOnly(libs.ksp.gradlePlugin)
-//    compileOnly(libs.room.gradlePlugin)
-//    compileOnly(libs.detekt.api)
-//    compileOnly(libs.kotlinx.coroutines.core)
-////    implementation(libs.truth)
-////    lintChecks(libs.androidx.lint.gradle)
-//
-//    testImplementation(libs.detekt.api)
-//    testImplementation(libs.detekt.test)
+    compileOnly(libs.plugins.detekt.toDep())
+    compileOnly(libs.plugins.kover.toDep())
+    compileOnly(libs.detekt.api)
+    testImplementation(libs.detekt.api)
+    testImplementation(libs.detekt.test)
 }
-
-fun DependencyHandler.plugin(id: String, version: String) = create("$id:$id.gradle.plugin:$version")
 
 tasks {
     validatePlugins {
@@ -58,59 +42,72 @@ tasks {
 
 gradlePlugin {
     plugins {
-//        register("hilt") {
-//            id = libs.plugins.playground.hilt.get().pluginId
-//            implementationClass = "com.zeyadgasser.playground.plugins.HiltPlugin"
-//            displayName = "Hilt Plugin"
-//            description = "Plugin configures hilt for an android project"
-//        }
-//        register("androidLib") {
-//            id = libs.plugins.playground.android.library.get().pluginId
-//            implementationClass = "com.zeyadgasser.playground.plugins.AndroidLibPlugin"
-//            displayName = "Android Lib Plugin"
-//            description = "Plugin configures an android project"
-//        }
-//        register("featureLib") {
-//            id = libs.plugins.playground.android.feature.get().pluginId
-//            implementationClass = "com.zeyadgasser.playground.plugins.FeatureLibPlugin"
-//            displayName = "Android Feature Lib Plugin"
-//            description = "Plugin configures an android feature project"
-//        }
-//        register("junit5") {
-//            id = libs.plugins.playground.junit.jupiter.get().pluginId
-//            implementationClass = "com.zeyadgasser.playground.plugins.JUnitJupiterPlugin"
-//            displayName = "JUnitJupiter Plugin"
-//            description = "Plugin configures JUnitJupiter for an android project"
-//        }
-//        register("testing") {
-//            id = libs.plugins.playground.testing.get().pluginId
-//            implementationClass = "com.zeyadgasser.playground.plugins.TestingPlugin"
-//            displayName = "Testing Plugin"
-//            description = "Plugin configures Mockito, JUnit5, CoroutinesTest & Turbine for an android project"
-//        }
-//        register("room") {
-//            id = libs.plugins.playground.android.room.get().pluginId
-//            implementationClass = "com.zeyadgasser.playground.plugins.RoomPlugin"
-//            displayName = "Room Plugin"
-//            description = "Plugin configures Room an android project"
-//        }
-//        register("gitHooks") {
-//            id = libs.plugins.playground.git.hooks.get().pluginId
-//            implementationClass = "com.zeyadgasser.playground.plugins.GitHooksPlugin"
-//            displayName = "GitHooks Plugin"
-//            description = "Plugin configures GitHooks a project"
-//        }
-//        register("jetpackCompose") {
-//            id = libs.plugins.playground.android.compose.get().pluginId
-//            implementationClass = "com.zeyadgasser.playground.plugins.ComposePlugin"
-//            displayName = "Jetpack Compose Plugin"
-//            description = "Plugin configures Jetpack Compose a project"
-//        }
-//        register("detekt") {
-//            id = libs.plugins.playground.detekt.get().pluginId
-//            implementationClass = "com.zeyadgasser.playground.plugins.DetektPlugin"
-//            displayName = "Detekt Plugin"
-//            description = "Plugin configures Detekt for a project"
-//        }
+        register("koin") {
+            id = libs.plugins.playground.koin.get().pluginId
+            implementationClass = "com.zeyadgasser.playground.plugins.KoinPlugin"
+            displayName = "Koin Plugin"
+            description = "Plugin configures koin for a multiplatform project"
+        }
+        register("androidLib") {
+            id = libs.plugins.playground.android.library.get().pluginId
+            implementationClass = "com.zeyadgasser.playground.plugins.AndroidLibPlugin"
+            displayName = "Android Lib Plugin"
+            description = "Plugin configures an android project"
+        }
+        register("sharedLib") {
+            id = libs.plugins.playground.multiplatform.lib.get().pluginId
+            implementationClass = "com.zeyadgasser.playground.plugins.SharedLibPlugin"
+            displayName = "SharedLib Plugin"
+            description = "Plugin configures a multiplatform shared lib project"
+        }
+        register("koverage") {
+            id = libs.plugins.playground.koverage.get().pluginId
+            implementationClass = "com.zeyadgasser.playground.plugins.KoveragePlugin"
+            displayName = "Koverage Plugin"
+            description = "Plugin configures Koverage for a project"
+        }
+        register("testing") {
+            id = libs.plugins.playground.testing.get().pluginId
+            implementationClass = "com.zeyadgasser.playground.plugins.TestingPlugin"
+            displayName = "Testing Plugin"
+            description =
+                "Plugin configures Kotlin Test, CoroutinesTest, Turbine & Mockery for an multiplatform project"
+        }
+        register("networking") {
+            id = libs.plugins.playground.networking.get().pluginId
+            implementationClass = "com.zeyadgasser.playground.plugins.NetworkingPlugin"
+            displayName = "Networking Plugin"
+            description = "Plugin configures Ktor and Coil for a multiplatform project"
+        }
+        register("navigation") {
+            id = libs.plugins.playground.navigation.get().pluginId
+            implementationClass = "com.zeyadgasser.playground.plugins.NavigationPlugin"
+            displayName = "Navigation Plugin"
+            description = "Plugin configures Voyager for a multiplatform project"
+        }
+        register("sqldelight") {
+            id = libs.plugins.playground.sql.delight.get().pluginId
+            implementationClass = "com.zeyadgasser.playground.plugins.SqlDelightPlugin"
+            displayName = "SqlDelight Plugin"
+            description = "Plugin configures SqlDelight a multiplatform project"
+        }
+        register("gitHooks") {
+            id = libs.plugins.playground.git.hooks.get().pluginId
+            implementationClass = "com.zeyadgasser.playground.plugins.GitHooksPlugin"
+            displayName = "GitHooks Plugin"
+            description = "Plugin configures GitHooks a project"
+        }
+        register("composeMultiplatform") {
+            id = libs.plugins.playground.compose.multiplatform.get().pluginId
+            implementationClass = "com.zeyadgasser.playground.plugins.ComposeMultiplatformPlugin"
+            displayName = "ComposeMultiplatform Plugin"
+            description = "Plugin configures ComposeMultiplatform a multiplatform project"
+        }
+        register("detekt") {
+            id = libs.plugins.playground.detekt.get().pluginId
+            implementationClass = "com.zeyadgasser.playground.plugins.DetektPlugin"
+            displayName = "Detekt Plugin"
+            description = "Plugin configures Detekt for a project"
+        }
     }
 }

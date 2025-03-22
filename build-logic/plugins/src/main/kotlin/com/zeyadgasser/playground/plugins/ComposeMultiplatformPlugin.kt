@@ -54,12 +54,12 @@ class ComposeMultiplatformPlugin : Plugin<Project> {
             }
             sourceSets.apply {
                 androidMain.dependencies {
-                    implementation(libs.findLibrary("androidx.activity.compose"))
-                    implementation(libs.findLibrary("androidx.compose.material3"))
-                    implementation(libs.findLibrary("androidx.lifecycle.viewmodel.compose"))
+                    implementation(libs.findLibrary("androidx.activity.compose").get())
+                    implementation(libs.findLibrary("androidx.compose.material3").get())
+                    implementation(libs.findLibrary("androidx.lifecycle.viewmodel.compose").get())
                 }
                 commonMain.dependencies {
-                    implementation(libs.findLibrary("androidx.lifecycle.runtime.compose"))
+                    implementation(libs.findLibrary("androidx.lifecycle.runtime.compose").get())
                     implementation(compose.runtime)
                     implementation(compose.foundation)
 //                    implementation(compose.material)
