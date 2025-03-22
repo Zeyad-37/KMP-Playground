@@ -12,7 +12,22 @@ java {
 }
 kotlin.compilerOptions.jvmTarget = JVM_17
 
+fun Provider<PluginDependency>.toDep() = map {
+    "${it.pluginId}:${it.pluginId}.gradle.plugin:${it.version}"
+}
+
 dependencies {
+    compileOnly(libs.plugins.kotlinxSerialization.toDep())
+    compileOnly(libs.plugins.androidApplication.toDep())
+    compileOnly(libs.plugins.androidLibrary.toDep())
+    compileOnly(libs.plugins.composeMultiplatform.toDep())
+    compileOnly(libs.plugins.kotlinMultiplatform.toDep())
+    compileOnly(libs.plugins.composeCompiler.toDep())
+    compileOnly(libs.plugins.sqldelight.toDep())
+    compileOnly(libs.plugins.mokkery.toDep())
+    compileOnly(libs.plugins.all.open.toDep())
+    compileOnly(libs.plugins.ktlint.toDep())
+
 //    compileOnly(plugin("io.gitlab.arturbosch.detekt", "1.23.8"))
 //    implementation(plugin("org.jetbrains.kotlinx.kover", "0.9.1"))
 //    compileOnly(libs.android.gradlePlugin)
