@@ -6,7 +6,7 @@ import com.zeyadgasser.playground.tasks.data.network.TaskDTO
 import com.zeyadgasser.playground.tasks.data.network.TasksAPI
 import com.zeyadgasser.playground.tasks.domain.TaskRepository
 import com.zeyadgasser.playground.tasks.domain.model.TaskDomain
-import com.zeyadgasser.playground.utils.OpenForMokkery
+import com.zeyadgasser.playground.architecture.utils.OpenForMokkery
 import io.github.aakira.napier.Napier
 import kotlinx.coroutines.CoroutineDispatcher
 import kotlinx.coroutines.Dispatchers

@@ -4,7 +4,7 @@ import com.zeyadgasser.playground.tasks.domain.model.Operation
 import com.zeyadgasser.playground.tasks.domain.model.TaskDomain
 import com.zeyadgasser.playground.tasks.domain.model.Value
 import com.zeyadgasser.playground.tasks.domain.TaskRepository
-import com.zeyadgasser.playground.utils.OpenForMokkery
+import com.zeyadgasser.playground.architecture.utils.OpenForMokkery
 
 @OpenForMokkery
 class CheckTaskUseCase(private val taskRepository: TaskRepository) {

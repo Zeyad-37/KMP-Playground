@@ -1,6 +1,6 @@
 package com.zeyadgasser.playground.tasks.data.network
 
-import com.zeyadgasser.playground.utils.OpenForMokkery
+import com.zeyadgasser.playground.architecture.utils.OpenForMokkery
 import io.ktor.client.HttpClient
 import io.ktor.client.call.body
 import io.ktor.client.request.get
