@@ -10,6 +10,7 @@ import com.zeyadgasser.playground.database.desktopDataBaseModule
 import com.zeyadgasser.playground.database.di.dataBaseModule
 import com.zeyadgasser.playground.di.commonModule
 import com.zeyadgasser.playground.di.desktopModule
+import com.zeyadgasser.playground.task.data.di.desktopTaskSharedDataModule
 import com.zeyadgasser.playground.task.sharedpresentation.di.taskPresentationModule
 import com.zeyadgasser.playground.tasks.data.di.taskSharedDataModule
 import com.zeyadgasser.playground.tasks.presentation.detail.di.taskDetailModule
@@ -31,6 +32,7 @@ fun main() = application {
                         + taskDetailModule
                         + taskPresentationModule
                         + taskSharedDataModule
+                        + desktopTaskSharedDataModule
             )
         }
         App(Modifier)

@@ -10,9 +10,9 @@ import org.jetbrains.kotlin.gradle.dsl.KotlinMultiplatformExtension
 class SqlDelightPlugin : Plugin<Project> {
 
     override fun apply(target: Project) = with(target) {
-        with(pluginManager) {
-            apply(libs.findPlugin("sqldelight").get().get().pluginId)
-        }
+//        with(pluginManager) { // fixme
+//            apply(libs.findPlugin("sqldelight").get().get().pluginId)
+//        }
         extensions.configure<KotlinMultiplatformExtension> {
             sourceSets.apply {
                 val desktopMain = getByName("desktopMain")
@@ -31,6 +31,7 @@ class SqlDelightPlugin : Plugin<Project> {
                 }
                 commonMain.dependencies {
                     implementation(libs.findLibrary("sql.delight.runtime").get())
+                    implementation(libs.findLibrary("sql.delight.coroutines.extensions").get()) // todo check!
                     implementation(libs.findLibrary("sql.delight.coroutines.extensions.correct").get())
                 }
                 iosMain.dependencies {

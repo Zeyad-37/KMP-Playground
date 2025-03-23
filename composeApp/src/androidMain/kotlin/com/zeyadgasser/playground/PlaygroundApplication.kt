@@ -1,10 +1,11 @@
 package com.zeyadgasser.playground
 
 import android.app.Application
-import com.zeyadgasser.playground.database.appDataBaseModule
+import com.zeyadgasser.playground.database.androidDataBaseModule
 import com.zeyadgasser.playground.database.di.dataBaseModule
-import com.zeyadgasser.playground.di.appModule
+import com.zeyadgasser.playground.di.androidModule
 import com.zeyadgasser.playground.di.commonModule
+import com.zeyadgasser.playground.task.data.di.androidTaskSharedDataModule
 import com.zeyadgasser.playground.task.sharedpresentation.di.taskPresentationModule
 import com.zeyadgasser.playground.tasks.data.di.taskSharedDataModule
 import com.zeyadgasser.playground.tasks.data.sync.Sync
@@ -25,13 +26,14 @@ class PlaygroundApplication : Application(), KoinComponent {
             androidContext(this@PlaygroundApplication)
             workManagerFactory()
             modules(
-                appModule + commonModule
+                androidModule + commonModule
                         + dataBaseModule
-                        + appDataBaseModule
+                        + androidDataBaseModule
                         + taskListModule
                         + taskDetailModule
                         + taskPresentationModule
                         + taskSharedDataModule
+                        + androidTaskSharedDataModule
             )
         }
         Sync.initialize(this)
