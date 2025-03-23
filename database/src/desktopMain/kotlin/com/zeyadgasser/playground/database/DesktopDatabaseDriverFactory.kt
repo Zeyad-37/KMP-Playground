@@ -1,7 +1,8 @@
-package com.zeyadgasser.playground.tasks.data.db
+package com.zeyadgasser.playground.database
 
 import app.cash.sqldelight.db.SqlDriver
 import app.cash.sqldelight.driver.jdbc.sqlite.JdbcSqliteDriver
+import com.zeyadgasser.playground.tasks.data.db.PlaygroundDB
 
 class DesktopDatabaseDriverFactory : DatabaseDriverFactory {
     override fun createDriver(): SqlDriver {

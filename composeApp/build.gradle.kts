@@ -81,6 +81,7 @@ kotlin {
             implementation(project(":core:architecture"))
             implementation(project(":core:networking"))
             implementation(project(":core:sharedUI"))
+            implementation(project(":database"))
             implementation(project(":domain"))
             implementation(project(":list"))
             implementation(project(":sharedPresentation"))
@@ -209,11 +210,11 @@ compose.desktop {
     }
 }
 
-sqldelight {
-    linkSqlite = true
-    databases {
-        create("PlaygroundDB") {
-            packageName.set("com.zeyadgasser.playground.tasks.data.db")
-        }
-    }
-}
+//sqldelight {
+//    linkSqlite = true
+//    databases {
+//        create("PlaygroundDB") {
+//            packageName.set("com.zeyadgasser.playground.tasks.data.db")
+//        }
+//    }
+//}

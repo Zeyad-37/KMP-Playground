@@ -2,6 +2,8 @@ package com.zeyadgasser.playground
 
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.window.ComposeUIViewController
+import com.zeyadgasser.playground.database.di.dataBaseModule
+import com.zeyadgasser.playground.database.iosDataBaseModule
 import com.zeyadgasser.playground.di.commonModule
 import com.zeyadgasser.playground.di.iosModule
 import com.zeyadgasser.playground.tasks.data.di.taskSharedDataModule
@@ -17,6 +19,8 @@ fun MainViewController() = ComposeUIViewController {
     startKoin {
         modules(
             commonModule + iosModule
+                    + dataBaseModule
+                    + iosDataBaseModule
                     + taskListModule
                     + taskDetailModule
                     + taskPresentationModule

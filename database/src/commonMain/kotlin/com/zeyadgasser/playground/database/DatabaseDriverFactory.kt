@@ -1,4 +1,4 @@
-package com.zeyadgasser.playground.tasks.data.db
+package com.zeyadgasser.playground.database
 
 import app.cash.sqldelight.db.SqlDriver
 import com.zeyadgasser.playground.architecture.utils.OpenForMokkery

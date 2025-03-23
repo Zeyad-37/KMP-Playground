@@ -8,10 +8,6 @@ import kotlinx.coroutines.IO
 import org.koin.core.qualifier.named
 import org.koin.dsl.module
 
-//const val IO = "io"
-//const val COMPUTATION = "default"
-//const val IS_ANDROID = "isAndroid"
-
 val commonModule = module {
     single(named(IO)) { Dispatchers.IO }
     single(named(COMPUTATION)) { Dispatchers.Default }
