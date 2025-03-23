@@ -1,9 +1,9 @@
 package com.zeyadgasser.playground.plugins
 
+import com.android.build.api.dsl.androidLibrary
 import com.zeyadgasser.playground.extensions.libs
 import org.gradle.api.Plugin
 import org.gradle.api.Project
-import org.gradle.kotlin.dsl.apply
 import org.gradle.kotlin.dsl.configure
 import org.gradle.kotlin.dsl.provideDelegate
 import org.gradle.kotlin.dsl.withType
@@ -13,53 +13,29 @@ import org.jetbrains.kotlin.gradle.tasks.KotlinCompile
 
 class SharedLibPlugin : Plugin<Project> {
     override fun apply(target: Project) = with(target) {
-        apply<ComposeMultiplatformPlugin>()
-        apply<AndroidLibPlugin>()
-        apply<KoinPlugin>()
-        apply<NetworkingPlugin>()
-        apply<SqlDelightPlugin>()
-        apply<NavigationPlugin>()
-        apply<TestingPlugin>()
-        with(pluginManager) {
-
+        plugins.apply("org.jetbrains.kotlin.multiplatform")
+        plugins.apply("com.android.kotlin.multiplatform.library")
+        with(pluginManager) {// see which works
+            apply(libs.findPlugin("kotlinMultiplatform").get().get().pluginId)
+            apply(libs.findPlugin("android-kotlin-multiplatform-library").get().get().pluginId)
         }
         configureKotlin()
         extensions.configure<KotlinMultiplatformExtension> {
-            androidTarget().compilerOptions.jvmTarget.set(JvmTarget.JVM_17)
-
-            listOf(
-                iosX64(),
-                iosArm64(),
-                iosSimulatorArm64()
-            ).forEach { iosTarget ->
-                iosTarget.binaries.framework {
-                    baseName = "ComposeApp"
-                    isStatic = true
+            androidLibrary {
+                compileSdk = libs.findVersion("android.compileSdk").get().toString().toInt()
+                minSdk = libs.findVersion("android.minSdk").get().toString().toInt()
+                withHostTestBuilder {}
+                withDeviceTestBuilder {
+                    sourceSetTreeName = "test"
+                }.configure {
+                    instrumentationRunner = "androidx.test.runner.AndroidJUnitRunner"
                 }
             }
-
+            iosX64()
+            iosArm64()
+            iosSimulatorArm64()
             jvm("desktop")
-
             compilerOptions.freeCompilerArgs.add("-Xexpect-actual-classes")
-
-            sourceSets.apply {
-                androidMain.dependencies {
-                    implementation(libs.findLibrary("kotlinx.coroutines.android").get())
-                }
-
-                commonMain.dependencies {
-//                    implementation(libs.findLibrary("androidx.lifecycle.viewmodel"))
-//                    implementation(libs.findLibrary("kotlinx.datetime"))
-                    implementation(libs.findLibrary("kotlinx.coroutines.core").get())
-
-                    implementation(libs.findLibrary("napier").get())
-                }
-                val desktopMain = getByName("desktopMain")
-                desktopMain.dependencies {
-                    implementation(libs.findLibrary("kotlinx.coroutines.swing").get())
-
-                }
-            }
         }
     }
 
@@ -73,17 +49,6 @@ class SharedLibPlugin : Plugin<Project> {
                 freeCompilerArgs.add("-opt-in=kotlinx.coroutines.ExperimentalCoroutinesApi")
                 freeCompilerArgs.add("-opt-in=kotlinx.coroutines.FlowPreview")
             }
-//            kotlinOptions {
-//                jvmTarget = JavaVersion.VERSION_17.toString()
-//                val warningsAsErrors: String? by project
-//                allWarningsAsErrors = warningsAsErrors.toBoolean()
-//                freeCompilerArgs = freeCompilerArgs + listOf(
-//                    "-opt-in=kotlin.RequiresOptIn",
-//                    // Enable experimental coroutines APIs, including Flow
-//                    "-opt-in=kotlinx.coroutines.ExperimentalCoroutinesApi",
-//                    "-opt-in=kotlinx.coroutines.FlowPreview",
-//                )
-//            }
         }
     }
 }

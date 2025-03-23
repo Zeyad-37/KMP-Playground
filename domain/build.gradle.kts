@@ -1,44 +1,20 @@
-import com.android.build.gradle.internal.scope.ProjectInfo.Companion.getBaseName
 import org.jetbrains.kotlin.gradle.plugin.mpp.KotlinNativeTarget
 
 plugins {
-    alias(libs.plugins.kotlinMultiplatform)
-    alias(libs.plugins.android.kotlin.multiplatform.library)
+    alias(libs.plugins.playground.multiplatform.lib)
     alias(libs.plugins.playground.testing)
 }
 
 kotlin {
-
     androidLibrary {
         namespace = "com.zeyadgasser.playground.task.domain"
-        compileSdk = 35
-        minSdk = 24
-
-        withHostTestBuilder {
-        }
-
-        withDeviceTestBuilder {
-            sourceSetTreeName = "test"
-        }.configure {
-            instrumentationRunner = "androidx.test.runner.AndroidJUnitRunner"
-        }
     }
-
     val xcfName = "domainKit"
-
-    listOf(
-        iosX64(),
-        iosArm64(),
-        iosSimulatorArm64()
-    ).forEach { iosTarget ->
-        iosTarget.binaries.framework {
+    targets.filterIsInstance<KotlinNativeTarget>().forEach { target: KotlinNativeTarget ->
+        target.binaries.framework {
             baseName = xcfName
-//            isStatic = true
         }
     }
-
-    jvm("desktop")
-
     sourceSets {
         commonMain {
             dependencies {
