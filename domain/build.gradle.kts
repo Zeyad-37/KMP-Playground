@@ -7,7 +7,7 @@ plugins {
 kotlin {
 
     androidLibrary {
-        namespace = "com.zeyadgasser.playground.data"
+        namespace = "com.zeyadgasser.playground.task.domain"
         compileSdk = 35
         minSdk = 24
 

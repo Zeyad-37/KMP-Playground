@@ -1,10 +1,10 @@
-package com.zeyadgasser.playground.domain.usecase
+package com.zeyadgasser.playground.task.domain.usecase
 
 import com.zeyadgasser.playground.architecture.utils.OpenForMokkery
-import com.zeyadgasser.playground.domain.TaskRepository
-import com.zeyadgasser.playground.domain.model.Operation
-import com.zeyadgasser.playground.domain.model.TaskDomain
-import com.zeyadgasser.playground.domain.model.Value
+import com.zeyadgasser.playground.task.domain.TaskRepository
+import com.zeyadgasser.playground.task.domain.model.Operation
+import com.zeyadgasser.playground.task.domain.model.TaskDomain
+import com.zeyadgasser.playground.task.domain.model.Value
 
 @OpenForMokkery
 class CheckTaskUseCase(private val taskRepository: TaskRepository) {

@@ -1,6 +1,6 @@
-package com.zeyadgasser.playground.domain
+package com.zeyadgasser.playground.task.domain
 
-import com.zeyadgasser.playground.domain.model.TaskDomain
+import com.zeyadgasser.playground.task.domain.model.TaskDomain
 
 object TestingData {
     val taskDomain = TaskDomain(

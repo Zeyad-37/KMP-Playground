@@ -1,8 +1,8 @@
-package com.zeyadgasser.playground.domain
+package com.zeyadgasser.playground.task.domain
 
 import com.zeyadgasser.playground.architecture.domain.Repository
 import com.zeyadgasser.playground.architecture.utils.OpenForMokkery
-import com.zeyadgasser.playground.domain.model.TaskDomain
+import com.zeyadgasser.playground.task.domain.model.TaskDomain
 import kotlinx.coroutines.flow.Flow
 
 @OpenForMokkery
