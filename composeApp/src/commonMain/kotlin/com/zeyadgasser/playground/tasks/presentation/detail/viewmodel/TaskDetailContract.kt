@@ -3,7 +3,7 @@ package com.zeyadgasser.playground.tasks.presentation.detail.viewmodel
 import com.zeyadgasser.playground.architecture.presentation.Effect
 import com.zeyadgasser.playground.architecture.presentation.Input
 import com.zeyadgasser.playground.architecture.presentation.State
-import com.zeyadgasser.playground.tasks.sharedPresentation.model.TaskPM
+import com.zeyadgasser.playground.task.sharedpresentation.model.TaskPM
 
 sealed class TaskDetailInput : Input
 data class LoadTaskInput(val taskId: String) : TaskDetailInput()

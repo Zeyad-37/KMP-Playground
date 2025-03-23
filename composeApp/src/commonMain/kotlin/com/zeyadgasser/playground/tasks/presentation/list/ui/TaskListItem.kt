@@ -14,8 +14,8 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.layout.ContentScale
 import androidx.compose.ui.unit.dp
 import coil3.compose.AsyncImage
+import com.zeyadgasser.playground.task.sharedpresentation.ui.TaskItemTextSlot
 import com.zeyadgasser.playground.sharedui.theme.AppTheme
-import com.zeyadgasser.playground.tasks.sharedPresentation.ui.TaskItemTextSlot
 import org.jetbrains.compose.ui.tooling.preview.Preview
 
 @Composable

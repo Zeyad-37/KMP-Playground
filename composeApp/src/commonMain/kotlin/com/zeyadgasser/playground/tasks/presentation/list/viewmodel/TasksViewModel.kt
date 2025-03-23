@@ -6,8 +6,8 @@ import com.zeyadgasser.playground.architecture.presentation.ViewModel
 import com.zeyadgasser.playground.domain.usecase.CheckTaskUseCase
 import com.zeyadgasser.playground.domain.usecase.GetTasksUseCase
 import com.zeyadgasser.playground.domain.usecase.GetUpcomingTasksUseCase
-import com.zeyadgasser.playground.tasks.sharedPresentation.model.TaskPM
-import com.zeyadgasser.playground.tasks.sharedPresentation.mapper.TaskPresentationMapper
+import com.zeyadgasser.playground.task.sharedpresentation.mapper.TaskPresentationMapper
+import com.zeyadgasser.playground.task.sharedpresentation.model.TaskPM
 import kotlinx.coroutines.CoroutineDispatcher
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.flow.Flow

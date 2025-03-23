@@ -1,6 +1,6 @@
-package com.zeyadgasser.playground.tasks.sharedPresentation.mapper
+package com.zeyadgasser.playground.task.sharedpresentation.mapper
 
-import com.zeyadgasser.playground.tasks.TestingData
+import com.zeyadgasser.playground.task.sharedpresentation.TestingData
 import kotlin.test.Test
 import kotlin.test.assertEquals
 

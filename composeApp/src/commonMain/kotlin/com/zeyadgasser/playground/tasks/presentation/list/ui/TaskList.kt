@@ -9,8 +9,8 @@ import androidx.compose.foundation.lazy.rememberLazyListState
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.unit.dp
+import com.zeyadgasser.playground.task.sharedpresentation.model.TaskPM
 import com.zeyadgasser.playground.sharedui.theme.AppTheme
-import com.zeyadgasser.playground.tasks.sharedPresentation.model.TaskPM
 import com.zeyadgasser.playground.tasks.presentation.list.viewmodel.TaskCheckedInput
 import com.zeyadgasser.playground.tasks.presentation.list.viewmodel.TaskClickedInput
 import com.zeyadgasser.playground.tasks.presentation.list.viewmodel.TasksInput

@@ -4,7 +4,7 @@ import com.zeyadgasser.playground.architecture.presentation.Effect
 import com.zeyadgasser.playground.architecture.presentation.Input
 import com.zeyadgasser.playground.architecture.presentation.Result
 import com.zeyadgasser.playground.architecture.presentation.State
-import com.zeyadgasser.playground.tasks.sharedPresentation.model.TaskPM
+import com.zeyadgasser.playground.task.sharedpresentation.model.TaskPM
 
 sealed class TasksInput : Input
 data object LoadTasksInput : TasksInput()
