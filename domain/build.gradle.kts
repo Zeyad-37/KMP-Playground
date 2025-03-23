@@ -1,3 +1,6 @@
+import com.android.build.gradle.internal.scope.ProjectInfo.Companion.getBaseName
+import org.jetbrains.kotlin.gradle.plugin.mpp.KotlinNativeTarget
+
 plugins {
     alias(libs.plugins.kotlinMultiplatform)
     alias(libs.plugins.android.kotlin.multiplatform.library)
@@ -21,7 +24,7 @@ kotlin {
         }
     }
 
-    val xcfName = "dataKit"
+    val xcfName = "domainKit"
 
     listOf(
         iosX64(),

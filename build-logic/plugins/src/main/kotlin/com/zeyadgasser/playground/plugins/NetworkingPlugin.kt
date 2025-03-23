@@ -10,9 +10,10 @@ import org.jetbrains.kotlin.gradle.dsl.KotlinMultiplatformExtension
 
 class NetworkingPlugin : Plugin<Project> {
     override fun apply(target: Project) = with(target) {
-        with(pluginManager) {
-            apply(libs.findPlugin("kotlinxSerialization").get().get().pluginId)
-        }
+        plugins.apply("org.jetbrains.kotlin.plugin.serialization") // fixme
+//        with(pluginManager) {
+//            apply(libs.findPlugin("kotlinxSerialization").get().get().pluginId)
+//        }
         extensions.configure<KotlinMultiplatformExtension> {
             sourceSets.apply {
                 androidMain.dependencies {

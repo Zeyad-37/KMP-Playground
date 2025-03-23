@@ -1,6 +1,7 @@
 package com.zeyadgasser.playground.di
 
 import ch.protonmail.android.crypto.CryptoLib
+import com.zeyadgasser.playground.architecture.di.IS_ANDROID
 import com.zeyadgasser.playground.tasks.data.db.AndroidDatabaseDriverFactory
 import com.zeyadgasser.playground.tasks.data.db.DatabaseDriverFactory
 import com.zeyadgasser.playground.tasks.data.sync.TasksSyncWorker

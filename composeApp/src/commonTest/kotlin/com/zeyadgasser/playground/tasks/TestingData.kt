@@ -1,8 +1,8 @@
 package com.zeyadgasser.playground.tasks
 
+import com.zeyadgasser.playground.task.domain.model.TaskDomain
+import com.zeyadgasser.playground.task.sharedpresentation.model.TaskPM
 import com.zeyadgasser.playground.tasks.data.network.TaskDTO
-import com.zeyadgasser.playground.tasks.domain.model.TaskDomain
-import com.zeyadgasser.playground.tasks.sharedPresentation.model.TaskPM
 
 object TestingData {
     val taskFormattedDTO = TaskDTO(

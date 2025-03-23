@@ -1,11 +1,11 @@
 package com.zeyadgasser.playground.tasks.presentation.detail.viewmodel
 
 import app.cash.turbine.test
+import com.zeyadgasser.playground.task.domain.TaskRepository
+import com.zeyadgasser.playground.task.sharedpresentation.mapper.TaskPresentationMapper
 import com.zeyadgasser.playground.tasks.TestingData
-import com.zeyadgasser.playground.tasks.domain.TaskRepository
 import com.zeyadgasser.playground.tasks.presentation.detail.viewmodel.TaskDetailState.InitialState
 import com.zeyadgasser.playground.tasks.presentation.detail.viewmodel.TaskDetailState.SuccessState
-import com.zeyadgasser.playground.tasks.sharedPresentation.mapper.TaskPresentationMapper
 import dev.mokkery.answering.returns
 import dev.mokkery.everySuspend
 import dev.mokkery.mock

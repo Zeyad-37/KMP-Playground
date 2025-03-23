@@ -1,15 +1,15 @@
 package com.zeyadgasser.playground.tasks.presentation.list.viewmodel
 
 import app.cash.turbine.test
+import com.zeyadgasser.playground.task.domain.model.Operation
+import com.zeyadgasser.playground.task.domain.model.Value
+import com.zeyadgasser.playground.task.domain.usecase.CheckTaskUseCase
+import com.zeyadgasser.playground.task.domain.usecase.GetTasksUseCase
+import com.zeyadgasser.playground.task.domain.usecase.GetUpcomingTasksUseCase
+import com.zeyadgasser.playground.task.sharedpresentation.mapper.TaskPresentationMapper
 import com.zeyadgasser.playground.tasks.TestingData
-import com.zeyadgasser.playground.tasks.domain.model.Operation
-import com.zeyadgasser.playground.tasks.domain.model.Value
-import com.zeyadgasser.playground.tasks.domain.usecase.CheckTaskUseCase
-import com.zeyadgasser.playground.tasks.domain.usecase.GetTasksUseCase
-import com.zeyadgasser.playground.tasks.domain.usecase.GetUpcomingTasksUseCase
 import com.zeyadgasser.playground.tasks.presentation.list.viewmodel.TasksState.InitialState
 import com.zeyadgasser.playground.tasks.presentation.list.viewmodel.TasksState.SuccessState
-import com.zeyadgasser.playground.tasks.sharedPresentation.mapper.TaskPresentationMapper
 import dev.mokkery.answering.returns
 import dev.mokkery.every
 import dev.mokkery.everySuspend

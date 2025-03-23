@@ -1,6 +1,6 @@
 package com.zeyadgasser.playground.task.sharedpresentation
 
-import com.zeyadgasser.playground.domain.model.TaskDomain
+import com.zeyadgasser.playground.task.domain.model.TaskDomain
 import com.zeyadgasser.playground.task.sharedpresentation.model.TaskPM
 
 object TestingData {

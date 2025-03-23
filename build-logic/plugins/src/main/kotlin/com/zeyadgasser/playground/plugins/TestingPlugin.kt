@@ -38,7 +38,7 @@ class TestingPlugin : Plugin<Project> {
         }
         val isTesting = gradle.startParameter.taskNames.any { it.endsWith("Test") }
         if (isTesting) extensions.configure<org.jetbrains.kotlin.allopen.gradle.AllOpenExtension> {
-            annotation("com.zeyadgasser.playground.utils.OpenForMokkery")
+            annotation("com.zeyadgasser.playground.architecture.utils.OpenForMokkery")
         }
     }
 }

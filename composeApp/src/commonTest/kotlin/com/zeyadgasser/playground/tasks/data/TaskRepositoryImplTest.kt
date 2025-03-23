@@ -5,7 +5,7 @@ import com.zeyadgasser.playground.tasks.TestingData
 import com.zeyadgasser.playground.tasks.data.db.PlaygroundDataBase
 import com.zeyadgasser.playground.tasks.data.mapper.TaskDataMapper
 import com.zeyadgasser.playground.tasks.data.network.TasksAPI
-import com.zeyadgasser.playground.tasks.domain.TaskRepository
+import com.zeyadgasser.playground.task.domain.TaskRepository
 import com.zeyadgasser.playground.utils.CryptoHelper
 import dev.mokkery.answering.returns
 import dev.mokkery.every

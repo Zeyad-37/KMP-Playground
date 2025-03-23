@@ -2,7 +2,7 @@ package com.zeyadgasser.playground.tasks.data.mapper
 
 import com.zeyadgasser.playground.tasks.TestingData
 import com.zeyadgasser.playground.tasks.data.network.TaskDTO
-import com.zeyadgasser.playground.tasks.domain.model.TaskDomain
+import com.zeyadgasser.playground.task.domain.model.TaskDomain
 import com.zeyadgasser.playground.utils.CryptoHelper
 import dev.mokkery.answering.returns
 import dev.mokkery.every

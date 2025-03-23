@@ -149,7 +149,7 @@ kotlin {
 }
 
 val isTesting = gradle.startParameter.taskNames.any { it.endsWith("Test") }
-if (isTesting) allOpen { annotation("com.zeyadgasser.playground.utils.OpenForMokkery") }
+if (isTesting) allOpen { annotation("com.zeyadgasser.playground.architecture.utils.OpenForMokkery") }
 
 android {
     namespace = "com.zeyadgasser.playground"

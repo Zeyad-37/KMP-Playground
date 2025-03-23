@@ -1,6 +1,6 @@
 package com.zeyadgasser.playground.tasks.presentation.detail.di
 
-import com.zeyadgasser.playground.di.COMPUTATION
+import com.zeyadgasser.playground.architecture.di.COMPUTATION
 import com.zeyadgasser.playground.tasks.presentation.detail.viewmodel.TaskDetailState
 import com.zeyadgasser.playground.tasks.presentation.detail.viewmodel.TaskDetailViewModel
 import org.koin.core.qualifier.named

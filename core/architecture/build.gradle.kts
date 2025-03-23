@@ -68,10 +68,10 @@ kotlin {
     sourceSets {
         commonMain {
             dependencies {
-                implementation(libs.kotlin.stdlib)
-                implementation(libs.kotlinx.coroutines.core)
+                api(libs.kotlin.stdlib)
+                api(libs.kotlinx.coroutines.core)
                 api(libs.napier)
-                implementation(libs.androidx.lifecycle.viewmodel)
+                api(libs.androidx.lifecycle.viewmodel)
             }
         }
 

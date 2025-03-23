@@ -4,8 +4,8 @@ import com.zeyadgasser.playground.tasks.data.db.PlaygroundDataBase
 import com.zeyadgasser.playground.tasks.data.mapper.TaskDataMapper
 import com.zeyadgasser.playground.tasks.data.network.TaskDTO
 import com.zeyadgasser.playground.tasks.data.network.TasksAPI
-import com.zeyadgasser.playground.domain.TaskRepository
-import com.zeyadgasser.playground.domain.model.TaskDomain
+import com.zeyadgasser.playground.task.domain.TaskRepository
+import com.zeyadgasser.playground.task.domain.model.TaskDomain
 import com.zeyadgasser.playground.architecture.utils.OpenForMokkery
 import io.github.aakira.napier.Napier
 import kotlinx.coroutines.CoroutineDispatcher
