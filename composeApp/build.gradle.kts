@@ -78,7 +78,7 @@ kotlin {
         }
 
         commonMain.dependencies {
-            implementation(project(":architecture"))
+            implementation(project(":core:architecture"))
             implementation(project(":networking"))
             implementation(project(":sharedUI"))
             implementation(compose.runtime)

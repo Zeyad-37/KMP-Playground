@@ -55,7 +55,7 @@ kotlin {
     sourceSets {
         commonMain {
             dependencies {
-                implementation(project(":architecture"))
+                implementation(project(":core:architecture"))
                 implementation(libs.kotlin.stdlib)
                 // Add KMP dependencies here
             }
