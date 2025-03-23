@@ -32,3 +32,4 @@ dependencyResolutionManagement {
 include(":composeApp")
 include(":architecture")
 include(":networking")
+include(":sharedUI")

@@ -1,4 +1,4 @@
-package com.zeyadgasser.playground.sharedUI.theme
+package com.zeyadgasser.playground.sharedui.theme
 
 import androidx.compose.material.MaterialTheme
 import androidx.compose.runtime.Composable

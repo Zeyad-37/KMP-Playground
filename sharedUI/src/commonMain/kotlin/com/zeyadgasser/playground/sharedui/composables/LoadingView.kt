@@ -1,4 +1,4 @@
-package com.zeyadgasser.playground.sharedUI.composables
+package com.zeyadgasser.playground.sharedui.composables
 
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Column

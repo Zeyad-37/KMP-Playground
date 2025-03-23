@@ -28,8 +28,8 @@ import androidx.lifecycle.compose.collectAsStateWithLifecycle
 import cafe.adriel.voyager.core.screen.Screen
 import cafe.adriel.voyager.navigator.LocalNavigator
 import cafe.adriel.voyager.navigator.currentOrThrow
-import com.zeyadgasser.playground.sharedUI.composables.ErrorScreen
-import com.zeyadgasser.playground.sharedUI.composables.LoadingView
+import com.zeyadgasser.playground.sharedui.composables.ErrorScreen
+import com.zeyadgasser.playground.sharedui.composables.LoadingView
 import com.zeyadgasser.playground.tasks.presentation.detail.viewmodel.BackButtonTappedInput
 import com.zeyadgasser.playground.tasks.presentation.detail.viewmodel.GoBackEffect
 import com.zeyadgasser.playground.tasks.presentation.detail.viewmodel.LoadTaskInput
