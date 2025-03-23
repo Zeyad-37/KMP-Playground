@@ -5,7 +5,7 @@ import com.zeyadgasser.playground.tasks.data.TaskRepositoryImpl
 import com.zeyadgasser.playground.tasks.data.db.PlaygroundDataBase
 import com.zeyadgasser.playground.tasks.data.mapper.TaskDataMapper
 import com.zeyadgasser.playground.tasks.data.network.TasksAPI
-import com.zeyadgasser.playground.tasks.domain.TaskRepository
+import com.zeyadgasser.playground.domain.TaskRepository
 import org.koin.core.qualifier.named
 import org.koin.dsl.module
 

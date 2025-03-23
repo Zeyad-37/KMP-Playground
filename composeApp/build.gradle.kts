@@ -81,6 +81,7 @@ kotlin {
             implementation(project(":core:architecture"))
             implementation(project(":core:networking"))
             implementation(project(":core:sharedUI"))
+            implementation(project(":domain"))
             implementation(compose.runtime)
             implementation(compose.foundation)
             implementation(compose.material)

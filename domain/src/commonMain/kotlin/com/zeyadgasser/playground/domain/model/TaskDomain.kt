@@ -1,4 +1,4 @@
-package com.zeyadgasser.playground.tasks.domain.model
+package com.zeyadgasser.playground.domain.model
 
 data class TaskDomain(
     val creationDate: String,

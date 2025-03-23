@@ -1,6 +1,6 @@
-package com.zeyadgasser.playground.tasks.domain.usecase
+package com.zeyadgasser.playground.domain.usecase
 
-import com.zeyadgasser.playground.tasks.domain.model.TaskDomain
+import com.zeyadgasser.playground.domain.model.TaskDomain
 import kotlin.test.Test
 import kotlin.test.assertEquals
 

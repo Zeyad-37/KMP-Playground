@@ -3,7 +3,7 @@ package com.zeyadgasser.playground.tasks.presentation.detail.viewmodel
 import cafe.adriel.voyager.core.model.ScreenModel
 import com.zeyadgasser.playground.architecture.presentation.Result
 import com.zeyadgasser.playground.architecture.presentation.ViewModel
-import com.zeyadgasser.playground.tasks.domain.TaskRepository
+import com.zeyadgasser.playground.domain.TaskRepository
 import com.zeyadgasser.playground.tasks.presentation.detail.viewmodel.TaskDetailState.InitialState
 import com.zeyadgasser.playground.tasks.presentation.detail.viewmodel.TaskDetailState.SuccessState
 import com.zeyadgasser.playground.tasks.sharedPresentation.mapper.TaskPresentationMapper

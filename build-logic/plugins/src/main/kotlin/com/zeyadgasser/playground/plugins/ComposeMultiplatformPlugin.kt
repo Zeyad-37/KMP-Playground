@@ -20,7 +20,8 @@ class ComposeMultiplatformPlugin : Plugin<Project> {
             apply(libs.findPlugin("composeCompiler").get().get().pluginId)
         }
         dependencies {
-//            debugImplementation(compose.uiTooling)
+//            "ksp"(libs.findLibrary("hilt.android.compiler").get())
+//            "debugImplementation"(compose.uiTooling)
         }
         val compose = extensions.getByType<ComposeExtension>().dependencies
 //        extensions.configure<LibraryExtension> {

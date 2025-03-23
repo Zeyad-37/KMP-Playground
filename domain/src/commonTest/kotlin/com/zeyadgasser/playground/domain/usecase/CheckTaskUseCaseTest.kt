@@ -1,9 +1,9 @@
-package com.zeyadgasser.playground.tasks.domain.usecase
+package com.zeyadgasser.playground.domain.usecase
 
-import com.zeyadgasser.playground.tasks.TestingData
-import com.zeyadgasser.playground.tasks.domain.TaskRepository
-import com.zeyadgasser.playground.tasks.domain.model.Operation
-import com.zeyadgasser.playground.tasks.domain.model.Value
+import com.zeyadgasser.playground.domain.TaskRepository
+import com.zeyadgasser.playground.domain.TestingData
+import com.zeyadgasser.playground.domain.model.Operation
+import com.zeyadgasser.playground.domain.model.Value
 import dev.mokkery.answering.returns
 import dev.mokkery.everySuspend
 import dev.mokkery.mock

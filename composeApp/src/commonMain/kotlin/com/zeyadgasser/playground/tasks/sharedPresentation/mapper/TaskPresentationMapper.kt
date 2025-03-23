@@ -1,6 +1,6 @@
 package com.zeyadgasser.playground.tasks.sharedPresentation.mapper
 
-import com.zeyadgasser.playground.tasks.domain.model.TaskDomain
+import com.zeyadgasser.playground.domain.model.TaskDomain
 import com.zeyadgasser.playground.tasks.sharedPresentation.model.TaskPM
 import com.zeyadgasser.playground.architecture.utils.OpenForMokkery
 

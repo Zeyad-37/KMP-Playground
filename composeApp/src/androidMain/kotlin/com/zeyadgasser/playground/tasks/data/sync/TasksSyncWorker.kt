@@ -11,7 +11,7 @@ import androidx.work.ForegroundInfo
 import androidx.work.OneTimeWorkRequestBuilder
 import androidx.work.OutOfQuotaPolicy
 import androidx.work.WorkerParameters
-import com.zeyadgasser.playground.tasks.domain.TaskRepository
+import com.zeyadgasser.playground.domain.TaskRepository
 import java.util.UUID
 import java.util.concurrent.TimeUnit
 

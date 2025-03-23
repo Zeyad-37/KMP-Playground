@@ -1,4 +1,4 @@
-package com.zeyadgasser.playground.tasks.domain.model
+package com.zeyadgasser.playground.domain.model
 
 import kotlin.jvm.JvmInline
 

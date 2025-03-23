@@ -3,9 +3,9 @@ package com.zeyadgasser.playground.tasks.presentation.list.viewmodel
 import cafe.adriel.voyager.core.model.ScreenModel
 import com.zeyadgasser.playground.architecture.presentation.Result
 import com.zeyadgasser.playground.architecture.presentation.ViewModel
-import com.zeyadgasser.playground.tasks.domain.usecase.CheckTaskUseCase
-import com.zeyadgasser.playground.tasks.domain.usecase.GetTasksUseCase
-import com.zeyadgasser.playground.tasks.domain.usecase.GetUpcomingTasksUseCase
+import com.zeyadgasser.playground.domain.usecase.CheckTaskUseCase
+import com.zeyadgasser.playground.domain.usecase.GetTasksUseCase
+import com.zeyadgasser.playground.domain.usecase.GetUpcomingTasksUseCase
 import com.zeyadgasser.playground.tasks.sharedPresentation.model.TaskPM
 import com.zeyadgasser.playground.tasks.sharedPresentation.mapper.TaskPresentationMapper
 import kotlinx.coroutines.CoroutineDispatcher

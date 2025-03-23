@@ -1,7 +1,7 @@
-package com.zeyadgasser.playground.tasks.domain.usecase
+package com.zeyadgasser.playground.domain.usecase
 
-import com.zeyadgasser.playground.tasks.domain.model.TaskDomain
 import com.zeyadgasser.playground.architecture.utils.OpenForMokkery
+import com.zeyadgasser.playground.domain.model.TaskDomain
 
 @OpenForMokkery
 class GetUpcomingTasksUseCase {

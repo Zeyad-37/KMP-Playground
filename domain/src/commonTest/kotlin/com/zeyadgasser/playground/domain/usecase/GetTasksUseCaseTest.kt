@@ -1,9 +1,9 @@
-package com.zeyadgasser.playground.tasks.domain.usecase
+package com.zeyadgasser.playground.domain.usecase
 
 import app.cash.turbine.test
-import com.zeyadgasser.playground.tasks.TestingData
-import com.zeyadgasser.playground.tasks.domain.TaskRepository
-import com.zeyadgasser.playground.tasks.domain.model.TaskDomain
+import com.zeyadgasser.playground.domain.TaskRepository
+import com.zeyadgasser.playground.domain.TestingData
+import com.zeyadgasser.playground.domain.model.TaskDomain
 import dev.mokkery.answering.returns
 import dev.mokkery.every
 import dev.mokkery.matcher.any

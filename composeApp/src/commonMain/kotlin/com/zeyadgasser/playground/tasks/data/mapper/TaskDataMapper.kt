@@ -1,7 +1,7 @@
 package com.zeyadgasser.playground.tasks.data.mapper
 
 import com.zeyadgasser.playground.tasks.data.network.TaskDTO
-import com.zeyadgasser.playground.tasks.domain.model.TaskDomain
+import com.zeyadgasser.playground.domain.model.TaskDomain
 import com.zeyadgasser.playground.utils.CryptoHelper
 import com.zeyadgasser.playground.architecture.utils.OpenForMokkery
 import kotlinx.datetime.Instant
