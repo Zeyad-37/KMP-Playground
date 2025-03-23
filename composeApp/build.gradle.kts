@@ -81,7 +81,7 @@ kotlin {
             implementation(project(":core:architecture"))
             implementation(project(":core:networking"))
             implementation(project(":core:sharedUI"))
-            implementation(project(":database"))
+            implementation(project(":core:database"))
             implementation(project(":domain"))
             implementation(project(":list"))
             implementation(project(":sharedPresentation"))
