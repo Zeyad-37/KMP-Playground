@@ -15,7 +15,7 @@ Learn more about [Kotlin Multiplatform](https://www.jetbrains.com/help/kotlin-mu
 
 TODO:
 - Modularize
-- Umbrella Module
+- DB Module
 - Analytics
 - Observability
 - Add Screens:

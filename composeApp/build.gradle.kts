@@ -80,7 +80,7 @@ kotlin {
         commonMain.dependencies {
             implementation(project(":core:architecture"))
             implementation(project(":core:networking"))
-            implementation(project(":sharedUI"))
+            implementation(project(":core:sharedUI"))
             implementation(compose.runtime)
             implementation(compose.foundation)
             implementation(compose.material)
