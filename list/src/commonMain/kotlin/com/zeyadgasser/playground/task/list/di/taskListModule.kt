@@ -1,12 +1,12 @@
-package com.zeyadgasser.playground.tasks.presentation.list.di
+package com.zeyadgasser.playground.task.list.di
 
 import com.zeyadgasser.playground.architecture.di.COMPUTATION
 import com.zeyadgasser.playground.task.domain.usecase.CheckTaskUseCase
 import com.zeyadgasser.playground.task.domain.usecase.GetTasksUseCase
 import com.zeyadgasser.playground.task.domain.usecase.GetUpcomingTasksUseCase
-import com.zeyadgasser.playground.tasks.presentation.list.viewmodel.TasksReducer
-import com.zeyadgasser.playground.tasks.presentation.list.viewmodel.TasksState
-import com.zeyadgasser.playground.tasks.presentation.list.viewmodel.TasksViewModel
+import com.zeyadgasser.playground.task.list.viewmodel.TasksReducer
+import com.zeyadgasser.playground.task.list.viewmodel.TasksState
+import com.zeyadgasser.playground.task.list.viewmodel.TasksViewModel
 import org.koin.core.qualifier.named
 import org.koin.dsl.module
 

@@ -82,6 +82,7 @@ kotlin {
             implementation(project(":core:networking"))
             implementation(project(":core:sharedUI"))
             implementation(project(":domain"))
+            implementation(project(":list"))
             implementation(project(":sharedPresentation"))
             implementation(compose.runtime)
             implementation(compose.foundation)

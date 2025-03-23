@@ -1,4 +1,4 @@
-package com.zeyadgasser.playground.tasks.presentation.list.viewmodel
+package com.zeyadgasser.playground.task.list.viewmodel
 
 import cafe.adriel.voyager.core.model.ScreenModel
 import com.zeyadgasser.playground.architecture.presentation.Result

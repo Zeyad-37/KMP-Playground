@@ -1,4 +1,4 @@
-package com.zeyadgasser.playground.tasks.presentation.list.ui
+package com.zeyadgasser.playground.task.list.ui
 
 import androidx.compose.foundation.clickable
 import androidx.compose.foundation.layout.fillMaxSize
@@ -35,23 +35,17 @@ import cafe.adriel.voyager.navigator.currentOrThrow
 import com.zeyadgasser.playground.architecture.presentation.Input
 import com.zeyadgasser.playground.sharedui.composables.ErrorScreen
 import com.zeyadgasser.playground.sharedui.composables.LoadingView
-import com.zeyadgasser.playground.tasks.presentation.detail.ui.DetailScreen
-import com.zeyadgasser.playground.tasks.presentation.list.viewmodel.CantCheckTaskEffect
-import com.zeyadgasser.playground.tasks.presentation.list.viewmodel.GoToTaskDetailsEffect
-import com.zeyadgasser.playground.tasks.presentation.list.viewmodel.HideDialogEffect
-import com.zeyadgasser.playground.tasks.presentation.list.viewmodel.HideDialogInput
-import com.zeyadgasser.playground.tasks.presentation.list.viewmodel.LoadTasksInput
-import com.zeyadgasser.playground.tasks.presentation.list.viewmodel.ShowDialogEffect
-import com.zeyadgasser.playground.tasks.presentation.list.viewmodel.ShowDialogInput
-import com.zeyadgasser.playground.tasks.presentation.list.viewmodel.TasksState
-import com.zeyadgasser.playground.tasks.presentation.list.viewmodel.TasksViewModel
-import kmpplayground.composeapp.generated.resources.Res
-import kmpplayground.composeapp.generated.resources.all_tasks_tab_label
-import kmpplayground.composeapp.generated.resources.app_name
-import kmpplayground.composeapp.generated.resources.upcoming_tasks_tab_label
+import com.zeyadgasser.playground.task.list.viewmodel.CantCheckTaskEffect
+import com.zeyadgasser.playground.task.list.viewmodel.GoToTaskDetailsEffect
+import com.zeyadgasser.playground.task.list.viewmodel.HideDialogEffect
+import com.zeyadgasser.playground.task.list.viewmodel.HideDialogInput
+import com.zeyadgasser.playground.task.list.viewmodel.LoadTasksInput
+import com.zeyadgasser.playground.task.list.viewmodel.ShowDialogEffect
+import com.zeyadgasser.playground.task.list.viewmodel.ShowDialogInput
+import com.zeyadgasser.playground.task.list.viewmodel.TasksState
+import com.zeyadgasser.playground.task.list.viewmodel.TasksViewModel
 import kotlinx.coroutines.flow.collectLatest
 import kotlinx.coroutines.launch
-import org.jetbrains.compose.resources.stringResource
 import org.koin.compose.koinInject
 
 data class ListScreen(val modifier: Modifier) : Screen {
@@ -70,7 +64,7 @@ data class ListScreen(val modifier: Modifier) : Screen {
         LaunchedEffect(Unit) {
             viewModel.effect.collectLatest {
                 when (it) {
-                    is GoToTaskDetailsEffect -> navigator.push(DetailScreen(it.taskId, modifier))
+                    is GoToTaskDetailsEffect -> throw NotImplementedError() // navigator.push(DetailScreen(it.taskId, modifier))
                     is CantCheckTaskEffect -> coroutineScope.launch {
                         snackBarHostState.showSnackbar(
                             "Cant check a task as done that still has dependencies", // fixme
@@ -103,7 +97,7 @@ data class ListScreen(val modifier: Modifier) : Screen {
                 TopAppBar(
                     {
                         Text(
-                            text = stringResource(Res.string.app_name),
+                            text = "KMP Playground",
                             modifier = Modifier
                                 .fillMaxWidth()
                                 .clickable { process(if (showDialog) HideDialogInput else ShowDialogInput) },
@@ -149,9 +143,8 @@ data class ListScreen(val modifier: Modifier) : Screen {
                 is TasksState.InitialState -> process(LoadTasksInput)
                 is TasksState.ErrorState -> ErrorScreen(state.message)
                 is TasksState.SuccessState -> {
-                    allTabLabel = stringResource(Res.string.all_tasks_tab_label, state.allTasks.size)
-                    upcomingTabLabel =
-                        stringResource(Res.string.upcoming_tasks_tab_label, state.upcomingTasks.size)
+                    allTabLabel = "All tasks (${state.allTasks.size})"
+                    upcomingTabLabel = "Upcoming Tasks (${state.upcomingTasks.size})"
                     when (selectedTabIndex) {
                         0 -> TaskList(state.allTasks) { process(it) }
                         1 -> TaskList(state.upcomingTasks) { process(it) }

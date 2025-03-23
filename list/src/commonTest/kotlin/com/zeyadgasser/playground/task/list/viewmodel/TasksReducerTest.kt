@@ -1,10 +1,6 @@
-package com.zeyadgasser.playground.tasks.presentation.list.viewmodel
+package com.zeyadgasser.playground.task.list.viewmodel
 
-import com.zeyadgasser.playground.task.list.viewmodel.ErrorResult
-import com.zeyadgasser.playground.task.list.viewmodel.LoadTasksResult
-import com.zeyadgasser.playground.task.list.viewmodel.LoadingResult
-import com.zeyadgasser.playground.task.list.viewmodel.TasksReducer
-import com.zeyadgasser.playground.tasks.TestingData
+import com.zeyadgasser.playground.task.list.TestingData
 import com.zeyadgasser.playground.task.list.viewmodel.TasksState.ErrorState
 import com.zeyadgasser.playground.task.list.viewmodel.TasksState.InitialState
 import com.zeyadgasser.playground.task.list.viewmodel.TasksState.SuccessState

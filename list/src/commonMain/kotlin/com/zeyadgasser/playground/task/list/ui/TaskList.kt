@@ -1,4 +1,4 @@
-package com.zeyadgasser.playground.tasks.presentation.list.ui
+package com.zeyadgasser.playground.task.list.ui
 
 import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.padding
@@ -11,9 +11,9 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.unit.dp
 import com.zeyadgasser.playground.task.sharedpresentation.model.TaskPM
 import com.zeyadgasser.playground.sharedui.theme.AppTheme
-import com.zeyadgasser.playground.tasks.presentation.list.viewmodel.TaskCheckedInput
-import com.zeyadgasser.playground.tasks.presentation.list.viewmodel.TaskClickedInput
-import com.zeyadgasser.playground.tasks.presentation.list.viewmodel.TasksInput
+import com.zeyadgasser.playground.task.list.viewmodel.TaskCheckedInput
+import com.zeyadgasser.playground.task.list.viewmodel.TaskClickedInput
+import com.zeyadgasser.playground.task.list.viewmodel.TasksInput
 import org.jetbrains.compose.ui.tooling.preview.Preview
 
 @Composable

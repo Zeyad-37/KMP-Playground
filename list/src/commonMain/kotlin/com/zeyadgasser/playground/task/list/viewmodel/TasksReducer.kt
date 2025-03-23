@@ -1,10 +1,10 @@
-package com.zeyadgasser.playground.tasks.presentation.list.viewmodel
+package com.zeyadgasser.playground.task.list.viewmodel
 
 import com.zeyadgasser.playground.architecture.presentation.Reducer
 import com.zeyadgasser.playground.task.sharedpresentation.model.TaskPM
-import com.zeyadgasser.playground.tasks.presentation.list.viewmodel.TasksState.ErrorState
-import com.zeyadgasser.playground.tasks.presentation.list.viewmodel.TasksState.InitialState
-import com.zeyadgasser.playground.tasks.presentation.list.viewmodel.TasksState.SuccessState
+import com.zeyadgasser.playground.task.list.viewmodel.TasksState.ErrorState
+import com.zeyadgasser.playground.task.list.viewmodel.TasksState.InitialState
+import com.zeyadgasser.playground.task.list.viewmodel.TasksState.SuccessState
 
 class TasksReducer : Reducer<TasksResult, TasksState> {
 
