@@ -12,11 +12,10 @@ import kotlinx.coroutines.flow.Flow
 import kotlinx.coroutines.flow.map
 
 @OpenForMokkery
-class PlaygroundDataBase(
-    databaseDriverFactory: DatabaseDriverFactory,
+class PlaygroundDAO(
+    private val db: PlaygroundDB,
     private val ioDispatcher: CoroutineDispatcher,
 ) {
-    private val db: PlaygroundDB = PlaygroundDB(databaseDriverFactory.createDriver())
     private val dbQueries: PlaygroundDBQueries = db.playgroundDBQueries
 
     fun getAllTasks(): List<TaskDTO> =

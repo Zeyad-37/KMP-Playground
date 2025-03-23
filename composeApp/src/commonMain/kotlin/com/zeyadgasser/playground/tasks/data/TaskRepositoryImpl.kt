@@ -1,6 +1,6 @@
 package com.zeyadgasser.playground.tasks.data
 
-import com.zeyadgasser.playground.tasks.data.db.PlaygroundDataBase
+import com.zeyadgasser.playground.tasks.data.db.PlaygroundDAO
 import com.zeyadgasser.playground.tasks.data.mapper.TaskDataMapper
 import com.zeyadgasser.playground.tasks.data.network.TaskDTO
 import com.zeyadgasser.playground.tasks.data.network.TasksAPI
@@ -20,7 +20,7 @@ import kotlinx.io.IOException
 @OpenForMokkery
 class TaskRepositoryImpl(
     private val tasksAPI: TasksAPI,
-    private val tasksDB: PlaygroundDataBase,
+    private val tasksDB: PlaygroundDAO,
     private val taskDataMapper: TaskDataMapper,
     override val ioDispatcher: CoroutineDispatcher = Dispatchers.IO,
 ) : TaskRepository {
