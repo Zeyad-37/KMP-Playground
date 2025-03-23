@@ -13,9 +13,7 @@ import org.jetbrains.kotlin.gradle.tasks.KotlinCompile
 
 class SharedLibPlugin : Plugin<Project> {
     override fun apply(target: Project) = with(target) {
-        plugins.apply("org.jetbrains.kotlin.multiplatform")
-        plugins.apply("com.android.kotlin.multiplatform.library")
-        with(pluginManager) {// see which works
+        with(pluginManager) {
             apply(libs.findPlugin("kotlinMultiplatform").get().get().pluginId)
             apply(libs.findPlugin("android-kotlin-multiplatform-library").get().get().pluginId)
         }

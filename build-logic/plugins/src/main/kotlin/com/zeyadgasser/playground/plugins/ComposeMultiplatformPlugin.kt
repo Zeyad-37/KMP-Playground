@@ -5,7 +5,6 @@ import org.gradle.api.Plugin
 import org.gradle.api.Project
 import org.gradle.api.provider.Provider
 import org.gradle.kotlin.dsl.configure
-import org.gradle.kotlin.dsl.dependencies
 import org.gradle.kotlin.dsl.getByType
 import org.jetbrains.compose.ComposeExtension
 import org.jetbrains.kotlin.compose.compiler.gradle.ComposeCompilerGradlePluginExtension
@@ -19,26 +18,9 @@ class ComposeMultiplatformPlugin : Plugin<Project> {
             apply(libs.findPlugin("composeMultiplatform").get().get().pluginId)
             apply(libs.findPlugin("composeCompiler").get().get().pluginId)
         }
-        dependencies {
-//            "ksp"(libs.findLibrary("hilt.android.compiler").get())
-//            "debugImplementation"(compose.uiTooling)
-        }
         val compose = extensions.getByType<ComposeExtension>().dependencies
-//        extensions.configure<LibraryExtension> {
-//            buildFeatures.compose = true
-//        }
         configureComposeCompiler()
         extensions.configure<KotlinMultiplatformExtension> {
-//            androidTarget {
-//                unitTestVariant.sourceSetTree.set(KotlinSourceSetTree.test)
-//                instrumentedTestVariant {
-//                    sourceSetTree.set(KotlinSourceSetTree.test)
-//                    dependencies {
-//                        implementation(libs.androidx.ui.test.junit4.android)
-//                        debugImplementation(libs.androidx.ui.test.manifest)
-//                    }
-//                }
-//            }
             sourceSets.apply {
                 androidMain.dependencies {
                     implementation(libs.findLibrary("androidx.activity.compose").get())
@@ -67,16 +49,6 @@ class ComposeMultiplatformPlugin : Plugin<Project> {
                 }
             }
         }
-//        extensions.configure<DesktopExtension> {
-//            application {
-//                mainClass = "com.zeyadgasser.playground.MainKt"
-//                nativeDistributions {
-//                    targetFormats(TargetFormat.Dmg, TargetFormat.Msi, TargetFormat.Deb)
-//                    packageName = "com.zeyadgasser.playground"
-//                    packageVersion = "1.0.0"
-//                }
-//            }
-//        }
     }
 
     fun Project.configureComposeCompiler() {
