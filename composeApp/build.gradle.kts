@@ -52,7 +52,6 @@ kotlin {
         val desktopTest by getting
 
         androidMain.dependencies {
-            implementation(files("../libs/crypto.aar"))
             implementation(compose.preview)
 
             implementation(libs.androidx.activity.compose)
@@ -62,10 +61,6 @@ kotlin {
 
             implementation(libs.koin.androidx.workmanager)
             implementation(libs.koin.androidx.compose)
-
-            implementation(libs.ktor.client.android)
-
-            implementation(libs.sql.delight.android.driver)
 
             implementation(libs.kotlinx.coroutines.android)
         }
@@ -93,33 +88,10 @@ kotlin {
             implementation(compose.ui)
             implementation(compose.components.resources)
             implementation(compose.components.uiToolingPreview)
-
-            implementation(libs.androidx.lifecycle.viewmodel)
-            implementation(libs.androidx.lifecycle.runtime.compose)
-
             implementation(libs.voyager.navigator)
-            implementation(libs.voyager.screenmodel)
-            implementation(libs.voyager.koin)
-
-            implementation(libs.kotlinx.datetime)
             implementation(libs.kotlinx.coroutines.core)
-
-            implementation(libs.napier)
-
-            implementation(libs.ktor.client.core)
-            implementation(libs.ktor.client.content.negotiation)
-            implementation(libs.ktor.serialization.kotlinx.json)
-            implementation(libs.ktor.logging)
-            implementation(libs.ktor.cio)
-
             implementation(libs.koin.core)
             implementation(libs.koin.compose)
-
-            implementation(libs.coil.compose)
-
-            implementation(libs.sql.delight.runtime)
-            implementation(libs.sql.delight.coroutines.extensions)
-            implementation(libs.sql.delight.coroutines.extensions.correct)
         }
 
         commonTest.dependencies {
@@ -135,8 +107,6 @@ kotlin {
         }
 
         iosMain.dependencies {
-            implementation(libs.ktor.client.darwin)
-            implementation(libs.sql.delight.native.driver)
         }
         iosTest.dependencies {
             implementation(libs.sql.delight.native.driver)
@@ -144,7 +114,6 @@ kotlin {
         desktopMain.dependencies {
             implementation(compose.desktop.currentOs)
             implementation(libs.kotlinx.coroutines.swing)
-            implementation(libs.sql.delight.jvm.driver)
         }
         desktopTest.dependencies {
             implementation(libs.sql.delight.jvm.driver)
@@ -211,12 +180,3 @@ compose.desktop {
         }
     }
 }
-
-//sqldelight {
-//    linkSqlite = true
-//    databases {
-//        create("PlaygroundDB") {
-//            packageName.set("com.zeyadgasser.playground.tasks.data.db")
-//        }
-//    }
-//}
