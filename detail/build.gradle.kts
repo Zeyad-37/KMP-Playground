@@ -29,7 +29,7 @@ kotlin {
                 implementation(project(":core:architecture"))
                 implementation(project(":core:sharedUI"))
                 implementation(project(":features:task:domain"))
-                implementation(project(":sharedPresentation"))
+                implementation(project(":features:task:sharedPresentation"))
             }
         }
 

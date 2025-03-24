@@ -86,7 +86,7 @@ kotlin {
             implementation(project(":features:task:domain"))
             implementation(project(":list"))
             implementation(project(":detail"))
-            implementation(project(":sharedPresentation"))
+            implementation(project(":features:task:sharedPresentation"))
             implementation(compose.runtime)
             implementation(compose.foundation)
             implementation(compose.material)
