@@ -1,1 +1,2 @@
-Keeping Task List tests here for iOS issue
+Keeping Task List & Detail tests here for iOS issue
+TODO: Investigate and fix

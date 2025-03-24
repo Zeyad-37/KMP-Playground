@@ -7,9 +7,9 @@ import com.zeyadgasser.playground.di.androidModule
 import com.zeyadgasser.playground.di.commonModule
 import com.zeyadgasser.playground.task.data.di.androidTaskSharedDataModule
 import com.zeyadgasser.playground.task.sharedpresentation.di.taskPresentationModule
-import com.zeyadgasser.playground.tasks.data.di.taskSharedDataModule
+import com.zeyadgasser.playground.task.data.di.taskSharedDataModule
 import com.zeyadgasser.playground.tasks.data.sync.Sync
-import com.zeyadgasser.playground.tasks.presentation.detail.di.taskDetailModule
+import com.zeyadgasser.playground.task.detail.di.taskDetailModule
 import com.zeyadgasser.playground.task.list.di.taskListModule
 import io.github.aakira.napier.DebugAntilog
 import io.github.aakira.napier.Napier

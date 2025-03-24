@@ -1,4 +1,4 @@
-package com.zeyadgasser.playground.tasks.presentation.detail.viewmodel
+package com.zeyadgasser.playground.task.detail.viewmodel
 
 import com.zeyadgasser.playground.architecture.presentation.Effect
 import com.zeyadgasser.playground.architecture.presentation.Input

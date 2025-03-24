@@ -1,4 +1,4 @@
-package com.zeyadgasser.playground.tasks.presentation.detail.ui
+package com.zeyadgasser.playground.task.detail.ui
 
 import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.fillMaxWidth
@@ -16,7 +16,6 @@ import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.automirrored.filled.ArrowBack
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.LaunchedEffect
-import androidx.compose.runtime.collectAsState
 import androidx.compose.runtime.getValue
 import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.remember
@@ -30,19 +29,16 @@ import cafe.adriel.voyager.navigator.LocalNavigator
 import cafe.adriel.voyager.navigator.currentOrThrow
 import com.zeyadgasser.playground.sharedui.composables.ErrorScreen
 import com.zeyadgasser.playground.sharedui.composables.LoadingView
-import com.zeyadgasser.playground.tasks.presentation.detail.viewmodel.BackButtonTappedInput
-import com.zeyadgasser.playground.tasks.presentation.detail.viewmodel.GoBackEffect
-import com.zeyadgasser.playground.tasks.presentation.detail.viewmodel.LoadTaskInput
-import com.zeyadgasser.playground.tasks.presentation.detail.viewmodel.TaskDetailInput
-import com.zeyadgasser.playground.tasks.presentation.detail.viewmodel.TaskDetailState
-import com.zeyadgasser.playground.tasks.presentation.detail.viewmodel.TaskDetailState.ErrorState
-import com.zeyadgasser.playground.tasks.presentation.detail.viewmodel.TaskDetailState.InitialState
-import com.zeyadgasser.playground.tasks.presentation.detail.viewmodel.TaskDetailState.SuccessState
-import com.zeyadgasser.playground.tasks.presentation.detail.viewmodel.TaskDetailViewModel
-import kmpplayground.composeapp.generated.resources.Res
-import kmpplayground.composeapp.generated.resources.app_name
+import com.zeyadgasser.playground.task.detail.viewmodel.BackButtonTappedInput
+import com.zeyadgasser.playground.task.detail.viewmodel.GoBackEffect
+import com.zeyadgasser.playground.task.detail.viewmodel.LoadTaskInput
+import com.zeyadgasser.playground.task.detail.viewmodel.TaskDetailInput
+import com.zeyadgasser.playground.task.detail.viewmodel.TaskDetailState
+import com.zeyadgasser.playground.task.detail.viewmodel.TaskDetailState.ErrorState
+import com.zeyadgasser.playground.task.detail.viewmodel.TaskDetailState.InitialState
+import com.zeyadgasser.playground.task.detail.viewmodel.TaskDetailState.SuccessState
+import com.zeyadgasser.playground.task.detail.viewmodel.TaskDetailViewModel
 import kotlinx.coroutines.flow.collectLatest
-import org.jetbrains.compose.resources.stringResource
 import org.koin.compose.koinInject
 
 data class DetailScreen(val taskId: String, val modifier: Modifier) : Screen {
@@ -84,7 +80,7 @@ data class DetailScreen(val taskId: String, val modifier: Modifier) : Screen {
                 TopAppBar(
                     {
                         Text(
-                            text = stringResource(Res.string.app_name),
+                            text = "KMP Playground",
                             modifier = Modifier.fillMaxWidth(),
                             textAlign = TextAlign.Start,
                             color = MaterialTheme.colors.onBackground,

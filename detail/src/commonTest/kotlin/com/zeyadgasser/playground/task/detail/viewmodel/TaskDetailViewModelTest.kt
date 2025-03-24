@@ -1,15 +1,11 @@
-package com.zeyadgasser.playground.tasks.presentation.detail.viewmodel
+package com.zeyadgasser.playground.task.detail.viewmodel
 
 import app.cash.turbine.test
-import com.zeyadgasser.playground.task.detail.viewmodel.BackButtonTappedInput
-import com.zeyadgasser.playground.task.detail.viewmodel.GoBackEffect
-import com.zeyadgasser.playground.task.detail.viewmodel.LoadTaskInput
 import com.zeyadgasser.playground.task.domain.TaskRepository
 import com.zeyadgasser.playground.task.sharedpresentation.mapper.TaskPresentationMapper
-import com.zeyadgasser.playground.tasks.TestingData
+import com.zeyadgasser.playground.task.detail.TestingData
 import com.zeyadgasser.playground.task.detail.viewmodel.TaskDetailState.InitialState
 import com.zeyadgasser.playground.task.detail.viewmodel.TaskDetailState.SuccessState
-import com.zeyadgasser.playground.task.detail.viewmodel.TaskDetailViewModel
 import dev.mokkery.answering.returns
 import dev.mokkery.everySuspend
 import dev.mokkery.mock

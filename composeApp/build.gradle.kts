@@ -85,6 +85,7 @@ kotlin {
             implementation(project(":data"))
             implementation(project(":domain"))
             implementation(project(":list"))
+            implementation(project(":detail"))
             implementation(project(":sharedPresentation"))
             implementation(compose.runtime)
             implementation(compose.foundation)

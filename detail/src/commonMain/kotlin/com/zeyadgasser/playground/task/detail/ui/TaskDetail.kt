@@ -1,4 +1,4 @@
-package com.zeyadgasser.playground.tasks.presentation.detail.ui
+package com.zeyadgasser.playground.task.detail.ui
 
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Column
@@ -20,8 +20,6 @@ import coil3.compose.AsyncImage
 import com.zeyadgasser.playground.task.sharedpresentation.model.TaskPM
 import com.zeyadgasser.playground.task.sharedpresentation.ui.TaskItemTextSlot
 import com.zeyadgasser.playground.sharedui.theme.AppTheme
-import kmpplayground.composeapp.generated.resources.Res
-import kmpplayground.composeapp.generated.resources.compose_multiplatform
 import org.jetbrains.compose.resources.painterResource
 import org.jetbrains.compose.ui.tooling.preview.Preview
 
@@ -37,8 +35,8 @@ fun TaskDetail(modifier: Modifier = Modifier, task: TaskPM) {
             clipToBounds = true,
             onError = { showButton = true },
             onSuccess = { showButton = false },
-            error = painterResource(Res.drawable.compose_multiplatform),
-            placeholder = painterResource(Res.drawable.compose_multiplatform),
+//            error = painterResource(Res.drawable.compose_multiplatform),
+//            placeholder = painterResource(Res.drawable.compose_multiplatform),
         )
         TaskItemTextSlot(task.encryptedTitle, task.encryptedDescription, task.creationDate, task.dueDate)
         if (showButton) {
