@@ -84,7 +84,7 @@ kotlin {
             implementation(project(":core:database"))
             implementation(project(":features:task:data"))
             implementation(project(":features:task:domain"))
-            implementation(project(":list"))
+            implementation(project(":features:task:list"))
             implementation(project(":detail"))
             implementation(project(":features:task:sharedPresentation"))
             implementation(compose.runtime)
