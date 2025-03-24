@@ -25,7 +25,7 @@ kotlin {
     sourceSets {
         commonMain {
             dependencies {
-                implementation(files("../libs/crypto.aar"))
+                implementation(files("$rootDir/libs/crypto.aar"))
                 implementation(project(":core:architecture"))
                 implementation(project(":core:database"))
                 implementation(project(":core:networking"))
