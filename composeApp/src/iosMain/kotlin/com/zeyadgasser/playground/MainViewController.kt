@@ -6,6 +6,7 @@ import com.zeyadgasser.playground.database.di.dataBaseModule
 import com.zeyadgasser.playground.database.iosDataBaseModule
 import com.zeyadgasser.playground.di.commonModule
 import com.zeyadgasser.playground.di.iosModule
+import com.zeyadgasser.playground.networking.networkingModule
 import com.zeyadgasser.playground.task.data.di.iosTaskSharedDataModule
 import com.zeyadgasser.playground.task.list.di.taskListModule
 import com.zeyadgasser.playground.task.sharedpresentation.di.taskPresentationModule
@@ -20,6 +21,7 @@ fun MainViewController() = ComposeUIViewController {
     startKoin {
         modules(
             commonModule + iosModule
+                    + networkingModule
                     + dataBaseModule
                     + iosDataBaseModule
                     + taskListModule

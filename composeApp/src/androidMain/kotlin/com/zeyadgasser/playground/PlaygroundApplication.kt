@@ -5,6 +5,7 @@ import com.zeyadgasser.playground.database.androidDataBaseModule
 import com.zeyadgasser.playground.database.di.dataBaseModule
 import com.zeyadgasser.playground.di.androidModule
 import com.zeyadgasser.playground.di.commonModule
+import com.zeyadgasser.playground.networking.networkingModule
 import com.zeyadgasser.playground.task.data.di.androidTaskSharedDataModule
 import com.zeyadgasser.playground.task.sharedpresentation.di.taskPresentationModule
 import com.zeyadgasser.playground.task.data.di.taskSharedDataModule
@@ -27,6 +28,7 @@ class PlaygroundApplication : Application(), KoinComponent {
             workManagerFactory()
             modules(
                 androidModule + commonModule
+                        + networkingModule
                         + dataBaseModule
                         + androidDataBaseModule
                         + taskListModule

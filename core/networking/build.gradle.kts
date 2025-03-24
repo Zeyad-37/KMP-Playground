@@ -3,6 +3,7 @@ import org.jetbrains.kotlin.gradle.plugin.mpp.KotlinNativeTarget
 plugins {
     alias(libs.plugins.playground.multiplatform.lib)
     alias(libs.plugins.kotlinxSerialization)
+    alias(libs.plugins.playground.koin)
     alias(libs.plugins.playground.networking)// todo move to plugin
 }
 
