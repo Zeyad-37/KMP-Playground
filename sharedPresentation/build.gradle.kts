@@ -23,7 +23,7 @@ kotlin {
         commonMain {
             dependencies {
                 implementation(project(":core:architecture"))
-                implementation(project(":domain"))
+                implementation(project(":features:task:domain"))
             }
         }
 

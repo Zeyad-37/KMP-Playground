@@ -28,7 +28,7 @@ kotlin {
             dependencies {
                 implementation(project(":core:architecture"))
                 implementation(project(":core:sharedUI"))
-                implementation(project(":domain"))
+                implementation(project(":features:task:domain"))
                 implementation(project(":sharedPresentation"))
             }
         }

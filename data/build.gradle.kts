@@ -29,7 +29,7 @@ kotlin {
                 implementation(project(":core:architecture"))
                 implementation(project(":core:database"))
                 implementation(project(":core:networking"))
-                implementation(project(":domain"))
+                implementation(project(":features:task:domain"))
                 implementation(libs.kotlinx.datetime)
             }
         }

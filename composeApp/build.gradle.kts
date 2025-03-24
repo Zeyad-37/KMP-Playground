@@ -83,7 +83,7 @@ kotlin {
             implementation(project(":core:sharedUI"))
             implementation(project(":core:database"))
             implementation(project(":data"))
-            implementation(project(":domain"))
+            implementation(project(":features:task:domain"))
             implementation(project(":list"))
             implementation(project(":detail"))
             implementation(project(":sharedPresentation"))
