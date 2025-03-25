@@ -15,6 +15,7 @@ Learn more about [Kotlin Multiplatform](https://www.jetbrains.com/help/kotlin-mu
 
 TODO:
 - Fix todos
+- Web JS
 - CI Github Actions
 - Add Screens:
   - Settings

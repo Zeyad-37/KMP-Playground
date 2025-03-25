@@ -35,6 +35,21 @@ class SqlDelightPlugin : Plugin<Project> {
                 iosMain.dependencies {
                     implementation(libs.findLibrary("sql.delight.native.driver").get())
                 }
+                jsMain.dependencies {
+                    implementation("app.cash.sqldelight:sqljs-driver:2.0.0-alpha05")
+                    implementation(npm("sql.js", "1.6.2"))
+                    implementation(devNpm("copy-webpack-plugin", "9.1.0"))
+
+
+//                    implementation("app.cash.sqldelight:sqljs-driver:2.0.2")
+//                    implementation(npm("sql.js", "1.6.2"))
+//                    implementation(devNpm("copy-webpack-plugin", "9.1.0"))
+
+//                    implementation(npm("@cashapp/sqldelight-sqljs-worker", "2.0.2"))
+//                    implementation(npm("sql.js", "1.8.0"))
+//                    implementation("app.cash.sqldelight:web-worker-driver:2.0.2")
+
+                }
             }
         }
         extensions.configure<SqlDelightExtension> {

@@ -47,6 +47,9 @@ class ComposeMultiplatformPlugin : Plugin<Project> {
                 jvmMain.dependencies {
                     implementation(compose.desktop.currentOs)
                 }
+                jsMain.dependencies {
+                    implementation(compose.html.core)
+                }
             }
         }
     }

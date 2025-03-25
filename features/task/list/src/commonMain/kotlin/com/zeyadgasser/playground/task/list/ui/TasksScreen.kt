@@ -45,14 +45,8 @@ import com.zeyadgasser.playground.task.list.viewmodel.ShowDialogEffect
 import com.zeyadgasser.playground.task.list.viewmodel.ShowDialogInput
 import com.zeyadgasser.playground.task.list.viewmodel.TasksState
 import com.zeyadgasser.playground.task.list.viewmodel.TasksViewModel
-import kmpplayground.features.task.list.generated.resources.Res
-import kmpplayground.features.task.list.generated.resources.all_tasks_tab_label
-import kmpplayground.features.task.list.generated.resources.app_name
-import kmpplayground.features.task.list.generated.resources.cant_check_a_task
-import kmpplayground.features.task.list.generated.resources.upcoming_tasks_tab_label
 import kotlinx.coroutines.flow.collectLatest
 import kotlinx.coroutines.launch
-import org.jetbrains.compose.resources.stringResource
 import org.koin.compose.koinInject
 
 data class ListScreen(val modifier: Modifier) : Screen {
@@ -104,8 +98,9 @@ data class ListScreen(val modifier: Modifier) : Screen {
             topBar = {
                 TopAppBar(
                     {
-                        Text(
-                            text = stringResource(Res.string.app_name),
+                        Text( //fixme(java.lang.IllegalStateException:  No instrumentation registered! Must run under a registering instrumentation.)
+//                            text = stringResource(Res.string.app_name),
+                            text = "KMP Playground",
                             modifier = Modifier
                                 .fillMaxWidth()
                                 .clickable { process(if (showDialog) HideDialogInput else ShowDialogInput) },
@@ -151,9 +146,10 @@ data class ListScreen(val modifier: Modifier) : Screen {
                 is TasksState.InitialState -> process(LoadTasksInput)
                 is TasksState.ErrorState -> ErrorScreen(state.message)
                 is TasksState.SuccessState -> {
-                    allTabLabel = stringResource(Res.string.all_tasks_tab_label, state.allTasks.size)
-                    upcomingTabLabel =
-                        stringResource(Res.string.upcoming_tasks_tab_label, state.allTasks.size)
+//                    allTabLabel = stringResource(Res.string.all_tasks_tab_label, state.allTasks.size)
+                    allTabLabel = "All tasks (${state.allTasks.size})"
+                    upcomingTabLabel = "Upcoming tasks (${state.allTasks.size})"
+//                        stringResource(Res.string.upcoming_tasks_tab_label, state.allTasks.size)
                     when (selectedTabIndex) {
                         0 -> TaskList(state.allTasks) { process(it) }
                         1 -> TaskList(state.upcomingTasks) { process(it) }

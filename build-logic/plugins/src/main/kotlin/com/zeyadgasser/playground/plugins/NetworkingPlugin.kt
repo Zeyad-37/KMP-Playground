@@ -37,6 +37,9 @@ class NetworkingPlugin : Plugin<Project> {
                 iosMain.dependencies {
                     implementation(libs.findLibrary("ktor.client.darwin").get())
                 }
+//                jsMain.dependencies {
+//                    implementation(libs.findLibrary("ktor.client.js").get())
+//                }
             }
         }
     }

@@ -29,6 +29,9 @@ class SharedLibPlugin : Plugin<Project> {
                     instrumentationRunner = "androidx.test.runner.AndroidJUnitRunner"
                 }
             }
+            js(IR) {
+                browser()
+            }
             iosX64()
             iosArm64()
             iosSimulatorArm64()

@@ -58,3 +58,9 @@ kotlin {
         }
     }
 }
+
+compose.resources {
+    publicResClass = false
+    packageOfResClass = "com.zeyadgasser.playground.resources"
+    generateResClass = auto
+}

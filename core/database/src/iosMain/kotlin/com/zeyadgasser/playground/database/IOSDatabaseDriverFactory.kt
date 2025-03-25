@@ -5,5 +5,6 @@ import app.cash.sqldelight.driver.native.NativeSqliteDriver
 import com.zeyadgasser.playground.tasks.data.db.PlaygroundDB
 
 class IOSDatabaseDriverFactory : DatabaseDriverFactory {
-    override fun createDriver(): SqlDriver = NativeSqliteDriver(PlaygroundDB.Schema, "playground.db")
+    override suspend fun createDriver(): SqlDriver =
+        NativeSqliteDriver(PlaygroundDB.Schema, "playground.db")
 }
