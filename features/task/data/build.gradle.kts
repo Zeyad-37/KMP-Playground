@@ -25,7 +25,7 @@ kotlin {
     sourceSets {
         commonMain {
             dependencies {
-                implementation(files("$rootDir/libs/crypto.aar"))
+                api(files("$rootDir/libs/crypto.aar"))
                 implementation(project(":core:architecture"))
                 implementation(project(":core:database"))
                 implementation(project(":core:networking"))
@@ -42,9 +42,6 @@ kotlin {
 
         androidMain {
             dependencies {
-                // Add Android-specific dependencies here. Note that this source set depends on
-                // commonMain by default and will correctly pull the Android artifacts of any KMP
-                // dependencies declared in commonMain.
             }
         }
 
@@ -64,19 +61,14 @@ kotlin {
 
         iosMain {
             dependencies {
-                // Add iOS-specific dependencies here. This a source set created by Kotlin Gradle
-                // Plugin (KGP) that each specific iOS target (e.g., iosX64) depends on as
-                // part of KMP’s default source set hierarchy. Note that this source set depends
-                // on common by default and will correctly pull the iOS artifacts of any
-                // KMP dependencies declared in commonMain.
             }
         }
-
-        getByName("desktopTest") {
-            dependencies {
-                implementation(libs.sql.delight.jvm.driver)
-            }
+        jvmTest.dependencies {
+            implementation(libs.sql.delight.jvm.driver)
         }
+//        getByName("jvmTest") {
+//            dependencies {
+//            }
+//        }
     }
-
 }

@@ -15,12 +15,10 @@ class SqlDelightPlugin : Plugin<Project> {
 //        }
         extensions.configure<KotlinMultiplatformExtension> {
             sourceSets.apply {
-                val desktopMain = getByName("desktopMain")
-                desktopMain.dependencies {
+                jvmMain.dependencies {
                     implementation(libs.findLibrary("sql.delight.jvm.driver").get())
                 }
-                val desktopTest = getByName("desktopTest")
-                desktopTest.dependencies {
+                jvmTest.dependencies {
                     implementation(libs.findLibrary("sql.delight.jvm.driver").get())
                 }
                 androidMain.dependencies {

@@ -32,7 +32,7 @@ class SharedLibPlugin : Plugin<Project> {
             iosX64()
             iosArm64()
             iosSimulatorArm64()
-            jvm("desktop")
+            jvm() // desktop
             compilerOptions.freeCompilerArgs.add("-Xexpect-actual-classes")
         }
     }

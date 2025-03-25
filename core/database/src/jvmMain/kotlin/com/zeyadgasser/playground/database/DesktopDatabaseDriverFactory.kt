@@ -5,9 +5,6 @@ import app.cash.sqldelight.driver.jdbc.sqlite.JdbcSqliteDriver
 import com.zeyadgasser.playground.tasks.data.db.PlaygroundDB
 
 class DesktopDatabaseDriverFactory : DatabaseDriverFactory {
-    override fun createDriver(): SqlDriver {
-        val driver: SqlDriver = JdbcSqliteDriver("jdbc:sqlite:playground.db")
-        PlaygroundDB.Schema.create(driver)
-        return driver
-    }
+    override fun createDriver(): SqlDriver =
+        JdbcSqliteDriver("jdbc:sqlite:playground.db").also { PlaygroundDB.Schema.create(it) }
 }

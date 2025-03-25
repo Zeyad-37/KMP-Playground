@@ -35,6 +35,7 @@ import cafe.adriel.voyager.navigator.currentOrThrow
 import com.zeyadgasser.playground.architecture.presentation.Input
 import com.zeyadgasser.playground.sharedui.composables.ErrorScreen
 import com.zeyadgasser.playground.sharedui.composables.LoadingView
+import com.zeyadgasser.playground.task.detail.ui.DetailScreen
 import com.zeyadgasser.playground.task.list.viewmodel.CantCheckTaskEffect
 import com.zeyadgasser.playground.task.list.viewmodel.GoToTaskDetailsEffect
 import com.zeyadgasser.playground.task.list.viewmodel.HideDialogEffect
@@ -44,8 +45,14 @@ import com.zeyadgasser.playground.task.list.viewmodel.ShowDialogEffect
 import com.zeyadgasser.playground.task.list.viewmodel.ShowDialogInput
 import com.zeyadgasser.playground.task.list.viewmodel.TasksState
 import com.zeyadgasser.playground.task.list.viewmodel.TasksViewModel
+import kmpplayground.features.task.list.generated.resources.Res
+import kmpplayground.features.task.list.generated.resources.all_tasks_tab_label
+import kmpplayground.features.task.list.generated.resources.app_name
+import kmpplayground.features.task.list.generated.resources.cant_check_a_task
+import kmpplayground.features.task.list.generated.resources.upcoming_tasks_tab_label
 import kotlinx.coroutines.flow.collectLatest
 import kotlinx.coroutines.launch
+import org.jetbrains.compose.resources.stringResource
 import org.koin.compose.koinInject
 
 data class ListScreen(val modifier: Modifier) : Screen {
@@ -64,10 +71,11 @@ data class ListScreen(val modifier: Modifier) : Screen {
         LaunchedEffect(Unit) {
             viewModel.effect.collectLatest {
                 when (it) {
-                    is GoToTaskDetailsEffect -> throw NotImplementedError() // navigator.push(DetailScreen(it.taskId, modifier))
+                    is GoToTaskDetailsEffect -> navigator.push(DetailScreen(it.taskId, modifier))
                     is CantCheckTaskEffect -> coroutineScope.launch {
                         snackBarHostState.showSnackbar(
-                            "Cant check a task as done that still has dependencies", // fixme
+                            "",
+//                            stringResource(Res.string.cant_check_a_task),
                             duration = SnackbarDuration.Short
                         )
                     }
@@ -97,7 +105,7 @@ data class ListScreen(val modifier: Modifier) : Screen {
                 TopAppBar(
                     {
                         Text(
-                            text = "KMP Playground",
+                            text = stringResource(Res.string.app_name),
                             modifier = Modifier
                                 .fillMaxWidth()
                                 .clickable { process(if (showDialog) HideDialogInput else ShowDialogInput) },
@@ -143,8 +151,9 @@ data class ListScreen(val modifier: Modifier) : Screen {
                 is TasksState.InitialState -> process(LoadTasksInput)
                 is TasksState.ErrorState -> ErrorScreen(state.message)
                 is TasksState.SuccessState -> {
-                    allTabLabel = "All tasks (${state.allTasks.size})"
-                    upcomingTabLabel = "Upcoming Tasks (${state.upcomingTasks.size})"
+                    allTabLabel = stringResource(Res.string.all_tasks_tab_label, state.allTasks.size)
+                    upcomingTabLabel =
+                        stringResource(Res.string.upcoming_tasks_tab_label, state.allTasks.size)
                     when (selectedTabIndex) {
                         0 -> TaskList(state.allTasks) { process(it) }
                         1 -> TaskList(state.upcomingTasks) { process(it) }

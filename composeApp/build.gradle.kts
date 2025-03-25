@@ -43,14 +43,11 @@ kotlin {
         }
     }
 
-    jvm("desktop")
+    jvm() // desktop
 
     compilerOptions.freeCompilerArgs.add("-Xexpect-actual-classes")
 
     sourceSets {
-        val desktopMain by getting
-        val desktopTest by getting
-
         androidMain.dependencies {
             implementation(compose.preview)
 
@@ -111,11 +108,11 @@ kotlin {
         iosTest.dependencies {
             implementation(libs.sql.delight.native.driver)
         }
-        desktopMain.dependencies {
+        jvmMain.dependencies {
             implementation(compose.desktop.currentOs)
             implementation(libs.kotlinx.coroutines.swing)
         }
-        desktopTest.dependencies {
+        jvmTest.dependencies {
             implementation(libs.sql.delight.jvm.driver)
         }
     }
