@@ -14,9 +14,8 @@ This is a Kotlin Multiplatform project targeting Android, iOS, Desktop.
 Learn more about [Kotlin Multiplatform](https://www.jetbrains.com/help/kotlin-multiplatform-dev/get-started.html)…
 
 TODO:
-- Fix todos
-- Web JS
 - CI Github Actions
+- Fix todos
 - Add Screens:
   - Settings
   - Profile
@@ -24,4 +23,6 @@ TODO:
   - Forgot password
   - KYC
   - 2FA
-  -  
+- Web Kobweb
+- Web Wasm*
+
