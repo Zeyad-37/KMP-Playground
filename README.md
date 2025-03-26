@@ -16,11 +16,11 @@ Learn more about [Kotlin Multiplatform](https://www.jetbrains.com/help/kotlin-mu
 TODO:
 - Fix todos
 - Add Screens:
-  - Settings (Multiplatform settings)
   - Profile 
-  - Sign Up/In (Firebase Auth -  Google/Apple/Facebook/Phone/Anonymous)
+  - Sign Up/In (Firebase Auth - Google/Apple/Facebook/Phone/Anonymous)
   - Forgot password
   - GEN AI
+  - Settings (Multiplatform settings)
   - KYC
   - 2FA
 - CI Github Actions

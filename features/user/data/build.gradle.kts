@@ -25,6 +25,8 @@ kotlin {
         commonMain {
             dependencies {
                 implementation(project(":core:architecture"))
+                implementation(project(":features:user:domain"))
+                implementation(libs.firebase.auth) // doesnt support wasm
             }
         }
 
@@ -36,6 +38,8 @@ kotlin {
 
         androidMain {
             dependencies {
+                implementation("com.google.firebase:firebase-auth-ktx:23.2.0")
+                implementation("com.google.firebase:firebase-common-ktx:21.0.0")
             }
         }
 
