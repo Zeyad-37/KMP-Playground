@@ -17,10 +17,11 @@ TODO:
 - CI Github Actions
 - Fix todos
 - Add Screens:
-  - Settings
-  - Profile
-  - Sign Up/In
+  - Settings (Multiplatform settings)
+  - Profile 
+  - Sign Up/In (Firebase Auth)
   - Forgot password
+  - GEN AI
   - KYC
   - 2FA
 - Web Kobweb
