@@ -1,5 +1,3 @@
-import org.jetbrains.kotlin.gradle.plugin.mpp.KotlinNativeTarget
-
 plugins {
     alias(libs.plugins.playground.multiplatform.lib)
     alias(libs.plugins.sqldelight)
@@ -10,16 +8,11 @@ plugins {
     alias(libs.plugins.playground.testing)
 }
 
+sharedLib.xcfName = "taskDataKit"
+
 kotlin {
     androidLibrary {
         namespace = "com.zeyadgasser.playground.task.data"
-    }
-
-    val xcfName = "dataKit"
-    targets.filterIsInstance<KotlinNativeTarget>().forEach { target: KotlinNativeTarget ->
-        target.binaries.framework {
-            baseName = xcfName
-        }
     }
 
     sourceSets {

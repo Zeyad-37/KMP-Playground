@@ -1,5 +1,3 @@
-import org.jetbrains.kotlin.gradle.plugin.mpp.KotlinNativeTarget
-
 plugins {
     alias(libs.plugins.playground.multiplatform.lib)
     alias(libs.plugins.kotlinxSerialization)
@@ -7,16 +5,11 @@ plugins {
     alias(libs.plugins.playground.networking)// todo move to plugin
 }
 
+sharedLib.xcfName = "networkingKit"
+
 kotlin {
     androidLibrary {
         namespace = "com.zeyad.playground.networking"
-    }
-
-    val xcfName = "networkingKit"
-    targets.filterIsInstance<KotlinNativeTarget>().forEach { target: KotlinNativeTarget ->
-        target.binaries.framework {
-            baseName = xcfName
-        }
     }
 
     sourceSets {

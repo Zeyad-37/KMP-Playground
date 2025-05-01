@@ -1,5 +1,3 @@
-import org.jetbrains.kotlin.gradle.plugin.mpp.KotlinNativeTarget
-
 plugins {
     alias(libs.plugins.playground.multiplatform.lib)
     alias(libs.plugins.playground.compose.multiplatform)
@@ -10,17 +8,12 @@ plugins {
     alias(libs.plugins.kotlinxSerialization)
 }
 
+sharedLib.xcfName = "userDomainKit"
+
 kotlin {
     androidLibrary {
         namespace = "com.zeyadgasser.playground.user.domain"
 
-    }
-
-    val xcfName = "domainKit"
-    targets.filterIsInstance<KotlinNativeTarget>().forEach { target: KotlinNativeTarget ->
-        target.binaries.framework {
-            baseName = xcfName
-        }
     }
 
     sourceSets {

@@ -1,19 +1,12 @@
-import org.jetbrains.kotlin.gradle.plugin.mpp.KotlinNativeTarget
-
 plugins {
     alias(libs.plugins.playground.multiplatform.lib)
 }
 
+sharedLib.xcfName = "architectureKit"
+
 kotlin {
     androidLibrary {
         namespace = "com.zeyadgasser.playground.architecture"
-    }
-
-    val xcfName = "architectureKit"
-    targets.filterIsInstance<KotlinNativeTarget>().forEach { target: KotlinNativeTarget ->
-        target.binaries.framework {
-            baseName = xcfName
-        }
     }
 
     sourceSets {

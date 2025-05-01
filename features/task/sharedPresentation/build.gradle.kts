@@ -1,5 +1,3 @@
-import org.jetbrains.kotlin.gradle.plugin.mpp.KotlinNativeTarget
-
 plugins {
     alias(libs.plugins.playground.multiplatform.lib)
     alias(libs.plugins.playground.testing)
@@ -7,16 +5,11 @@ plugins {
     alias(libs.plugins.playground.compose.multiplatform)
 }
 
+sharedLib.xcfName = "taskSharedPresentationKit"
+
 kotlin {
     androidLibrary {
         namespace = "com.zeyadgasser.playground.task.sharedpresentation"
-    }
-
-    val xcfName = "sharedPresentationKit"
-    targets.filterIsInstance<KotlinNativeTarget>().forEach { target: KotlinNativeTarget ->
-        target.binaries.framework {
-            baseName = xcfName
-        }
     }
 
     sourceSets {

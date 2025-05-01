@@ -1,20 +1,13 @@
-import org.jetbrains.kotlin.gradle.plugin.mpp.KotlinNativeTarget
-
 plugins {
     alias(libs.plugins.playground.multiplatform.lib)
     alias(libs.plugins.playground.compose.multiplatform)
 }
 
+sharedLib.xcfName = "sharedUIKit"
+
 kotlin {
     androidLibrary {
         namespace = "com.zeyadgasser.playground.sharedui"
-    }
-
-    val xcfName = "sharedUIKit"
-    targets.filterIsInstance<KotlinNativeTarget>().forEach { target: KotlinNativeTarget ->
-        target.binaries.framework {
-            baseName = xcfName
-        }
     }
 
     sourceSets {

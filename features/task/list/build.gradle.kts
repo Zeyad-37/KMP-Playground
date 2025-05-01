@@ -1,5 +1,3 @@
-import org.jetbrains.kotlin.gradle.plugin.mpp.KotlinNativeTarget
-
 plugins {
     alias(libs.plugins.playground.multiplatform.lib)
     alias(libs.plugins.playground.compose.multiplatform)
@@ -10,16 +8,11 @@ plugins {
     alias(libs.plugins.kotlinxSerialization)
 }
 
+sharedLib.xcfName = "taskListKit"
+
 kotlin {
     androidLibrary {
         namespace = "com.zeyadgasser.playground.task.list"
-    }
-
-    val xcfName = "listKit"
-    targets.filterIsInstance<KotlinNativeTarget>().forEach { target: KotlinNativeTarget ->
-        target.binaries.framework {
-            baseName = xcfName
-        }
     }
 
     sourceSets {
