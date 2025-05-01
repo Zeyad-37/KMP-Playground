@@ -2,6 +2,7 @@ package com.zeyadgasser.playground
 
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.window.ComposeUIViewController
+import com.zeyadgasser.playground.breath.di.breathModule
 import com.zeyadgasser.playground.database.di.dataBaseModule
 import com.zeyadgasser.playground.database.iosDataBaseModule
 import com.zeyadgasser.playground.di.commonModule
@@ -29,6 +30,7 @@ fun MainViewController() = ComposeUIViewController {
                     + taskPresentationModule
                     + taskSharedDataModule
                     + iosTaskSharedDataModule
+                    + breathModule
         )
     }
     App(Modifier)

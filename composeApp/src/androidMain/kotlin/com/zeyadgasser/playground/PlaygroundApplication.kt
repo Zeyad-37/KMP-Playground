@@ -1,6 +1,7 @@
 package com.zeyadgasser.playground
 
 import android.app.Application
+import com.zeyadgasser.playground.breath.di.breathModule
 import com.zeyadgasser.playground.database.androidDataBaseModule
 import com.zeyadgasser.playground.database.di.dataBaseModule
 import com.zeyadgasser.playground.di.androidModule
@@ -36,6 +37,7 @@ class PlaygroundApplication : Application(), KoinComponent {
                         + taskPresentationModule
                         + taskSharedDataModule
                         + androidTaskSharedDataModule
+                        + breathModule
             )
         }
         Sync.initialize(this)

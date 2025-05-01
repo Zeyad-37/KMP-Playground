@@ -79,6 +79,7 @@ kotlin {
             implementation(project(":features:task:list"))
             implementation(project(":features:task:detail"))
             implementation(project(":features:task:sharedPresentation"))
+            implementation(project(":features:breath"))
             implementation(compose.runtime)
             implementation(compose.foundation)
             implementation(compose.material)

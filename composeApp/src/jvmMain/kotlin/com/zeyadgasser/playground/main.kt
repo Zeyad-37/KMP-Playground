@@ -6,6 +6,7 @@ import androidx.compose.ui.window.Window
 import androidx.compose.ui.window.WindowPosition
 import androidx.compose.ui.window.application
 import androidx.compose.ui.window.rememberWindowState
+import com.zeyadgasser.playground.breath.di.breathModule
 import com.zeyadgasser.playground.database.desktopDataBaseModule
 import com.zeyadgasser.playground.database.di.dataBaseModule
 import com.zeyadgasser.playground.di.commonModule
@@ -35,6 +36,7 @@ fun main() = application {
                         + taskPresentationModule
                         + taskSharedDataModule
                         + desktopTaskSharedDataModule
+                        + breathModule
             )
         }
         App(Modifier)
