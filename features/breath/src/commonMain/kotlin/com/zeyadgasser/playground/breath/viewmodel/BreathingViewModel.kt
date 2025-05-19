@@ -7,6 +7,7 @@ import com.zeyadgasser.playground.breath.model.BreathingExercise
 import com.zeyadgasser.playground.breath.viewmodel.BreathingCoachScreenState.ExerciseDetail
 import com.zeyadgasser.playground.breath.viewmodel.BreathingCoachScreenState.ExerciseList
 import com.zeyadgasser.playground.breath.viewmodel.BreathingCoachScreenState.Loading
+import com.zeyadgasser.playground.breath.viewmodel.BreathingPhase.IDLE
 import kotlinx.coroutines.Job
 import kotlinx.coroutines.delay
 import kotlinx.coroutines.flow.MutableStateFlow
@@ -33,7 +34,14 @@ class BreathingViewModel : ViewModel(), ScreenModel {
         breathingCoroutine?.cancel() // Cancel any previous cycle if selecting a new one
         val selected = allExercises.find { it.id == exerciseId }
         selected?.let { exercise ->
-            _uiState.update { ExerciseDetail(exercise = exercise, currentPhase = BreathingPhase.IDLE) }
+            _uiState.update {
+                ExerciseDetail(
+                    exercise = exercise,
+                    currentPhase = IDLE,
+                    playbackDuration = formatDuration(exercise.defaultDuration),
+                    playbackProgressString = formatDuration(0)
+                )
+            }
         }
     }
 
@@ -56,7 +64,7 @@ class BreathingViewModel : ViewModel(), ScreenModel {
         _uiState.update { currentState ->
             if (currentState is ExerciseDetail) {
                 // TODO: Pause actual audio playback here
-                currentState.copy(isPlaying = false, currentPhase = BreathingPhase.IDLE) // check this
+                currentState.copy(isPlaying = false, currentPhase = IDLE) // check this
             } else {
                 currentState
             }
@@ -71,7 +79,7 @@ class BreathingViewModel : ViewModel(), ScreenModel {
                 currentState.copy(
                     isPlaying = false,
                     playbackProgress = 0f,
-                    currentPhase = BreathingPhase.IDLE
+                    currentPhase = IDLE
                 ) // check this
             } else {
                 currentState
@@ -89,7 +97,7 @@ class BreathingViewModel : ViewModel(), ScreenModel {
     private fun startBreathingCycle(exercise: BreathingExercise) {
         breathingCoroutine?.cancel() // Cancel any existing cycle first
         breathingCoroutine = viewModelScope.launch {
-            updatePhase(BreathingPhase.IDLE)
+            updatePhase(IDLE)
             delay(1000)
             // Example: Box Breathing (4-4-4-4 seconds)
             // In a real app, get timings from the 'exercise' object
@@ -171,7 +179,11 @@ class BreathingViewModel : ViewModel(), ScreenModel {
     private fun updateProgress(elapsed: Long, total: Long) {
         _uiState.update { currentState ->
             if (currentState is ExerciseDetail && currentState.isPlaying) {
-                currentState.copy(playbackProgress = (elapsed.toFloat() / total.toFloat()).coerceIn(0f, 1f))
+                val playbackProgress = (elapsed.toFloat() / total.toFloat()).coerceIn(0f, 1f)
+                currentState.copy(
+                    playbackProgress = playbackProgress,
+                    playbackProgressString = formatDuration(elapsed)
+                )
             } else {
                 currentState
             }
@@ -207,11 +219,23 @@ class BreathingViewModel : ViewModel(), ScreenModel {
                 // TODO: Stop actual audio playback here
                 currentState.copy(
                     isPlaying = false, playbackProgress = 0f, // Reset progress
-                    currentPhase = BreathingPhase.IDLE // Reset phase
+                    currentPhase = IDLE // Reset phase
                 )
             } else {
                 currentState
             }
+        }
+    }
+
+    fun formatDuration(durationMs: Long): String {
+        return if (durationMs <= 0) {
+            "00:00"
+        } else {
+            val seconds = (durationMs / 1000) % 60
+            val minutes = (durationMs / (1000 * 60)) % 60
+            val secondsStr = seconds.toString().padStart(2, '0')
+            val minutesStr = minutes.toString().padStart(2, '0')
+            "$minutesStr:$secondsStr"
         }
     }
 

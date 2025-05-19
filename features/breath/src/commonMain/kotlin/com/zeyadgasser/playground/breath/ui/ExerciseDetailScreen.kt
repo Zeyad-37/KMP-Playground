@@ -122,6 +122,13 @@ fun ExerciseDetailScreen(
                         progress = { state.playbackProgress },
                         modifier = Modifier.fillMaxWidth()
                     )
+                    Row(
+                        modifier = Modifier.fillMaxWidth(),
+                        horizontalArrangement = Arrangement.SpaceBetween
+                    ) {
+                        Text(state.playbackProgressString)
+                        Text(state.playbackDuration)
+                    }
                 }
                 Row {
                     Button(

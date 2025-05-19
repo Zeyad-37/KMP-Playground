@@ -12,6 +12,8 @@ sealed interface BreathingCoachScreenState {
         val playbackProgress: Float = 0f,
         val currentPhase: BreathingPhase = BreathingPhase.IDLE,
         val phaseProgress: Int = 0,
+        val playbackDuration: String,
+        val playbackProgressString: String,
     ) : BreathingCoachScreenState {
         val phaseDuration: Int
             get() = when (currentPhase) {
