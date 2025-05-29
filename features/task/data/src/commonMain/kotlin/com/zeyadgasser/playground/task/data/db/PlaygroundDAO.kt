@@ -13,6 +13,7 @@ import kotlinx.coroutines.flow.flatMapConcat
 import kotlinx.coroutines.flow.flow
 import kotlinx.coroutines.flow.map
 
+@Deprecated("Use PlaygroundDataBase")
 @OpenForMokkery
 class PlaygroundDAO(
     private val db: SharedDataBase,

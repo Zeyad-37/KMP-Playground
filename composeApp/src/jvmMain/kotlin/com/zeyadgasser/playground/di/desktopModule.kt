@@ -7,6 +7,6 @@ import org.koin.core.qualifier.named
 import org.koin.dsl.module
 
 val desktopModule = module {
-    single<DatabaseDriverFactory> { DesktopDatabaseDriverFactory() }
+//    single<DatabaseDriverFactory> { DesktopDatabaseDriverFactory() }
     single(named(IS_ANDROID)) { false }
 }

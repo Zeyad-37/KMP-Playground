@@ -4,6 +4,7 @@ plugins {
     alias(libs.plugins.kotlinxSerialization)
     alias(libs.plugins.playground.koin)
     alias(libs.plugins.playground.sql.delight)
+    alias(libs.plugins.playground.room)
     alias(libs.plugins.playground.networking)
     alias(libs.plugins.playground.testing)
 }

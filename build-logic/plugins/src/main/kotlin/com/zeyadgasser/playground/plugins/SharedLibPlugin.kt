@@ -50,6 +50,9 @@ class SharedLibPlugin : Plugin<Project> {
             targets.filterIsInstance<KotlinNativeTarget>().forEach { target: KotlinNativeTarget ->
                 target.binaries.framework {
                     baseName = extension.xcfName.getOrElse(UUID.randomUUID().toString())
+                    isStatic = true
+                    // Required when using NativeSQLiteDriver
+                    linkerOpts.add("-lsqlite3")
                 }
             }
             jvm() // desktop

@@ -24,6 +24,8 @@ dependencies {
     compileOnly(libs.plugins.kotlinMultiplatform.toDep())
     compileOnly(libs.plugins.composeCompiler.toDep())
     compileOnly(libs.plugins.sqldelight.toDep())
+    compileOnly(libs.ksp.gradlePlugin)
+    compileOnly(libs.room.gradlePlugin)
     compileOnly(libs.plugins.mokkery.toDep())
     compileOnly(libs.plugins.all.open.toDep())
     compileOnly(libs.plugins.detekt.toDep())
@@ -89,19 +91,25 @@ gradlePlugin {
             id = libs.plugins.playground.sql.delight.get().pluginId
             implementationClass = "com.zeyadgasser.playground.plugins.SqlDelightPlugin"
             displayName = "SqlDelight Plugin"
-            description = "Plugin configures SqlDelight a multiplatform project"
+            description = "Plugin configures SqlDelight for a multiplatform project"
+        }
+        register("room") {
+            id = libs.plugins.playground.room.get().pluginId
+            implementationClass = "com.zeyadgasser.playground.plugins.RoomPlugin"
+            displayName = "Room Plugin"
+            description = "Plugin configures Room for a multiplatform project"
         }
         register("gitHooks") {
             id = libs.plugins.playground.git.hooks.get().pluginId
             implementationClass = "com.zeyadgasser.playground.plugins.GitHooksPlugin"
             displayName = "GitHooks Plugin"
-            description = "Plugin configures GitHooks a project"
+            description = "Plugin configures GitHooks for a project"
         }
         register("composeMultiplatform") {
             id = libs.plugins.playground.compose.multiplatform.get().pluginId
             implementationClass = "com.zeyadgasser.playground.plugins.ComposeMultiplatformPlugin"
             displayName = "ComposeMultiplatform Plugin"
-            description = "Plugin configures ComposeMultiplatform a multiplatform project"
+            description = "Plugin configures ComposeMultiplatform for a multiplatform project"
         }
         register("detekt") {
             id = libs.plugins.playground.detekt.get().pluginId

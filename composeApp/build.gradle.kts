@@ -64,7 +64,7 @@ kotlin {
 
         androidUnitTest.dependencies {
             implementation(libs.junit)
-            implementation(libs.sql.delight.jvm.driver)
+//            implementation(libs.sql.delight.jvm.driver)
             implementation(libs.androidx.test.junit)
             implementation(libs.androidx.espresso.core)
         }
@@ -107,14 +107,14 @@ kotlin {
         iosMain.dependencies {
         }
         iosTest.dependencies {
-            implementation(libs.sql.delight.native.driver)
+//            implementation(libs.sql.delight.native.driver)
         }
         jvmMain.dependencies {
             implementation(compose.desktop.currentOs)
             implementation(libs.kotlinx.coroutines.swing)
         }
         jvmTest.dependencies {
-            implementation(libs.sql.delight.jvm.driver)
+//            implementation(libs.sql.delight.jvm.driver)
         }
     }
 }
