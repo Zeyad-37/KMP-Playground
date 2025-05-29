@@ -1,12 +1,11 @@
 package com.zeyadgasser.playground.task.detail.viewmodel
 
-import cafe.adriel.voyager.core.model.ScreenModel
 import com.zeyadgasser.playground.architecture.presentation.Result
 import com.zeyadgasser.playground.architecture.presentation.ViewModel
-import com.zeyadgasser.playground.task.sharedpresentation.mapper.TaskPresentationMapper
 import com.zeyadgasser.playground.task.detail.viewmodel.TaskDetailState.InitialState
 import com.zeyadgasser.playground.task.detail.viewmodel.TaskDetailState.SuccessState
 import com.zeyadgasser.playground.task.domain.TaskRepository
+import com.zeyadgasser.playground.task.sharedpresentation.mapper.TaskPresentationMapper
 import kotlinx.coroutines.CoroutineDispatcher
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.flow.Flow
@@ -20,7 +19,7 @@ class TaskDetailViewModel(
     dispatcher: CoroutineDispatcher = Dispatchers.Default,
 ) : ViewModel<TaskDetailInput, Result, TaskDetailState, TaskDetailEffect>(
     initialState, dispatcher = dispatcher
-), ScreenModel {
+) {
 
     override suspend fun resolve(input: TaskDetailInput, state: TaskDetailState): Flow<Result> =
         when (input) {

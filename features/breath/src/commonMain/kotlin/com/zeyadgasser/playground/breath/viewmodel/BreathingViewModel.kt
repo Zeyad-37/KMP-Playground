@@ -2,7 +2,6 @@ package com.zeyadgasser.playground.breath.viewmodel
 
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
-import cafe.adriel.voyager.core.model.ScreenModel
 import com.zeyadgasser.playground.breath.model.BreathingExercise
 import com.zeyadgasser.playground.breath.viewmodel.BreathingCoachScreenState.ExerciseDetail
 import com.zeyadgasser.playground.breath.viewmodel.BreathingCoachScreenState.ExerciseList
@@ -16,7 +15,7 @@ import kotlinx.coroutines.flow.asStateFlow
 import kotlinx.coroutines.flow.update
 import kotlinx.coroutines.launch
 
-class BreathingViewModel : ViewModel(), ScreenModel {
+class BreathingViewModel : ViewModel() {
 
     private val _uiState = MutableStateFlow<BreathingCoachScreenState>(Loading)
     val uiState: StateFlow<BreathingCoachScreenState> = _uiState.asStateFlow()

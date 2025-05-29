@@ -8,7 +8,6 @@ import androidx.compose.runtime.getValue
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.lifecycle.compose.collectAsStateWithLifecycle
-import cafe.adriel.voyager.core.screen.Screen
 import com.zeyadgasser.playground.breath.viewmodel.BreathingCoachScreenState
 import com.zeyadgasser.playground.breath.viewmodel.BreathingCoachScreenState.ExerciseDetail
 import com.zeyadgasser.playground.breath.viewmodel.BreathingCoachScreenState.ExerciseList
@@ -16,18 +15,12 @@ import com.zeyadgasser.playground.breath.viewmodel.BreathingCoachScreenState.Loa
 import com.zeyadgasser.playground.breath.viewmodel.BreathingViewModel
 import org.koin.compose.koinInject
 
-data class BreathingCoachAppScreen(val modifier: Modifier) : Screen {
-    @Composable
-    override fun Content() {
-        BreathingCoachAppStateHolder(modifier = modifier)
-    }
-
-    @Composable
-    fun BreathingCoachAppStateHolder(modifier: Modifier, viewModel: BreathingViewModel = koinInject()) {
+@Composable
+fun BreathingCoachAppStateHolder(modifier: Modifier, viewModel: BreathingViewModel = koinInject()) {
 //        val navigator = LocalNavigator.currentOrThrow
 //        val coroutineScope = rememberCoroutineScope()
 //        val snackBarHostState: SnackbarHostState = remember { SnackbarHostState() }
-        val viewState by viewModel.uiState.collectAsStateWithLifecycle()
+    val viewState by viewModel.uiState.collectAsStateWithLifecycle()
 //        var showDialog by remember { mutableStateOf(false) }
 //        LaunchedEffect(Unit) {
 //            viewModel.effect.collectLatest {
@@ -45,42 +38,41 @@ data class BreathingCoachAppScreen(val modifier: Modifier) : Screen {
 //                    HideDialogEffect -> showDialog = false
 //                }
 //            }
-        BreathingCoachApp(
-            viewState = viewState,
-            onExerciseSelected = { id -> viewModel.selectExercise(id) },
-            onPlayPauseClicked = {
-                // Decide whether to play or pause based on current state
-                val currentScreen: BreathingCoachScreenState = viewState
-                if (currentScreen is ExerciseDetail) {
-                    if (currentScreen.isPlaying) {
-                        viewModel.pauseExercise()
-                    } else {
-                        viewModel.startExercise()
-                    }
+    BreathingCoachApp(
+        viewState = viewState,
+        onExerciseSelected = { id -> viewModel.selectExercise(id) },
+        onPlayPauseClicked = {
+            // Decide whether to play or pause based on current state
+            val currentScreen: BreathingCoachScreenState = viewState
+            if (currentScreen is ExerciseDetail) {
+                if (currentScreen.isPlaying) {
+                    viewModel.pauseExercise()
+                } else {
+                    viewModel.startExercise()
                 }
-            },
-            onStopClicked = { viewModel.stopExercise() },
-            onBackClicked = { viewModel.goBackToList() }
-        )
-    }
-
-    @Composable
-    fun BreathingCoachApp(
-        viewState: BreathingCoachScreenState,
-        onExerciseSelected: (String) -> Unit,
-        onPlayPauseClicked: () -> Unit,
-        onStopClicked: () -> Unit,
-        onBackClicked: () -> Unit,
-        modifier: Modifier = Modifier,
-    ) {
-        Box(modifier = modifier.fillMaxSize()) { // Use Box or other layout as needed
-            when (viewState) {
-                is Loading -> CircularProgressIndicator(modifier = Modifier.align(Alignment.Center))
-                is ExerciseList -> ExerciseListScreen(viewState.exercises, onExerciseSelected)
-                is ExerciseDetail -> ExerciseDetailScreen(
-                    viewState, onPlayPauseClicked, onStopClicked, onBackClicked, modifier,
-                )
             }
+        },
+        onStopClicked = { viewModel.stopExercise() },
+        onBackClicked = { viewModel.goBackToList() }
+    )
+}
+
+@Composable
+fun BreathingCoachApp(
+    viewState: BreathingCoachScreenState,
+    onExerciseSelected: (String) -> Unit,
+    onPlayPauseClicked: () -> Unit,
+    onStopClicked: () -> Unit,
+    onBackClicked: () -> Unit,
+    modifier: Modifier = Modifier,
+) {
+    Box(modifier = modifier.fillMaxSize()) { // Use Box or other layout as needed
+        when (viewState) {
+            is Loading -> CircularProgressIndicator(modifier = Modifier.align(Alignment.Center))
+            is ExerciseList -> ExerciseListScreen(viewState.exercises, onExerciseSelected)
+            is ExerciseDetail -> ExerciseDetailScreen(
+                viewState, onPlayPauseClicked, onStopClicked, onBackClicked, modifier,
+            )
         }
     }
 }

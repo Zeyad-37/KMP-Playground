@@ -86,10 +86,10 @@ kotlin {
             implementation(compose.ui)
             implementation(compose.components.resources)
             implementation(compose.components.uiToolingPreview)
-            implementation(libs.voyager.navigator)
             implementation(libs.kotlinx.coroutines.core)
             implementation(libs.koin.core)
             implementation(libs.koin.compose)
+            implementation(libs.compose.navigation)
         }
 
         commonTest.dependencies {

@@ -1,15 +1,31 @@
 package com.zeyadgasser.playground
 
 import androidx.compose.runtime.Composable
+import androidx.compose.runtime.LaunchedEffect
 import androidx.compose.ui.Modifier
-import cafe.adriel.voyager.navigator.Navigator
-import com.zeyadgasser.playground.breath.ui.BreathingCoachAppScreen
+import androidx.navigation.NavController
+import androidx.navigation.compose.NavHost
+import androidx.navigation.compose.composable
+import androidx.navigation.compose.rememberNavController
+import androidx.navigation.toRoute
+import com.zeyadgasser.playground.breath.ui.BreathingCoachAppStateHolder
 import com.zeyadgasser.playground.sharedui.theme.AppTheme
-import org.jetbrains.compose.ui.tooling.preview.Preview
+import com.zeyadgasser.playground.task.detail.ui.TaskDetailScreenStateHolder
+import com.zeyadgasser.playground.task.list.ui.TasksScreenStateHolder
 
 @Composable
-@Preview
-fun App(modifier: Modifier) {
-//    AppTheme { Navigator(ListScreen(modifier)) }
-    AppTheme { Navigator(BreathingCoachAppScreen(modifier)) }
+fun App(modifier: Modifier, onNavHostReady: suspend (NavController) -> Unit = {}) {
+    AppTheme {
+        val navController = rememberNavController()
+        NavHost(navController = navController, startDestination = TaskList) {
+            composable<BreathingCoachApp> { BreathingCoachAppStateHolder(modifier) }
+            composable<TaskList> { TasksScreenStateHolder(modifier) { navController.navigate(TaskDetail(it)) } }
+            composable<TaskDetail> {
+                TaskDetailScreenStateHolder(it.toRoute<TaskDetail>().taskId) { navController.popBackStack() }
+            }
+        }
+        LaunchedEffect(navController) {
+            onNavHostReady(navController)
+        }
+    }
 }

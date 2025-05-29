@@ -1,6 +1,5 @@
 package com.zeyadgasser.playground.task.list.viewmodel
 
-import cafe.adriel.voyager.core.model.ScreenModel
 import com.zeyadgasser.playground.architecture.presentation.Result
 import com.zeyadgasser.playground.architecture.presentation.ViewModel
 import com.zeyadgasser.playground.task.domain.usecase.CheckTaskUseCase
@@ -26,8 +25,7 @@ class TasksViewModel(
     initialState: TasksState,
     reducer: TasksReducer,
     coroutineDispatcher: CoroutineDispatcher = Dispatchers.Default,
-) : ViewModel<TasksInput, TasksResult, TasksState, TasksEffect>(initialState, reducer, coroutineDispatcher),
-    ScreenModel {
+) : ViewModel<TasksInput, TasksResult, TasksState, TasksEffect>(initialState, reducer, coroutineDispatcher) {
 
     override suspend fun resolve(input: TasksInput, state: TasksState): Flow<Result> =
         when (input) {
