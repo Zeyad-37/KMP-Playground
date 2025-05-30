@@ -1,0 +1,8 @@
+<resources>
+    <string name="routines">Routines</string>
+    <string name="create_routine">Create Routine</string>
+    <string name="add_routine">Add Routine</string>
+    <string name="no_routines_yet">No routines yet!</string>
+    <string name="routine_image_description">Routines Image</string>
+    <string name="create_your_first_routine_motivation_label">Create your first Routine to start organizing your day and achieving your goals.</string>
+</resources>
