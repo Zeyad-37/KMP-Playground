@@ -14,13 +14,8 @@ import platform.Foundation.NSError
 import platform.Foundation.NSFileManager
 import platform.Foundation.NSUserDomainMask
 
-//fun getDatabaseBuilder(): RoomDatabase.Builder<PlaygroundDatabase> {
-//    val dbFilePath = documentDirectory() + "/my_room.db"
-//    return Room.databaseBuilder<PlaygroundDatabase>(name = dbFilePath)
-//}
-
 fun getPersistentDatabase(): PlaygroundDatabase {
-    val dbFilePath = documentDirectory() + "/" + "my_room.db"
+    val dbFilePath = "${documentDirectory()}/playground.db"
     return Room.databaseBuilder<PlaygroundDatabase>(name = dbFilePath)
         .setDriver(BundledSQLiteDriver())
         .build()

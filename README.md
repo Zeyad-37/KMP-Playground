@@ -15,15 +15,14 @@ Learn more about [Kotlin Multiplatform](https://www.jetbrains.com/help/kotlin-mu
 
 TODO:
 - Fix todos
+- Remove database module
+- Fix tests 
+- CI Github Actions
 - Add Screens:
   - Profile 
-  - Sign Up/In (Firebase Auth - Google/Apple/Facebook/Phone/Anonymous)
-  - Forgot password
   - GEN AI
   - Settings (Multiplatform settings)
-  - KYC
-  - 2FA
-- CI Github Actions
-- Web Kobweb
-- Web Wasm*
-
+  - 2FA / Bio security
+  - Forgot password
+  - Sign Up/In (Firebase Auth - Google/Apple/Facebook/Phone/Anonymous)
+- Web Wasm
