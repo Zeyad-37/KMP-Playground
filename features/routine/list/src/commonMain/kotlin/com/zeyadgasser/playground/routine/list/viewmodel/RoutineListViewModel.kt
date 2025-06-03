@@ -7,6 +7,7 @@ import com.zeyadgasser.playground.routine.domain.RoutineRepository
 import com.zeyadgasser.playground.routine.list.viewmodel.RoutineListState.EmptyState
 import com.zeyadgasser.playground.routine.sharedpresentation.RoutinePM
 import com.zeyadgasser.playground.routine.sharedpresentation.RoutinePresentationMapper
+import kotlinx.coroutines.CoroutineDispatcher
 import kotlinx.coroutines.Dispatchers.Default
 import kotlinx.coroutines.flow.Flow
 import kotlinx.coroutines.flow.emitAll
@@ -21,8 +22,9 @@ class RoutineListViewModel(
     private val checkRoutineUseCase: CheckRoutineUseCase,
     initialState: RoutineListState,
     reducer: RoutinesReducer,
+    dispatcher: CoroutineDispatcher = Default,
 ) : ViewModel<RoutineListInput, RoutineListResult, RoutineListState, RoutineListEffect>(
-    initialState, reducer, Default
+    initialState, reducer, dispatcher
 ) {
     override suspend fun resolve(input: RoutineListInput, state: RoutineListState): Flow<Result> =
         when (input) {
@@ -40,7 +42,7 @@ class RoutineListViewModel(
     }.onEmpty { emit(LoadingResult(false)) }
         .onStart { emit(LoadingResult(true)) }
 
-    fun groupIntoCategories(list: List<RoutinePM>): List<CategorisedRoutinePM> =
+    private fun groupIntoCategories(list: List<RoutinePM>): List<CategorisedRoutinePM> =
         list.groupBy { it.category }.toMap()
             .map { (category, articles) -> CategorisedRoutinePM(category, articles) }
 

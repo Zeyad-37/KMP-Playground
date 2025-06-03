@@ -16,8 +16,7 @@ Learn more about [Kotlin Multiplatform](https://www.jetbrains.com/help/kotlin-mu
 TODO:
 - Fix todos
 - Remove database module
-- Fix tests 
-- Add Routine tests
+- Fix tests
 - CI Github Actions
 - Add Screens:
   - Profile 
