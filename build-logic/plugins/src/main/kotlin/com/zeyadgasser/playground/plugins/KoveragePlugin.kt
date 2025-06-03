@@ -9,7 +9,7 @@ import org.gradle.kotlin.dsl.configure
 class KoveragePlugin : Plugin<Project> {
     override fun apply(project: Project): Unit = with(project) {
 //        apply(plugin = "org.jetbrains.kotlinx.kover")
-        pluginManager.apply(libs.findPlugin("kover").get().get().pluginId)
+        pluginManager.apply(libs.findPlugin("koverage").get().get().pluginId)
         extensions.configure(KoverProjectExtension::class) {
             currentProject.sources.includedSourceSets.addAll("main")
             reports {

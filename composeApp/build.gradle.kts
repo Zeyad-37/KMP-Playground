@@ -1,5 +1,6 @@
 @file:OptIn(ExperimentalKotlinGradlePluginApi::class)
 
+import com.diffplug.gradle.spotless.SpotlessExtension
 import dev.mokkery.gradle.mokkery
 import org.jetbrains.compose.desktop.application.dsl.TargetFormat
 import org.jetbrains.kotlin.gradle.ExperimentalKotlinGradlePluginApi
@@ -15,6 +16,7 @@ plugins {
     alias(libs.plugins.sqldelight)
     alias(libs.plugins.mokkery)
     alias(libs.plugins.all.open)
+    alias(libs.plugins.spotless)
 }
 
 kotlin {
@@ -176,5 +178,23 @@ compose.desktop {
             packageName = "com.zeyadgasser.playground"
             packageVersion = "1.0.0"
         }
+    }
+}
+
+configure<SpotlessExtension> {
+    kotlin {
+        target("**/*.kt")
+        targetExclude("$buildDir/**/*.kt")
+        targetExclude("bin/**/*.kt")
+        ktlint().editorConfigOverride(
+            mapOf(
+                "ktlint_standard_filename" to "disabled",
+                "ktlint_standard_function-naming" to "disabled",
+            ),
+        )
+    }
+    kotlinGradle {
+        target("**/*.gradle.kts")
+        ktlint()
     }
 }

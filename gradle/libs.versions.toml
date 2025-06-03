@@ -43,6 +43,7 @@ detekt = "1.23.8"
 kover = "0.9.1"
 runner = "1.6.2"
 core = "1.6.1"
+spotless = "6.25.0"
 
 [libraries]
 androidx-ui-test-junit4-android = { module = "androidx.compose.ui:ui-test-junit4-android", version.ref = "uiTestJunit4Android" }
@@ -141,9 +142,10 @@ mokkery = { id = "dev.mokkery", version.ref = "mokkery" }
 all-open = { id = "org.jetbrains.kotlin.plugin.allopen", version.ref = "kotlin" }
 ktlint = { id = "org.jlleitschuh.gradle.ktlint", version.ref = "ktlint-gradle" }
 detekt = { id = "io.gitlab.arturbosch.detekt", version.ref = "detekt" }
-kover = { id = "org.jetbrains.kotlinx.kover", version.ref = "kover" }
+koverage = { id = "org.jetbrains.kotlinx.kover", version.ref = "kover" }
 android-kotlin-multiplatform-library = { id = "com.android.kotlin.multiplatform.library", version.ref = "agp" }
 room-gradle = { id = "androidx.room:room-gradle-plugin", version.ref = "room" }
+spotless = { id = "com.diffplug.spotless", version.ref = "spotless" }
 
 # Plugins defined by this project
 playground-multiplatform-lib = { id = "playground.multiplatform.lib" }
