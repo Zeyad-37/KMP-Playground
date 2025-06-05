@@ -1,7 +1,7 @@
 package com.zeyadgasser.playground.routine.list.viewmodel
 
-import com.zeyadgasser.playground.architecture.presentation.ViewModel
 import com.zeyadgasser.playground.architecture.presentation.Result
+import com.zeyadgasser.playground.architecture.presentation.ViewModel
 import com.zeyadgasser.playground.routine.domain.CheckRoutineUseCase
 import com.zeyadgasser.playground.routine.domain.RoutineRepository
 import com.zeyadgasser.playground.routine.list.viewmodel.RoutineListState.EmptyState
@@ -15,6 +15,11 @@ import kotlinx.coroutines.flow.flow
 import kotlinx.coroutines.flow.flowOf
 import kotlinx.coroutines.flow.onEmpty
 import kotlinx.coroutines.flow.onStart
+import kotlinx.datetime.Clock
+import kotlinx.datetime.TimeZone
+import kotlinx.datetime.format
+import kotlinx.datetime.format.DateTimeFormat
+import kotlinx.datetime.toLocalDateTime
 
 class RoutineListViewModel(
     private val repository: RoutineRepository,
@@ -30,7 +35,7 @@ class RoutineListViewModel(
         when (input) {
             LoadRoutineListInput -> onLoadRoutine()
             CreateRoutineInput -> flowOf(GoToCreateRoutineEffect)
-            is RoutineCheckedInput -> flowOf(ShowRoutineRatingDialogEffect(input.routine))
+            is RoutineCheckedInput -> flowOf(ShowRatingDialogEffect(input.routine))
             is RoutineClickedInput -> flowOf(GoToRoutineDetailsEffect(input.routine.id))
             is RoutineRatedInput -> onRoutineRatedInput(input.routine, input.rating)
             HideDialogInput -> flowOf(HideDialogEffect)
@@ -38,9 +43,17 @@ class RoutineListViewModel(
 
     private fun onLoadRoutine(): Flow<Result> = flow<Result> {
         val routine = taskPresentationMapper.toPresentationList(repository.getAllRoutines())
-        emit(if (routine.isNotEmpty()) LoadRoutineListResult(groupIntoCategories(routine)) else EmptyState)
-    }.onEmpty { emit(LoadingResult(false)) }
-        .onStart { emit(LoadingResult(true)) }
+        emit(
+            if (routine.isNotEmpty())
+                LoadRoutineListResult(groupIntoCategories(routine), getCurrentDate())
+            else EmptyState
+        )
+    }.onEmpty { emit(LoadingResult(false)) }.onStart { emit(LoadingResult(true)) }
+
+    private fun getCurrentDate(): String {
+        val time = Clock.System.now().toLocalDateTime(TimeZone.currentSystemDefault())
+        return "Today, ${time.date.dayOfMonth}, ${time.date.month.name}, ${time.date.year}"
+    }
 
     private fun groupIntoCategories(list: List<RoutinePM>): List<CategorisedRoutinePM> =
         list.groupBy { it.category }.toMap()
@@ -49,7 +62,12 @@ class RoutineListViewModel(
     private fun onRoutineRatedInput(routine: RoutinePM, rating: Int): Flow<Result> = flow {
         emit(LoadingResult(true))
         checkRoutineUseCase.invoke(taskPresentationMapper.fromPresentation(routine.copy(rating = rating)))
-            .let { pair -> if (pair.first.success) emitAll(onLoadRoutine()) }
+            .let { pair ->
+                if (pair.first.success) {
+                    emit(HideDialogEffect)
+                    emitAll(onLoadRoutine())
+                }
+            }
         emit(LoadingResult(false))
     }
 }

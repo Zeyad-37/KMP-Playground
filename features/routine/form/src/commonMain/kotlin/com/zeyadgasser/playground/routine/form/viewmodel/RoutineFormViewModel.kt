@@ -24,7 +24,7 @@ class RoutineFormViewModel(
     override suspend fun resolve(input: RoutineFormInput, state: RoutineFormState): Flow<Result> =
         when (input) {
             CloseRoutineFormInput -> flowOf(CloseCreateRoutineEffect)
-            is SubmitRoutineInput -> onSubmitRoutineInput(input.form)
+            is SubmitRoutineInput -> onSubmitRoutineInput(input.form, input.routineId)
             is ValidateFormInput -> onValidateFormInput(input.form)
             is ShowTimePickerInput -> flowOf(ShowTimePickerEffect(input.isStart))
             is TimePickedInput -> onTimePickedInput(input, state)
@@ -52,8 +52,8 @@ class RoutineFormViewModel(
         val nameValidation = if (form.routineName.isBlank()) "Name is required" else null
         val typeValidation = if (form.routineType.isBlank()) "Type is required" else null
         val categoryValidation = if (form.routineCategory.isBlank()) "Category is required" else null
-//        val startValidation = if (form.startTime.isBlank()) "Start time is required" else null
-//        val endValidation = if (form.endTime.isBlank()) "End time is required" else null
+        val startValidation = if (form.startTime.isBlank()) "Start time is required" else null
+        val endValidation = if (form.endTime.isBlank()) "End time is required" else null
         val descriptionValidation = if (form.description.isBlank()) "Description time is required" else null
         if (nameValidation != null || typeValidation != null || descriptionValidation != null)
             emit(
@@ -62,8 +62,8 @@ class RoutineFormViewModel(
                         nameValidation,
                         typeValidation,
                         categoryValidation,
-                        /*startValidation,
-                        endValidation,*/
+                        startValidation,
+                        endValidation,
                         descriptionValidation
                     ), form
                 )
@@ -71,7 +71,7 @@ class RoutineFormViewModel(
         else emit(ReadyToSubmitState(form))
     }
 
-    private fun onSubmitRoutineInput(form: RoutineForm): Flow<Result> = flow {
+    private fun onSubmitRoutineInput(form: RoutineForm, id: Long?): Flow<Result> = flow {
         // TODO Add notifications if reminders are enabled
         if (form.routineName.isBlank() || form.routineType.isBlank() || form.description.isBlank())
             emitAll(onValidateFormInput(form))
@@ -84,6 +84,7 @@ class RoutineFormViewModel(
                     endTime = endTime,
                     description = description,
                     category = routineCategory,
+                    id = id ?: 0,
                 )
             })
             emit(CloseCreateRoutineEffect)

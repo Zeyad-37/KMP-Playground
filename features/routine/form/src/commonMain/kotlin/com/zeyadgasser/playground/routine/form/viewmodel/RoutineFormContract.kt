@@ -6,7 +6,7 @@ import com.zeyadgasser.playground.architecture.presentation.State
 import com.zeyadgasser.playground.routine.domain.model.Routine
 
 sealed class RoutineFormInput : Input
-data class SubmitRoutineInput(val form: RoutineForm) : RoutineFormInput()
+data class SubmitRoutineInput(val form: RoutineForm, val routineId: Long?) : RoutineFormInput()
 data object CloseRoutineFormInput : RoutineFormInput()
 data class ValidateFormInput(val form: RoutineForm) : RoutineFormInput()
 data class ShowTimePickerInput(val isStart: Boolean) : RoutineFormInput()
@@ -49,10 +49,10 @@ data class RoutineForm(
 }
 
 data class RoutineFormValidation(
-    val routineNameValidationErrorMessage: String?,
-    val routineTypeValidationErrorMessage: String?,
-    val routineCategoryValidationErrorMessage: String?,
-//    val startTimeValidationErrorMessage: String?,
-//    val endTimeValidationErrorMessage: String?,
+    val nameValidationErrorMessage: String?,
+    val typeValidationErrorMessage: String?,
+    val categoryValidationErrorMessage: String?,
+    val startTimeValidationErrorMessage: String?,
+    val endTimeValidationErrorMessage: String?,
     val descriptionValidationErrorMessage: String?,
 )
