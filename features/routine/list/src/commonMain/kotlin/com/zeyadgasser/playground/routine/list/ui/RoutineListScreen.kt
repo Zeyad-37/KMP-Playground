@@ -124,9 +124,7 @@ private fun RoutineListScreenContent(
             is ErrorState -> ErrorScreen(state.message)
             EmptyState -> EmptyRoutineScreen(Modifier.padding(innerPadding)) { process(it) }
             is SuccessState ->
-                RoutineList(
-                    Modifier.padding(innerPadding),
-                    state.date,
+                RoutineList(Modifier.padding(innerPadding), state.date,
                     state.routine,
                     listState
                 ) { process(it) }
