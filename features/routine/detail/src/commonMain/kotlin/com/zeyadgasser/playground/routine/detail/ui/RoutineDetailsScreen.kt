@@ -2,6 +2,7 @@ package com.zeyadgasser.playground.routine.detail.ui
 
 import androidx.compose.foundation.background
 import androidx.compose.foundation.clickable
+import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.Row
 import androidx.compose.foundation.layout.Spacer
@@ -14,6 +15,8 @@ import androidx.compose.foundation.layout.width
 import androidx.compose.foundation.rememberScrollState
 import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.foundation.verticalScroll
+import androidx.compose.material.icons.Icons
+import androidx.compose.material.icons.automirrored.filled.ArrowBack
 import androidx.compose.material3.ExperimentalMaterial3Api
 import androidx.compose.material3.Icon
 import androidx.compose.material3.IconButton
@@ -39,6 +42,16 @@ import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import androidx.lifecycle.compose.collectAsStateWithLifecycle
 import com.zeyadgasser.playground.architecture.presentation.Input
+import com.zeyadgasser.playground.routine.detail.resources.Res
+import com.zeyadgasser.playground.routine.detail.resources.back
+import com.zeyadgasser.playground.routine.detail.resources.delete_routine
+import com.zeyadgasser.playground.routine.detail.resources.edit
+import com.zeyadgasser.playground.routine.detail.resources.ic_delete
+import com.zeyadgasser.playground.routine.detail.resources.ic_edit
+import com.zeyadgasser.playground.routine.detail.resources.last_7_days
+import com.zeyadgasser.playground.routine.detail.resources.options
+import com.zeyadgasser.playground.routine.detail.resources.performance
+import com.zeyadgasser.playground.routine.detail.resources.routine_details
 import com.zeyadgasser.playground.routine.detail.viewmodel.DeleteRoutineDetailInput
 import com.zeyadgasser.playground.routine.detail.viewmodel.EditRoutineDetailInput
 import com.zeyadgasser.playground.routine.detail.viewmodel.ErrorEffect
@@ -49,16 +62,7 @@ import com.zeyadgasser.playground.routine.detail.viewmodel.RoutineDetailState
 import com.zeyadgasser.playground.routine.detail.viewmodel.RoutineDetailState.InitialState
 import com.zeyadgasser.playground.routine.detail.viewmodel.RoutineDetailState.SuccessState
 import com.zeyadgasser.playground.routine.detail.viewmodel.RoutineDetailViewModel
-import kmpplayground.features.routine.detail.generated.resources.Res
-import kmpplayground.features.routine.detail.generated.resources.back
-import kmpplayground.features.routine.detail.generated.resources.delete_routine
-import kmpplayground.features.routine.detail.generated.resources.edit
-import kmpplayground.features.routine.detail.generated.resources.ic_arrow_back
-import kmpplayground.features.routine.detail.generated.resources.ic_delete
-import kmpplayground.features.routine.detail.generated.resources.last_7_days
-import kmpplayground.features.routine.detail.generated.resources.options
-import kmpplayground.features.routine.detail.generated.resources.performance
-import kmpplayground.features.routine.detail.generated.resources.routine_details
+import com.zeyadgasser.playground.routine.sharedpresentation.RoutinePM
 import kotlinx.coroutines.flow.collectLatest
 import kotlinx.coroutines.launch
 import org.jetbrains.compose.resources.painterResource
@@ -111,7 +115,7 @@ fun RoutineDetailsContent(
                 navigationIcon = {
                     IconButton(onClick = { process(GoBackInput) }) {
                         Icon(
-                            painter = painterResource(Res.drawable.ic_arrow_back),
+                            imageVector = Icons.AutoMirrored.Filled.ArrowBack,
                             contentDescription = stringResource(Res.string.back)
                         )
                     }
@@ -138,11 +142,8 @@ fun RoutineDetailsContent(
             when (state) {
                 InitialState -> process(LoadRoutineDetailInput(routineId))
                 is SuccessState -> {
-                    // Routine Title and Description
-                    RoutineInfoSection()
-                    // Performance Section
-                    PerformanceSection()
-                    // Options Section
+                    RoutineInfoSection(state.routine)
+                    PerformanceSection(state.routine)
                     OptionsSection { process(it) }
                 }
             }
@@ -151,16 +152,16 @@ fun RoutineDetailsContent(
 }
 
 @Composable
-fun RoutineInfoSection() {
+fun RoutineInfoSection(routine: RoutinePM) {
     Column(modifier = Modifier.padding(16.dp)) {
         Text(
-            text = "Morning Run",
+            text = routine.name,
             fontWeight = FontWeight.Bold,
             fontSize = 24.sp
         )
         Spacer(modifier = Modifier.height(8.dp))
         Text(
-            text = "A 30-minute run around the neighborhood to kickstart the day.",
+            text = routine.description,
             fontSize = 16.sp,
             color = Color.Gray
         )
@@ -168,7 +169,7 @@ fun RoutineInfoSection() {
 }
 
 @Composable
-fun PerformanceSection() {
+fun PerformanceSection(routine: RoutinePM) {
     Column(modifier = Modifier.padding(16.dp)) {
         // Header
         Text(
@@ -224,26 +225,49 @@ fun OptionsSection(process: (Input) -> Unit) {
         Spacer(modifier = Modifier.height(16.dp))
 
         // Delete Routine Button
-        Row(
-            verticalAlignment = Alignment.CenterVertically,
-            modifier = Modifier
-                .clip(RoundedCornerShape(8.dp))
-                .background(Color.LightGray.copy(alpha = 0.2f))
-                .clickable { process(DeleteRoutineDetailInput) }
-                .padding(8.dp)
-        ) {
-            Icon(
-                painter = painterResource(Res.drawable.ic_delete),
-                contentDescription = stringResource(Res.string.delete_routine),
-                tint = Color.Gray,
-                modifier = Modifier.size(24.dp)
-            )
-            Spacer(modifier = Modifier.width(8.dp))
-            Text(
-                text = stringResource(Res.string.delete_routine),
-                fontSize = 16.sp,
-                color = Color.Gray
-            )
+        Row(Modifier.fillMaxWidth(), horizontalArrangement = Arrangement.spacedBy(8.dp)) {
+            Row(
+                verticalAlignment = Alignment.CenterVertically,
+                modifier = Modifier
+                    .clip(RoundedCornerShape(8.dp))
+                    .background(Color.LightGray.copy(alpha = 0.2f))
+                    .clickable { process(DeleteRoutineDetailInput) }
+                    .padding(8.dp)
+            ) {
+                Icon(
+                    painter = painterResource(Res.drawable.ic_delete),
+                    contentDescription = stringResource(Res.string.delete_routine),
+                    tint = Color.Gray,
+                    modifier = Modifier.size(24.dp)
+                )
+                Spacer(modifier = Modifier.width(8.dp))
+                Text(
+                    text = stringResource(Res.string.delete_routine),
+                    fontSize = 16.sp,
+                    color = Color.Black
+                )
+            }
+            Row(
+                verticalAlignment = Alignment.CenterVertically,
+                modifier = Modifier
+                    .clip(RoundedCornerShape(8.dp))
+                    .background(Color.LightGray.copy(alpha = 0.2f))
+                    .clickable { process(EditRoutineDetailInput) }
+                    .padding(8.dp)
+            ) {
+                Icon(
+                    painter = painterResource(Res.drawable.ic_edit),
+                    contentDescription = stringResource(Res.string.edit),
+                    tint = Color.Gray,
+                    modifier = Modifier.size(24.dp)
+                )
+                Spacer(modifier = Modifier.width(8.dp))
+                Text(
+                    text = stringResource(Res.string.edit),
+                    fontSize = 16.sp,
+                    color = Color.Black
+                )
+            }
         }
     }
 }

@@ -23,7 +23,7 @@ import com.zeyadgasser.playground.routine.list.viewmodel.RoutineListState.Succes
 import com.zeyadgasser.playground.routine.list.viewmodel.RoutineListViewModel
 import com.zeyadgasser.playground.routine.list.viewmodel.RoutineRatedInput
 import com.zeyadgasser.playground.routine.list.viewmodel.RoutinesReducer
-import com.zeyadgasser.playground.routine.list.viewmodel.ShowRoutineRatingDialogEffect
+import com.zeyadgasser.playground.routine.list.viewmodel.ShowRatingDialogEffect
 import com.zeyadgasser.playground.routine.sharedpresentation.RoutinePM
 import com.zeyadgasser.playground.routine.sharedpresentation.RoutinePresentationMapper
 import dev.mokkery.answering.returns
@@ -245,7 +245,7 @@ class RoutineListViewModelTest {
         val input = RoutineCheckedInput(routinePM_Health_1)
         viewModel.process(input)
         viewModel.effect.test {
-            assertEquals(ShowRoutineRatingDialogEffect(routinePM_Health_1), awaitItem())
+            assertEquals(ShowRatingDialogEffect(routinePM_Health_1), awaitItem())
             expectNoEvents()
         }
         viewModel.state.test { assertEquals(initialViewState, expectMostRecentItem()) }

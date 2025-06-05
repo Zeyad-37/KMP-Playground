@@ -14,6 +14,7 @@ androidx-test-junit = "1.2.1"
 coilCompose = "3.1.0"
 compose-multiplatform = "1.8.1"
 coroutinesExtensions = "1.5.5"
+datetimeWheelPicker = "1.0.8"
 firebase = "2.1.0"
 junit = "4.13.2"
 kotlin = "2.1.0"
@@ -50,6 +51,7 @@ androidx-ui-test-manifest = { module = "androidx.compose.ui:ui-test-manifest", v
 coil-compose = { module = "io.coil-kt.coil3:coil-compose", version.ref = "coilCompose" }
 coil-network-okhttp = { module = "io.coil-kt.coil3:coil-network-okhttp", version.ref = "coilCompose" }
 
+datetime-wheel-picker = { module = "network.chaintech:kmp-date-time-picker", version.ref = "datetimeWheelPicker" }
 firebase-auth = { module = "dev.gitlive:firebase-auth", version.ref = "firebase" }
 kotlin-test = { module = "org.jetbrains.kotlin:kotlin-test", version.ref = "kotlin" }
 kotlin-test-common = { module = "org.jetbrains.kotlin:kotlin-test-common", version.ref = "kotlin" }

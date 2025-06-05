@@ -216,9 +216,9 @@ class RoutineFormViewModelTest {
     fun `process ValidateFormInput with invalid form emits ValidationErrorState`() = runTest(testDispatcher) {
         setupViewModel(initialState = InitialState)
         val expectedValidation = RoutineFormValidation(
-            routineNameValidationErrorMessage = "Name is required",
-            routineTypeValidationErrorMessage = null,
-            routineCategoryValidationErrorMessage = null,
+            nameValidationErrorMessage = "Name is required",
+            typeValidationErrorMessage = null,
+            categoryValidationErrorMessage = null,
             descriptionValidationErrorMessage = null
         )
 
@@ -237,7 +237,7 @@ class RoutineFormViewModelTest {
             // Repository call doesn't return anything significant for this path in VM
             everySuspend { routineRepository.insertReplaceRoutine(any()) } returns Unit // Assuming Long or Unit return
 
-            viewModel.process(SubmitRoutineInput(validRoutineForm))
+            viewModel.process(SubmitRoutineInput(validRoutineForm, routineId))
 
             viewModel.effect.test {
                 assertEquals(CloseCreateRoutineEffect, awaitItem())
@@ -264,13 +264,13 @@ class RoutineFormViewModelTest {
         runTest(testDispatcher) {
             setupViewModel(initialState = InitialState)
             val expectedValidation = RoutineFormValidation(
-                routineNameValidationErrorMessage = "Name is required",
-                routineTypeValidationErrorMessage = null,
-                routineCategoryValidationErrorMessage = null,
+                nameValidationErrorMessage = "Name is required",
+                typeValidationErrorMessage = null,
+                categoryValidationErrorMessage = null,
                 descriptionValidationErrorMessage = null
             )
 
-            viewModel.process(SubmitRoutineInput(invalidRoutineForm_BlankName))
+            viewModel.process(SubmitRoutineInput(invalidRoutineForm_BlankName, routineId))
 
             viewModel.state.test {
                 assertEquals(InitialState, awaitItem())
@@ -292,7 +292,7 @@ class RoutineFormViewModelTest {
         everySuspend { routineRepository.insertReplaceRoutine(any()) } throws exception
 
         val thrown = assertFailsWith<RuntimeException> {
-            viewModel.process(SubmitRoutineInput(validRoutineForm))
+            viewModel.process(SubmitRoutineInput(validRoutineForm, routineId))
             testDispatcher.scheduler.advanceUntilIdle() // Ensure flow execution
         }
         assertEquals(exception, thrown)

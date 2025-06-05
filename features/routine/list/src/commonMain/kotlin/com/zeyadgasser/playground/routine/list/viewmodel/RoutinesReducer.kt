@@ -13,30 +13,31 @@ object RoutinesReducer : Reducer<RoutineListResult, RoutineListState> {
             is InitialState -> when (result) {
                 is ErrorResult -> errorState(result.message, state.isLoading)
                 is LoadingResult -> state.copy(isLoading = result.isLoading)
-                is LoadRoutineListResult -> createSuccessState(result.routine, state.isLoading)
+                is LoadRoutineListResult -> createSuccessState(result.routine, result.date, state.isLoading)
             }
 
             is ErrorState -> when (result) {
                 is ErrorResult -> state.copy(message = result.message, state.isLoading)
                 is LoadingResult -> state.copy(isLoading = result.isLoading)
-                is LoadRoutineListResult -> createSuccessState(result.routine, state.isLoading)
+                is LoadRoutineListResult -> createSuccessState(result.routine, result.date, state.isLoading)
             }
 
             is SuccessState -> when (result) {
                 is ErrorResult -> errorState(result.message, state.isLoading)
                 is LoadingResult -> state.copy(isLoading = result.isLoading)
-                is LoadRoutineListResult -> createSuccessState(result.routine, state.isLoading)
+                is LoadRoutineListResult -> createSuccessState(result.routine, result.date, state.isLoading)
             }
 
             EmptyState -> when (result) {
                 is ErrorResult -> errorState(result.message, state.isLoading)
                 is LoadingResult -> EmptyState
-                is LoadRoutineListResult -> createSuccessState(result.routine, state.isLoading)
+                is LoadRoutineListResult -> createSuccessState(result.routine, result.date, state.isLoading)
             }
         }
 
     private fun errorState(message: String, isLoading: Boolean) = ErrorState(message, isLoading)
 
-    private fun createSuccessState(allRoutine: List<CategorisedRoutinePM>, isLoading: Boolean) =
-        SuccessState(allRoutine, isLoading)
+    private fun createSuccessState(
+        allRoutine: List<CategorisedRoutinePM>, date: String, isLoading: Boolean,
+    ) = SuccessState(allRoutine, date, isLoading)
 }
