@@ -15,7 +15,10 @@ data class RoutineRatedInput(val routine: RoutinePM, val rating: Int) : RoutineL
 data object HideDialogInput : RoutineListInput()
 
 sealed class RoutineListResult : Result
-data class LoadRoutineListResult(val routine: List<CategorisedRoutinePM>) : RoutineListResult()
+data class LoadRoutineListResult(
+    val routine: List<CategorisedRoutinePM>, val date: String,
+) : RoutineListResult()
+
 data class ErrorResult(val message: String) : RoutineListResult()
 data class LoadingResult(val isLoading: Boolean) : RoutineListResult()
 
@@ -23,7 +26,7 @@ sealed class RoutineListEffect : Effect
 data class GoToRoutineDetailsEffect(val routineId: Long) : RoutineListEffect()
 data object GoToCreateRoutineEffect : RoutineListEffect()
 data object HideDialogEffect : RoutineListEffect()
-data class ShowRoutineRatingDialogEffect(val routine: RoutinePM) : RoutineListEffect()
+data class ShowRatingDialogEffect(val routine: RoutinePM) : RoutineListEffect()
 
 sealed class RoutineListState(
     open val isLoading: Boolean, open val routine: List<CategorisedRoutinePM>,
@@ -36,7 +39,7 @@ sealed class RoutineListState(
     ) : RoutineListState(isLoading, emptyList())
 
     data class SuccessState(
-        override val routine: List<CategorisedRoutinePM>, override val isLoading: Boolean,
+        override val routine: List<CategorisedRoutinePM>, val date: String, override val isLoading: Boolean,
     ) : RoutineListState(isLoading, routine)
 }
 

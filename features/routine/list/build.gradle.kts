@@ -21,6 +21,7 @@ kotlin {
                 implementation(project(":features:routine:sharedPresentation"))
                 implementation(project(":core:architecture"))
                 implementation(project(":core:sharedUI"))
+                implementation(libs.kotlinx.datetime)
             }
         }
 
@@ -52,7 +53,7 @@ kotlin {
 
 compose.resources {
 //    publicResClass = false
-    packageOfResClass = "com.zeyadgasser.playground.routine.resources"
+    packageOfResClass = "com.zeyadgasser.playground.routine.list.resources"
     generateResClass = auto
 }
 

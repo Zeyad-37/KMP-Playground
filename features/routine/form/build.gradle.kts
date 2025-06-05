@@ -21,6 +21,7 @@ kotlin {
                 implementation(project(":features:routine:sharedPresentation"))
                 implementation(project(":core:architecture"))
                 implementation(project(":core:sharedUI"))
+                implementation(libs.datetime.wheel.picker)
             }
         }
 
@@ -49,3 +50,10 @@ kotlin {
         }
     }
 }
+
+compose.resources {
+//    publicResClass = false
+    packageOfResClass = "com.zeyadgasser.playground.routine.form.resources"
+    generateResClass = auto
+}
+

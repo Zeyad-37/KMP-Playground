@@ -20,12 +20,12 @@ import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import com.zeyadgasser.playground.routine.list.viewmodel.CreateRoutineInput
 import com.zeyadgasser.playground.routine.list.viewmodel.RoutineListInput
-import com.zeyadgasser.playground.routine.resources.Res
-import com.zeyadgasser.playground.routine.resources.add_icon
-import com.zeyadgasser.playground.routine.resources.create_routine
-import com.zeyadgasser.playground.routine.resources.create_your_first_routine_motivation_label
-import com.zeyadgasser.playground.routine.resources.no_routines_yet
-import com.zeyadgasser.playground.routine.resources.routine_image_description
+import com.zeyadgasser.playground.routine.list.resources.Res
+import com.zeyadgasser.playground.routine.list.resources.add_icon
+import com.zeyadgasser.playground.routine.list.resources.create_routine
+import com.zeyadgasser.playground.routine.list.resources.create_your_first_routine_motivation_label
+import com.zeyadgasser.playground.routine.list.resources.no_routines_yet
+import com.zeyadgasser.playground.routine.list.resources.routine_image_description
 import org.jetbrains.compose.resources.painterResource
 import org.jetbrains.compose.resources.stringResource
 
