@@ -1,6 +1,9 @@
 package com.zeyadgasser.playground.routine.list.viewmodel
 
+import com.zeyadgasser.playground.architecture.presentation.Input
+import com.zeyadgasser.playground.architecture.presentation.InputHandler
 import com.zeyadgasser.playground.architecture.presentation.Result
+import com.zeyadgasser.playground.architecture.presentation.State
 import com.zeyadgasser.playground.architecture.presentation.ViewModel
 import com.zeyadgasser.playground.routine.domain.CheckRoutineUseCase
 import com.zeyadgasser.playground.routine.domain.RoutineRepository
@@ -20,6 +23,7 @@ import kotlinx.datetime.TimeZone
 import kotlinx.datetime.format
 import kotlinx.datetime.format.DateTimeFormat
 import kotlinx.datetime.toLocalDateTime
+import kotlin.reflect.KClass
 
 class RoutineListViewModel(
     private val repository: RoutineRepository,
@@ -27,12 +31,13 @@ class RoutineListViewModel(
     private val checkRoutineUseCase: CheckRoutineUseCase,
     initialState: RoutineListState,
     reducer: RoutinesReducer,
-    dispatcher: CoroutineDispatcher = Default,
+    val inputHandlers: Map<KClass<RoutineListInput>, InputHandler<RoutineListInput, State>>,
+//    dispatcher: CoroutineDispatcher = Default,
 ) : ViewModel<RoutineListInput, RoutineListResult, RoutineListState, RoutineListEffect>(
-    initialState, reducer, dispatcher
+    initialState, reducer, Default
 ) {
     override suspend fun resolve(input: RoutineListInput, state: RoutineListState): Flow<Result> =
-        when (input) {
+        inputHandlers[input::class]?.invoke(input, state) ?: when (input) {
             LoadRoutineListInput -> onLoadRoutine()
             CreateRoutineInput -> flowOf(GoToCreateRoutineEffect)
             is RoutineCheckedInput -> flowOf(ShowRatingDialogEffect(input.routine))
