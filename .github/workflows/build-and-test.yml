@@ -1,0 +1,72 @@
+# Name of the CI/CD workflow, which will be displayed in the "Actions" tab on GitHub.
+name: Build and Test
+
+# --- TRIGGERS ---
+# This section defines when the workflow should run.
+on:
+  # 1. On push events to the 'main' branch.
+  push:
+    branches: [ "main" ]
+  # 2. On pull request events targeting the 'main' branch.
+  pull_request:
+    branches: [ "main" ]
+
+jobs:
+  # This is the main job that will run the builds and tests.
+  build:
+    # --- MATRIX STRATEGY ---
+    # This strategy creates a matrix of configurations, running the job multiple times
+    # for each combination of OS and Java version.
+    strategy:
+      # Allows all jobs in the matrix to complete, even if one fails.
+      fail-fast: false
+      matrix:
+        # Define the operating systems to run on.
+        # - ubuntu-latest: For Android and common tests.
+        # - macos-latest: Required for iOS builds.
+        # - windows-latest: For Desktop builds.
+        os: [ ubuntu-latest, macos-latest, windows-latest ]
+        # Define the Java version to be used. KMP is compatible with Java 17.
+        java-version: [ 17 ]
+
+    # The type of runner that the job will run on, taken from the matrix.
+    runs-on: ${{ matrix.os }}
+
+    steps:
+      # --- SETUP ---
+      # Step 1: Check out the repository's code so the workflow can access it.
+      - name: Checkout code
+        uses: actions/checkout@v4
+
+      # Step 2: Set up the specified version of Java (JDK).
+      - name: Set up JDK ${{ matrix.java-version }}
+        uses: actions/setup-java@v4
+        with:
+          distribution: 'temurin' # Eclipse Temurin is a popular and reliable distribution.
+          java-version: ${{ matrix.java-version }}
+
+      # Step 3: Configure Gradle caching to speed up subsequent builds.
+      # This step caches Gradle dependencies and wrappers to avoid re-downloading them every time.
+      - name: Setup Gradle Cache
+        uses: actions/cache@v4
+        with:
+          path: |
+            ~/.konan
+            ~/.gradle/caches
+            ~/.gradle/wrapper
+          key: ${{ runner.os }}-gradle-${{ hashFiles('**/*.gradle*', '**/gradle-wrapper.properties') }}
+          restore-keys: |
+            ${{ runner.os }}-gradle-
+
+      # --- VALIDATION ---
+      # Step 4: Run the main validation task.
+      # The `./gradlew check` command typically aggregates all test tasks for all targets
+      # (common, jvm, android, native) and runs them.
+      - name: Run Tests
+        run: ./gradlew check
+
+      # Step 5: Build all platform-specific artifacts.
+      # This ensures that the application code for each target compiles successfully.
+      # The `build` task aggregates all platform-specific build tasks.
+      - name: Build All Artifacts
+        run: ./gradlew build
