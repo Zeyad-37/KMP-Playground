@@ -36,6 +36,7 @@ class ComposeMultiplatformPlugin : Plugin<Project> {
                     implementation(compose.animation)
                     implementation(compose.ui)
                     implementation(compose.components.resources)
+                    implementation(compose.materialIconsExtended)
                     implementation(compose.components.uiToolingPreview)
                     api(compose.materialIconsExtended)
                 }
