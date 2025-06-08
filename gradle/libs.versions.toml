@@ -44,6 +44,10 @@ detekt = "1.23.8"
 kover = "0.9.1"
 runner = "1.6.2"
 core = "1.6.1"
+composeBom = "2024.09.00"
+tvFoundation = "1.0.0-alpha07"
+tvMaterial = "1.0.0-alpha07"
+lifecycleRuntimeKtx = "2.8.7"
 spotless = "6.25.0"
 
 [libraries]
@@ -128,6 +132,15 @@ detekt_test = { module = "io.gitlab.arturbosch.detekt:detekt-test", version.ref 
 kotlin-stdlib = { group = "org.jetbrains.kotlin", name = "kotlin-stdlib", version.ref = "kotlin" }
 androidx-runner = { group = "androidx.test", name = "runner", version.ref = "runner" }
 androidx-core = { group = "androidx.test", name = "core", version.ref = "core" }
+androidx-compose-bom = { group = "androidx.compose", name = "compose-bom", version.ref = "composeBom" }
+androidx-ui = { group = "androidx.compose.ui", name = "ui" }
+androidx-ui-graphics = { group = "androidx.compose.ui", name = "ui-graphics" }
+androidx-ui-tooling = { group = "androidx.compose.ui", name = "ui-tooling" }
+androidx-ui-tooling-preview = { group = "androidx.compose.ui", name = "ui-tooling-preview" }
+androidx-ui-test-junit4 = { group = "androidx.compose.ui", name = "ui-test-junit4" }
+androidx-tv-foundation = { group = "androidx.tv", name = "tv-foundation", version.ref = "tvFoundation" }
+androidx-tv-material = { group = "androidx.tv", name = "tv-material", version.ref = "tvMaterial" }
+androidx-lifecycle-runtime-ktx = { group = "androidx.lifecycle", name = "lifecycle-runtime-ktx", version.ref = "lifecycleRuntimeKtx" }
 
 # Dependencies of the included build-logic
 ksp-gradlePlugin = { group = "com.google.devtools.ksp", name = "com.google.devtools.ksp.gradle.plugin", version.ref = "ksp" }
@@ -164,3 +177,4 @@ playground-networking = { id = "playground.networking" }
 playground-navigation = { id = "playground.navigation" }
 playground-koverage = { id = "playground.koverage" }
 playground-git-hooks = { id = "playground.git.hooks" }
+kotlin-android = { id = "org.jetbrains.kotlin.android", version.ref = "kotlin" }
