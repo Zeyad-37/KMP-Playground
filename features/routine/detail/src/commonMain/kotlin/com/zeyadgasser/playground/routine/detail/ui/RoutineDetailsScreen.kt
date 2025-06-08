@@ -1,5 +1,7 @@
 package com.zeyadgasser.playground.routine.detail.ui
 
+import androidx.compose.animation.core.EaseInOutCubic
+import androidx.compose.animation.core.tween
 import androidx.compose.foundation.background
 import androidx.compose.foundation.clickable
 import androidx.compose.foundation.layout.Arrangement
@@ -38,6 +40,7 @@ import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.clip
 import androidx.compose.ui.graphics.Color
+import androidx.compose.ui.graphics.SolidColor
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.unit.dp
@@ -55,6 +58,12 @@ import com.zeyadgasser.playground.routine.detail.viewmodel.RoutineDetailState.In
 import com.zeyadgasser.playground.routine.detail.viewmodel.RoutineDetailState.SuccessState
 import com.zeyadgasser.playground.routine.detail.viewmodel.RoutineDetailViewModel
 import com.zeyadgasser.playground.routine.sharedpresentation.RoutinePM
+import ir.ehsannarmani.compose_charts.LineChart
+import ir.ehsannarmani.compose_charts.models.AnimationMode
+import ir.ehsannarmani.compose_charts.models.DrawStyle
+import ir.ehsannarmani.compose_charts.models.Line
+import ir.ehsannarmani.compose_charts.models.StrokeStyle
+import ir.ehsannarmani.compose_charts.models.ZeroLineProperties
 import kotlinx.coroutines.flow.collectLatest
 import kotlinx.coroutines.launch
 import org.jetbrains.compose.ui.tooling.preview.Preview
@@ -205,6 +214,36 @@ fun PerformanceSection(routine: RoutinePM) {
         }
         Spacer(modifier = Modifier.height(16.dp))
         // TODO Line Chart
+        LineChart(
+            modifier = Modifier.fillMaxWidth().padding(22.dp),
+            data = remember {
+                listOf(
+                    Line(
+                        label = "Windows",
+                        values = listOf(28.0, 41.0, 5.0, 10.0, 35.0),
+                        color = SolidColor(Color(0xFF23af92)),
+                        firstGradientFillColor = Color(0xFF2BC0A1).copy(alpha = .5f),
+                        secondGradientFillColor = Color.Transparent,
+                        strokeAnimationSpec = tween(2000, easing = EaseInOutCubic),
+                        gradientAnimationDelay = 1000,
+                        drawStyle = DrawStyle.Stroke(
+                            width = 2.dp,
+//                            strokeStyle = StrokeStyle.Dashed(intervals = floatArrayOf(10f, 10f), phase = 15f)
+                        ),
+                    )
+                )
+            },
+            curvedEdges = false, // smooth vs hard edges
+//            zeroLineProperties = ZeroLineProperties(
+//                enabled = true,
+//                color = SolidColor(Color.Red),
+//            ),
+            minValue = -20.0,
+            maxValue = 100.0,
+            animationMode = AnimationMode.Together(delayBuilder = {
+                it * 500L
+            }),
+        )
     }
 }
 
