@@ -12,7 +12,7 @@ import com.zeyadgasser.playground.routine.data.routineSharedDataModule
 import com.zeyadgasser.playground.routine.detail.routineDetailModule
 import com.zeyadgasser.playground.routine.form.routineFormModule
 import com.zeyadgasser.playground.routine.list.routineListModule
-import com.zeyadgasser.playground.routine.sharedpresentation.routinePresentationModule
+import com.zeyadgasser.playground.routine.sharedpresentation.routineSharedPresentationModule
 import com.zeyadgasser.playground.task.data.di.androidTaskSharedDataModule
 import com.zeyadgasser.playground.task.data.di.taskSharedDataModule
 import com.zeyadgasser.playground.task.detail.di.taskDetailModule
@@ -49,7 +49,7 @@ class PlaygroundApplication : Application(), KoinComponent {
                         + routineSharedDataModule
                         + routineDetailModule
                         + routineFormModule
-                        + routinePresentationModule
+                        + routineSharedPresentationModule
             )
         }
         Sync.initialize(this)

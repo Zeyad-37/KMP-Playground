@@ -17,6 +17,8 @@ import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.foundation.verticalScroll
 import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.automirrored.filled.ArrowBack
+import androidx.compose.material.icons.filled.Delete
+import androidx.compose.material.icons.filled.Edit
 import androidx.compose.material3.ExperimentalMaterial3Api
 import androidx.compose.material3.Icon
 import androidx.compose.material3.IconButton
@@ -42,16 +44,6 @@ import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import androidx.lifecycle.compose.collectAsStateWithLifecycle
 import com.zeyadgasser.playground.architecture.presentation.Input
-import com.zeyadgasser.playground.routine.detail.resources.Res
-import com.zeyadgasser.playground.routine.detail.resources.back
-import com.zeyadgasser.playground.routine.detail.resources.delete_routine
-import com.zeyadgasser.playground.routine.detail.resources.edit
-import com.zeyadgasser.playground.routine.detail.resources.ic_delete
-import com.zeyadgasser.playground.routine.detail.resources.ic_edit
-import com.zeyadgasser.playground.routine.detail.resources.last_7_days
-import com.zeyadgasser.playground.routine.detail.resources.options
-import com.zeyadgasser.playground.routine.detail.resources.performance
-import com.zeyadgasser.playground.routine.detail.resources.routine_details
 import com.zeyadgasser.playground.routine.detail.viewmodel.DeleteRoutineDetailInput
 import com.zeyadgasser.playground.routine.detail.viewmodel.EditRoutineDetailInput
 import com.zeyadgasser.playground.routine.detail.viewmodel.ErrorEffect
@@ -65,8 +57,6 @@ import com.zeyadgasser.playground.routine.detail.viewmodel.RoutineDetailViewMode
 import com.zeyadgasser.playground.routine.sharedpresentation.RoutinePM
 import kotlinx.coroutines.flow.collectLatest
 import kotlinx.coroutines.launch
-import org.jetbrains.compose.resources.painterResource
-import org.jetbrains.compose.resources.stringResource
 import org.jetbrains.compose.ui.tooling.preview.Preview
 import org.koin.compose.koinInject
 
@@ -106,7 +96,8 @@ fun RoutineDetailsContent(
             TopAppBar(
                 title = {
                     Text(
-                        text = stringResource(Res.string.routine_details),
+//                        text = stringResource(Res.string.routine_details),
+                        text = "Routine Details",
                         fontSize = 18.sp,
                         textAlign = TextAlign.Center,
                         modifier = Modifier.fillMaxWidth()
@@ -116,13 +107,15 @@ fun RoutineDetailsContent(
                     IconButton(onClick = { process(GoBackInput) }) {
                         Icon(
                             imageVector = Icons.AutoMirrored.Filled.ArrowBack,
-                            contentDescription = stringResource(Res.string.back)
+//                            contentDescription = stringResource(Res.string.back)
+                            contentDescription = "Back"
                         )
                     }
                 },
                 actions = {
                     IconButton(onClick = { process(EditRoutineDetailInput) }) {
-                        Text(text = stringResource(Res.string.edit), color = Color.Black)
+//                        Text(text = stringResource(Res.string.edit), color = Color.Black)
+                        Text(text = "Edit", color = Color.Black)
                     }
                 }
             )
@@ -173,7 +166,8 @@ fun PerformanceSection(routine: RoutinePM) {
     Column(modifier = Modifier.padding(16.dp)) {
         // Header
         Text(
-            text = stringResource(Res.string.performance),
+//            text = stringResource(Res.string.performance),
+            text = "Performance",
             fontWeight = FontWeight.Bold,
             fontSize = 18.sp
         )
@@ -181,7 +175,8 @@ fun PerformanceSection(routine: RoutinePM) {
 
         // Subheader
         Text(
-            text = stringResource(Res.string.last_7_days),
+//            text = stringResource(Res.string.last_7_days),
+            text = "Last 7 days",
             fontSize = 14.sp,
             color = Color.Gray
         )
@@ -218,7 +213,8 @@ fun OptionsSection(process: (Input) -> Unit) {
     Column(modifier = Modifier.padding(16.dp)) {
         // Header
         Text(
-            text = stringResource(Res.string.options),
+//            text = stringResource(Res.string.options),
+            text = "Options",
             fontWeight = FontWeight.Bold,
             fontSize = 18.sp
         )
@@ -235,14 +231,17 @@ fun OptionsSection(process: (Input) -> Unit) {
                     .padding(8.dp)
             ) {
                 Icon(
-                    painter = painterResource(Res.drawable.ic_delete),
-                    contentDescription = stringResource(Res.string.delete_routine),
+                    imageVector = Icons.Default.Delete,
+//                    painter = painterResource(Res.drawable.ic_delete),
+//                    contentDescription = stringResource(Res.string.delete_routine),
+                    contentDescription = "Delete Routine",
                     tint = Color.Gray,
                     modifier = Modifier.size(24.dp)
                 )
                 Spacer(modifier = Modifier.width(8.dp))
                 Text(
-                    text = stringResource(Res.string.delete_routine),
+//                    text = stringResource(Res.string.delete_routine),
+                    text = "Delete Routine",
                     fontSize = 16.sp,
                     color = Color.Black
                 )
@@ -256,14 +255,17 @@ fun OptionsSection(process: (Input) -> Unit) {
                     .padding(8.dp)
             ) {
                 Icon(
-                    painter = painterResource(Res.drawable.ic_edit),
-                    contentDescription = stringResource(Res.string.edit),
+                    imageVector = Icons.Default.Edit,
+//                    painter = painterResource(Res.drawable.ic_edit),
+//                    contentDescription = stringResource(Res.string.edit),
+                    contentDescription = "Edit",
                     tint = Color.Gray,
                     modifier = Modifier.size(24.dp)
                 )
                 Spacer(modifier = Modifier.width(8.dp))
                 Text(
-                    text = stringResource(Res.string.edit),
+//                    text = stringResource(Res.string.edit),
+                    text = "Edit",
                     fontSize = 16.sp,
                     color = Color.Black
                 )

@@ -13,7 +13,7 @@ import com.zeyadgasser.playground.routine.data.routineSharedDataModule
 import com.zeyadgasser.playground.routine.detail.routineDetailModule
 import com.zeyadgasser.playground.routine.form.routineFormModule
 import com.zeyadgasser.playground.routine.list.routineListModule
-import com.zeyadgasser.playground.routine.sharedpresentation.routinePresentationModule
+import com.zeyadgasser.playground.routine.sharedpresentation.routineSharedPresentationModule
 import com.zeyadgasser.playground.task.data.di.iosTaskSharedDataModule
 import com.zeyadgasser.playground.task.list.di.taskListModule
 import com.zeyadgasser.playground.task.sharedpresentation.di.taskPresentationModule
@@ -42,7 +42,7 @@ fun MainViewController() = ComposeUIViewController {
                     + iosRoutineSharedDataModule
                     + routineDetailModule
                     + routineFormModule
-                    + routinePresentationModule
+                    + routineSharedPresentationModule
         )
     }
     App(Modifier)

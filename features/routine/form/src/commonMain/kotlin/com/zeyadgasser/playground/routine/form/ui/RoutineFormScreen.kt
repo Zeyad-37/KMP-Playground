@@ -12,6 +12,8 @@ import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.width
 import androidx.compose.foundation.shape.RoundedCornerShape
+import androidx.compose.material.icons.Icons
+import androidx.compose.material.icons.filled.Close
 import androidx.compose.material3.Button
 import androidx.compose.material3.ButtonDefaults
 import androidx.compose.material3.ExperimentalMaterial3Api
@@ -36,20 +38,6 @@ import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import androidx.lifecycle.compose.collectAsStateWithLifecycle
 import com.zeyadgasser.playground.architecture.presentation.Input
-import com.zeyadgasser.playground.routine.form.resources.Res
-import com.zeyadgasser.playground.routine.form.resources.close
-import com.zeyadgasser.playground.routine.form.resources.create_routine
-import com.zeyadgasser.playground.routine.form.resources.description
-import com.zeyadgasser.playground.routine.form.resources.end_time
-import com.zeyadgasser.playground.routine.form.resources.ic_close
-import com.zeyadgasser.playground.routine.form.resources.morning_run
-import com.zeyadgasser.playground.routine.form.resources.new_routine
-import com.zeyadgasser.playground.routine.form.resources.reminders
-import com.zeyadgasser.playground.routine.form.resources.routine_category
-import com.zeyadgasser.playground.routine.form.resources.routine_name
-import com.zeyadgasser.playground.routine.form.resources.routine_type
-import com.zeyadgasser.playground.routine.form.resources.start_time
-import com.zeyadgasser.playground.routine.form.resources.update_routine
 import com.zeyadgasser.playground.routine.form.viewmodel.CloseCreateRoutineEffect
 import com.zeyadgasser.playground.routine.form.viewmodel.CloseRoutineFormInput
 import com.zeyadgasser.playground.routine.form.viewmodel.HideTimePickerEffect
@@ -66,8 +54,6 @@ import com.zeyadgasser.playground.routine.form.viewmodel.SubmitRoutineInput
 import com.zeyadgasser.playground.routine.form.viewmodel.TimePickedInput
 import com.zeyadgasser.playground.routine.form.viewmodel.ValidateFormInput
 import kotlinx.coroutines.flow.collectLatest
-import org.jetbrains.compose.resources.painterResource
-import org.jetbrains.compose.resources.stringResource
 import org.jetbrains.compose.ui.tooling.preview.Preview
 import org.koin.compose.koinInject
 
@@ -209,13 +195,16 @@ fun RoutineFormScreenContent(
             ) { // fixme title center alignment
                 IconButton(onClick = { process(CloseRoutineFormInput) }) {
                     Icon(
-                        painter = painterResource(Res.drawable.ic_close),
-                        contentDescription = stringResource(Res.string.close)
+                        imageVector = Icons.Default.Close,
+//                        painter = painterResource(Res.drawable.ic_close),
+//                        contentDescription = stringResource(Res.string.close),
+                        contentDescription = "Close",
                     )
                 }
                 Box(modifier = Modifier.fillMaxWidth()) {
                     Text(
-                        text = stringResource(Res.string.new_routine),
+//                        text = stringResource(Res.string.new_routine),
+                        text = "New Routine",
                         fontWeight = FontWeight.Bold,
                         fontSize = 20.sp,
                         textAlign = Center,
@@ -236,8 +225,10 @@ fun RoutineFormScreenContent(
                         )
                     )
                 },
-                label = { Text(text = stringResource(Res.string.routine_name)) },
-                placeholder = { Text(text = stringResource(Res.string.morning_run)) },
+//                label = { Text(text = stringResource(Res.string.routine_name)) },
+                label = { Text(text = "Routine Name") },
+//                placeholder = { Text(text = stringResource(Res.string.morning_run)) },
+                placeholder = { Text(text = "Morning Run") },
                 modifier = Modifier.fillMaxWidth(),
                 isError = isNameError,
                 supportingText = {
@@ -263,7 +254,8 @@ fun RoutineFormScreenContent(
                         )
                     )
                 },
-                label = { Text(text = stringResource(Res.string.routine_type)) },
+//                label = { Text(text = stringResource(Res.string.routine_type)) },
+                label = { Text(text = "Routine Type") },
                 modifier = Modifier.fillMaxWidth(),
                 isError = isTypeError,
                 supportingText = {
@@ -289,7 +281,8 @@ fun RoutineFormScreenContent(
                         )
                     )
                 },
-                label = { Text(text = stringResource(Res.string.routine_category)) },
+//                label = { Text(text = stringResource(Res.string.routine_category)) },
+                label = { Text(text = "Routine Category") },
                 modifier = Modifier.fillMaxWidth(),
                 isError = isCategoryError,
                 supportingText = {
@@ -317,7 +310,8 @@ fun RoutineFormScreenContent(
                         )
                     },
                     isError = isStartTimeError,
-                    label = { Text(text = stringResource(Res.string.start_time)) },
+//                    label = { Text(text = stringResource(Res.string.start_time)) },
+                    label = { Text(text = "Start Time") },
                     modifier = Modifier
                         .weight(1f)
                         .clickable { process(ShowTimePickerInput(true)) },
@@ -344,7 +338,8 @@ fun RoutineFormScreenContent(
                             )
                         )
                     },
-                    label = { Text(text = stringResource(Res.string.end_time)) },
+//                    label = { Text(text = stringResource(Res.string.end_time)) },
+                    label = { Text(text = "End Time") },
                     isError = isEndTimeError,
                     modifier = Modifier
                         .weight(1f)
@@ -374,7 +369,8 @@ fun RoutineFormScreenContent(
                     )
                 },
                 isError = isDescriptionError,
-                label = { Text(text = stringResource(Res.string.description)) },
+//                label = { Text(text = stringResource(Res.string.description)) },
+                label = { Text(text = "Description") },
                 modifier = Modifier
                     .fillMaxWidth()
                     .height(150.dp),
@@ -396,7 +392,8 @@ fun RoutineFormScreenContent(
                 horizontalArrangement = Arrangement.SpaceBetween,
                 verticalAlignment = Alignment.CenterVertically
             ) {
-                Text(text = stringResource(Res.string.reminders))
+//                Text(text = stringResource(Res.string.reminders))
+                Text(text = "Reminders")
                 Switch(checked = remindersEnabled, onCheckedChange = { remindersEnabled = it })
             }
         }
@@ -417,7 +414,8 @@ fun RoutineFormScreenContent(
             shape = RoundedCornerShape(8.dp)
         ) {
             Text(
-                text = stringResource(if (isCreate) Res.string.create_routine else Res.string.update_routine),
+//                text = stringResource(if (isCreate) Res.string.create_routine else Res.string.update_routine),
+                text = if (isCreate) "Create Routine" else "Update Routine",
                 fontSize = 16.sp
             )
         }

@@ -2,7 +2,6 @@ package com.zeyadgasser.playground.routine.list.ui
 
 import androidx.compose.foundation.clickable
 import androidx.compose.foundation.layout.Arrangement
-import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.Row
 import androidx.compose.foundation.layout.Spacer
@@ -10,6 +9,8 @@ import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.width
 import androidx.compose.foundation.shape.RoundedCornerShape
+import androidx.compose.material.icons.Icons
+import androidx.compose.material.icons.filled.WbSunny
 import androidx.compose.material3.Card
 import androidx.compose.material3.CardDefaults
 import androidx.compose.material3.Checkbox
@@ -25,10 +26,7 @@ import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.unit.dp
-import com.zeyadgasser.playground.routine.list.resources.Res
-import com.zeyadgasser.playground.routine.list.resources.ic_sunny
 import com.zeyadgasser.playground.routine.sharedpresentation.RoutinePM
-import org.jetbrains.compose.resources.painterResource
 import org.jetbrains.compose.ui.tooling.preview.Preview
 
 @Composable
@@ -55,7 +53,8 @@ fun RoutineItem(
 ////                placeholder = routine.icon?.let { painterResource(it) },
 //            )
             Surface(color = Color(0xFFF2F2F5), shape = RoundedCornerShape(8.dp)) {
-                Icon(painterResource(Res.drawable.ic_sunny), "routine icon", modifier = Modifier.padding(8.dp))
+//                Icon(painterResource(Res.drawable.ic_sunny), "routine icon", modifier = Modifier.padding(8.dp))
+                Icon(imageVector = Icons.Default.WbSunny, "routine icon", modifier = Modifier.padding(8.dp))
             }
             Spacer(modifier = Modifier.width(8.dp))
             Column(Modifier.fillMaxWidth(), verticalArrangement = Arrangement.SpaceEvenly) {
