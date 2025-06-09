@@ -30,9 +30,6 @@ import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.text.style.TextAlign
 import androidx.lifecycle.compose.collectAsStateWithLifecycle
 import com.zeyadgasser.playground.architecture.presentation.Input
-import com.zeyadgasser.playground.resources.Res
-import com.zeyadgasser.playground.resources.all_tasks_tab_label
-import com.zeyadgasser.playground.resources.upcoming_tasks_tab_label
 import com.zeyadgasser.playground.sharedui.composables.ErrorScreen
 import com.zeyadgasser.playground.sharedui.composables.LoadingView
 import com.zeyadgasser.playground.task.list.viewmodel.CantCheckTaskEffect
@@ -46,7 +43,6 @@ import com.zeyadgasser.playground.task.list.viewmodel.TasksState
 import com.zeyadgasser.playground.task.list.viewmodel.TasksViewModel
 import kotlinx.coroutines.flow.collectLatest
 import kotlinx.coroutines.launch
-import org.jetbrains.compose.resources.stringResource
 import org.koin.compose.koinInject
 
 @Composable
@@ -141,8 +137,10 @@ fun TasksScreenContent(
             is TasksState.InitialState -> process(LoadTasksInput)
             is TasksState.ErrorState -> ErrorScreen(state.message)
             is TasksState.SuccessState -> {
-                allTabLabel = stringResource(Res.string.all_tasks_tab_label, state.allTasks.size)
-                upcomingTabLabel = stringResource(Res.string.upcoming_tasks_tab_label, state.allTasks.size)
+//                allTabLabel = stringResource(Res.string.all_tasks_tab_label, state.allTasks.size)
+                allTabLabel = "All tasks (${state.allTasks.size})"
+                upcomingTabLabel = "Upcoming tasks (${state.upcomingTasks.size})"
+//                upcomingTabLabel = stringResource(Res.string.upcoming_tasks_tab_label, state.upcomingTasks.size)
                 when (selectedTabIndex) {
                     0 -> TaskList(state.allTasks) { process(it) }
                     1 -> TaskList(state.upcomingTasks) { process(it) }
