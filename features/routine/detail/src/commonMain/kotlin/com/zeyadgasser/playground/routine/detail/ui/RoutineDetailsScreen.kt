@@ -44,17 +44,6 @@ import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import androidx.lifecycle.compose.collectAsStateWithLifecycle
 import com.zeyadgasser.playground.architecture.presentation.Input
-import com.zeyadgasser.playground.routine.detail.resources.Res
-import com.zeyadgasser.playground.routine.detail.resources.back
-import com.zeyadgasser.playground.routine.detail.resources.delete_routine
-import com.zeyadgasser.playground.routine.detail.resources.edit
-import com.zeyadgasser.playground.routine.detail.resources.ic_arrow_back
-import com.zeyadgasser.playground.routine.detail.resources.ic_delete
-import com.zeyadgasser.playground.routine.detail.resources.ic_edit
-import com.zeyadgasser.playground.routine.detail.resources.last_7_days
-import com.zeyadgasser.playground.routine.detail.resources.options
-import com.zeyadgasser.playground.routine.detail.resources.performance
-import com.zeyadgasser.playground.routine.detail.resources.routine_details
 import com.zeyadgasser.playground.routine.detail.viewmodel.DeleteRoutineDetailInput
 import com.zeyadgasser.playground.routine.detail.viewmodel.EditRoutineDetailInput
 import com.zeyadgasser.playground.routine.detail.viewmodel.ErrorEffect
