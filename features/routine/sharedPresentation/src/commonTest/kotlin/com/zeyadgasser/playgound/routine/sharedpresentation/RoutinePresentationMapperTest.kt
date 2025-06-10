@@ -42,7 +42,7 @@ class RoutinePresentationMapperTest {
         endTime = "11:00",
         description = "Project sync-up",
         completed = false,
-        rating = null,
+        ratings = null,
         category = "Productivity"
     )
 
@@ -74,7 +74,7 @@ class RoutinePresentationMapperTest {
         assertEquals(sampleDomain.endTime, presentation.endTime)
         assertEquals(sampleDomain.description, presentation.description)
         assertEquals(sampleDomain.completed, presentation.completed)
-        assertEquals(sampleDomain.rating, presentation.rating)
+        assertEquals(sampleDomain.rating, presentation.ratings)
         assertEquals(sampleDomain.category, presentation.category)
     }
 
@@ -89,7 +89,7 @@ class RoutinePresentationMapperTest {
         assertEquals(samplePM.endTime, domain.endTime)
         assertEquals(samplePM.description, domain.description)
         assertEquals(samplePM.completed, domain.completed)
-        assertEquals(samplePM.rating, domain.rating)
+        assertEquals(samplePM.ratings, domain.rating)
         assertEquals(samplePM.category, domain.category)
     }
 
@@ -119,7 +119,7 @@ class RoutinePresentationMapperTest {
         assertEquals(sampleEntity.endTime, presentation.endTime)     // .toString() on String is itself
         assertEquals(sampleEntity.description, presentation.description)
         assertEquals(sampleEntity.completed, presentation.completed)
-        assertEquals(sampleEntity.rating, presentation.rating)
+        assertEquals(sampleEntity.rating, presentation.ratings)
         assertEquals(sampleEntity.category, presentation.category)
     }
 
@@ -134,7 +134,7 @@ class RoutinePresentationMapperTest {
         assertEquals(samplePM.endTime, entity.endTime)
         assertEquals(samplePM.description, entity.description)
         assertEquals(samplePM.completed, entity.completed)
-        assertEquals(samplePM.rating, entity.rating)
+        assertEquals(samplePM.ratings, entity.rating)
         assertEquals(samplePM.category, entity.category)
     }
 

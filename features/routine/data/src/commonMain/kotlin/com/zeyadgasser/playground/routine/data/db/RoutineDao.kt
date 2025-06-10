@@ -4,7 +4,9 @@ import androidx.room.Dao
 import androidx.room.Delete
 import androidx.room.Insert
 import androidx.room.OnConflictStrategy
+import androidx.room.OnConflictStrategy.Companion.REPLACE
 import androidx.room.Query
+import androidx.room.Transaction
 
 @Dao
 interface RoutineDao {
@@ -14,7 +16,11 @@ interface RoutineDao {
     @Query("SELECT * FROM Routines WHERE id = :id")
     suspend fun getRoutineById(id: Long): RoutineEntity
 
-    @Insert(onConflict = OnConflictStrategy.REPLACE)
+    @Transaction
+    @Query("SELECT * FROM Routines WHERE id = :id")
+    suspend fun getRoutineWithRatingsById(id: Long): RoutineWithRatings
+
+    @Insert(onConflict = REPLACE)
     suspend fun insertReplace(routine: RoutineEntity): Unit
 
     @Delete

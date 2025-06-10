@@ -10,5 +10,7 @@ interface RoutineRepository : Repository { // TODO Use kotlin Result
 
     suspend fun insertReplaceRoutine(routine: Routine)
 
+    suspend fun insertRoutineWithRatings(routine: Routine)
+
     suspend fun deleteRoutine(id: Long): Int
 }

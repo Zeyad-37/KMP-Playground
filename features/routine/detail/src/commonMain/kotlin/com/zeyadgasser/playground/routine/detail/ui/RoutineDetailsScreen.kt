@@ -1,7 +1,7 @@
 package com.zeyadgasser.playground.routine.detail.ui
 
-import androidx.compose.animation.core.EaseInOutCubic
-import androidx.compose.animation.core.tween
+import androidx.compose.animation.core.Spring
+import androidx.compose.animation.core.spring
 import androidx.compose.foundation.background
 import androidx.compose.foundation.clickable
 import androidx.compose.foundation.layout.Arrangement
@@ -24,6 +24,7 @@ import androidx.compose.material.icons.filled.Edit
 import androidx.compose.material3.ExperimentalMaterial3Api
 import androidx.compose.material3.Icon
 import androidx.compose.material3.IconButton
+import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.Scaffold
 import androidx.compose.material3.Snackbar
 import androidx.compose.material3.SnackbarDuration
@@ -58,12 +59,15 @@ import com.zeyadgasser.playground.routine.detail.viewmodel.RoutineDetailState.In
 import com.zeyadgasser.playground.routine.detail.viewmodel.RoutineDetailState.SuccessState
 import com.zeyadgasser.playground.routine.detail.viewmodel.RoutineDetailViewModel
 import com.zeyadgasser.playground.routine.sharedpresentation.RoutinePM
-import ir.ehsannarmani.compose_charts.LineChart
+import ir.ehsannarmani.compose_charts.ColumnChart
 import ir.ehsannarmani.compose_charts.models.AnimationMode
-import ir.ehsannarmani.compose_charts.models.DrawStyle
-import ir.ehsannarmani.compose_charts.models.Line
-import ir.ehsannarmani.compose_charts.models.StrokeStyle
-import ir.ehsannarmani.compose_charts.models.ZeroLineProperties
+import ir.ehsannarmani.compose_charts.models.BarProperties
+import ir.ehsannarmani.compose_charts.models.Bars
+import ir.ehsannarmani.compose_charts.models.Bars.Data.Radius.Circular
+import ir.ehsannarmani.compose_charts.models.HorizontalIndicatorProperties
+import ir.ehsannarmani.compose_charts.models.IndicatorCount
+import ir.ehsannarmani.compose_charts.models.IndicatorPosition
+import ir.ehsannarmani.compose_charts.models.LabelProperties
 import kotlinx.coroutines.flow.collectLatest
 import kotlinx.coroutines.launch
 import org.jetbrains.compose.ui.tooling.preview.Preview
@@ -213,36 +217,34 @@ fun PerformanceSection(routine: RoutinePM) {
             )
         }
         Spacer(modifier = Modifier.height(16.dp))
-        // TODO Line Chart
-        LineChart(
-            modifier = Modifier.fillMaxWidth().padding(22.dp),
+        ColumnChart(
+            modifier = Modifier.fillMaxWidth().padding(22.dp).height(300.dp),
             data = remember {
-                listOf(
-                    Line(
-                        label = "Windows",
-                        values = listOf(28.0, 41.0, 5.0, 10.0, 35.0),
-                        color = SolidColor(Color(0xFF23af92)),
-                        firstGradientFillColor = Color(0xFF2BC0A1).copy(alpha = .5f),
-                        secondGradientFillColor = Color.Transparent,
-                        strokeAnimationSpec = tween(2000, easing = EaseInOutCubic),
-                        gradientAnimationDelay = 1000,
-                        drawStyle = DrawStyle.Stroke(
-                            width = 2.dp,
-//                            strokeStyle = StrokeStyle.Dashed(intervals = floatArrayOf(10f, 10f), phase = 15f)
-                        ),
+                routine.ratings.map { // todo move logic to input handler
+                    Bars(
+                        label = it.date,
+                        values = listOf(
+                            Bars.Data(
+                                label = it.ratingValue.toString(),
+                                value = it.ratingValue.toDouble(),
+                                color = SolidColor(Color(0xFF23af92)),
+                            )
+                        )
                     )
-                )
+                }
             },
-            curvedEdges = false, // smooth vs hard edges
-//            zeroLineProperties = ZeroLineProperties(
-//                enabled = true,
-//                color = SolidColor(Color.Red),
-//            ),
-            minValue = -20.0,
-            maxValue = 100.0,
-            animationMode = AnimationMode.Together(delayBuilder = {
-                it * 500L
-            }),
+            barProperties = BarProperties(
+                spacing = 12.dp,
+                thickness = 37.dp,
+                cornerRadius = Circular(7.dp),
+            ),
+            animationMode = AnimationMode.Together(delayBuilder = { it * 200L }),
+            animationSpec = spring(
+                dampingRatio = Spring.DampingRatioMediumBouncy,
+                stiffness = Spring.StiffnessLow
+            ),
+            minValue = 0.0,
+            maxValue = 5.0,
         )
     }
 }

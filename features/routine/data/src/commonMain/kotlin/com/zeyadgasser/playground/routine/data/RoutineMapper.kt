@@ -1,7 +1,9 @@
 package com.zeyadgasser.playground.routine.data
 
 import com.zeyadgasser.playground.routine.data.db.RoutineEntity
+import com.zeyadgasser.playground.routine.data.db.RoutineWithRatings
 import com.zeyadgasser.playground.routine.domain.model.Routine
+import com.zeyadgasser.playground.routine.domain.model.RoutineRating
 
 object RoutineMapper {
 
@@ -14,7 +16,6 @@ object RoutineMapper {
         endTime = domain.endTime,
         description = domain.description,
         completed = domain.completed,
-        rating = domain.rating,
         category = domain.category
     )
 
@@ -27,9 +28,24 @@ object RoutineMapper {
         endTime = entity.endTime.toString(),
         description = entity.description,
         completed = entity.completed,
-        rating = entity.rating,
+        ratings = emptyList(),
         category = entity.category
     )
+
+    // Entity → Domain (for passing to UseCases / UI)
+    fun toDomain(entity: RoutineWithRatings): Routine = with(entity) {
+        Routine(
+            id = routine.id,
+            name = routine.name,
+            type = routine.type,
+            startTime = routine.startTime.toString(),
+            endTime = routine.endTime.toString(),
+            description = routine.description,
+            completed = routine.completed,
+            ratings = ratings.map { rating -> RoutineRating(rating.ratingValue, rating.date) },
+            category = routine.category
+        )
+    }
 
     // List<Entity> → List<Domain>
     fun toDomainList(entities: List<RoutineEntity>): List<Routine> = entities.map { toDomain(it) }

@@ -15,5 +15,4 @@ data class RoutineEntity(
     val category: String,
     val completed: Boolean = false,
     val remindersEnabled: Boolean = false,
-    val rating: Int? = null,
 )

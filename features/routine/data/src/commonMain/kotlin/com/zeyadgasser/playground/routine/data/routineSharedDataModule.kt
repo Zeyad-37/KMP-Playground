@@ -9,5 +9,6 @@ import org.koin.dsl.module
 val routineSharedDataModule = module {
     single { RoutineMapper }
     single { get<RoutinesDatabase>().routineDao() }
-    single<RoutineRepository> { RoutineRepositoryImpl(get(), get(named(IO))) }
+    single { get<RoutinesDatabase>().ratingDao() }
+    single<RoutineRepository> { RoutineRepositoryImpl(get(), get(), get(named(IO))) }
 }
