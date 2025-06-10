@@ -2,7 +2,6 @@ package com.zeyadgasser.playground.routine.list.ui
 
 import androidx.compose.foundation.background
 import androidx.compose.foundation.layout.Arrangement
-import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.Row
 import androidx.compose.foundation.layout.Spacer
@@ -56,26 +55,16 @@ fun RatingBottomSheet(onDismiss: () -> Unit, onRatingSaved: (Int) -> Unit) {
                     color = Color.Gray
                 )
             }
-
             Spacer(modifier = Modifier.height(16.dp))
-
             // Progress Bar
-            Box(
-                modifier = Modifier
-                    .fillMaxWidth()
-                    .height(8.dp)
-                    .background(Color.LightGray.copy(alpha = 0.5f))
+            Row(
+                Modifier.fillMaxWidth().height(72.dp).background(Color.LightGray.copy(alpha = 0.5f)),
+                horizontalArrangement = Arrangement.Center,
+                verticalAlignment = Alignment.CenterVertically
             ) {
-                Box(
-                    modifier = Modifier
-                        .fillMaxWidth(rating / 5f)
-                        .height(8.dp)
-                        .background(Color.Black)
-                )
+                StarRatingBar(rating.toFloat(), { rating = it.toInt() })
             }
-
             Spacer(modifier = Modifier.height(16.dp))
-
             // Buttons
             Row(
                 horizontalArrangement = Arrangement.SpaceBetween,
@@ -86,19 +75,14 @@ fun RatingBottomSheet(onDismiss: () -> Unit, onRatingSaved: (Int) -> Unit) {
                     modifier = Modifier
                         .weight(1f)
                         .padding(end = 8.dp)
-                ) {
-                    Text(text = "Cancel", color = Color.Black)
-                }
-
+                ) { Text(text = "Cancel", color = Color.Black) }
                 Button(
                     onClick = { onRatingSaved(rating) },
                     modifier = Modifier
                         .weight(1f)
                         .padding(start = 8.dp),
                     colors = ButtonDefaults.buttonColors(Color.Blue)
-                ) {
-                    Text(text = "Save", color = Color.Black)
-                }
+                ) { Text(text = "Save", color = Color.Black) }
             }
         }
     }
