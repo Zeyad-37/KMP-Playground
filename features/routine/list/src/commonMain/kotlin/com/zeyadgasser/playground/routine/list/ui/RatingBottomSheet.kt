@@ -16,8 +16,6 @@ import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.ModalBottomSheet
 import androidx.compose.material3.ModalBottomSheetProperties
 import androidx.compose.material3.OutlinedButton
-import androidx.compose.material3.Slider
-import androidx.compose.material3.SliderDefaults
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.getValue
@@ -68,23 +66,11 @@ fun RatingBottomSheet(onDismiss: () -> Unit, onRatingSaved: (Int) -> Unit) {
                     .height(8.dp)
                     .background(Color.LightGray.copy(alpha = 0.5f))
             ) {
-                Slider(
-                    value = rating.toFloat(),
-                    onValueChange = { rating = it.toInt() },
-                    valueRange = 1f..5f,
-                    modifier = Modifier.fillMaxWidth().padding(16.dp),
-                    colors = SliderDefaults.colors(
-                        Color.Black,
-                        Color.Black,
-                        Color.Black,
-                        Color.White,
-                        Color.White,
-                        Color.White,
-                        Color.White,
-                        Color.White,
-                        Color.White,
-                        Color.White,
-                    )
+                Box(
+                    modifier = Modifier
+                        .fillMaxWidth(rating / 5f)
+                        .height(8.dp)
+                        .background(Color.Black)
                 )
             }
 
@@ -109,7 +95,7 @@ fun RatingBottomSheet(onDismiss: () -> Unit, onRatingSaved: (Int) -> Unit) {
                     modifier = Modifier
                         .weight(1f)
                         .padding(start = 8.dp),
-                    colors = ButtonDefaults.buttonColors(Color.White)
+                    colors = ButtonDefaults.buttonColors(Color.Blue)
                 ) {
                     Text(text = "Save", color = Color.Black)
                 }

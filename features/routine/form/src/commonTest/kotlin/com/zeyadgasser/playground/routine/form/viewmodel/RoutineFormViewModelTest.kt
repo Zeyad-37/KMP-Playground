@@ -13,6 +13,7 @@ import dev.mokkery.matcher.any
 import dev.mokkery.matcher.eq
 import dev.mokkery.mock
 import dev.mokkery.verify.VerifyMode
+import dev.mokkery.verify.VerifyMode.Companion.atMost
 import dev.mokkery.verifySuspend
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.ExperimentalCoroutinesApi
@@ -219,7 +220,9 @@ class RoutineFormViewModelTest {
             nameValidationErrorMessage = "Name is required",
             typeValidationErrorMessage = null,
             categoryValidationErrorMessage = null,
-            descriptionValidationErrorMessage = null
+            startTimeValidationErrorMessage = null,
+            endTimeValidationErrorMessage = null,
+            descriptionValidationErrorMessage = null,
         )
 
         viewModel.process(ValidateFormInput(invalidRoutineForm_BlankName))
@@ -237,7 +240,7 @@ class RoutineFormViewModelTest {
             // Repository call doesn't return anything significant for this path in VM
             everySuspend { routineRepository.insertReplaceRoutine(any()) } returns Unit // Assuming Long or Unit return
 
-            viewModel.process(SubmitRoutineInput(validRoutineForm, routineId))
+            viewModel.process(SubmitRoutineInput(validRoutineForm, 1))
 
             viewModel.effect.test {
                 assertEquals(CloseCreateRoutineEffect, awaitItem())
@@ -267,10 +270,12 @@ class RoutineFormViewModelTest {
                 nameValidationErrorMessage = "Name is required",
                 typeValidationErrorMessage = null,
                 categoryValidationErrorMessage = null,
-                descriptionValidationErrorMessage = null
+                startTimeValidationErrorMessage = null,
+                endTimeValidationErrorMessage = null,
+                descriptionValidationErrorMessage = null,
             )
 
-            viewModel.process(SubmitRoutineInput(invalidRoutineForm_BlankName, routineId))
+            viewModel.process(SubmitRoutineInput(invalidRoutineForm_BlankName, 1))
 
             viewModel.state.test {
                 assertEquals(InitialState, awaitItem())
@@ -282,7 +287,7 @@ class RoutineFormViewModelTest {
                 cancelAndConsumeRemainingEvents()
             }
             viewModel.effect.test { expectNoEvents() } // No Close effect
-            verifySuspend(VerifyMode.atMost(1)) { routineRepository.insertReplaceRoutine(any()) }
+            verifySuspend(atMost(1)) { routineRepository.insertReplaceRoutine(any()) }
         }
 
     @Test
@@ -292,7 +297,7 @@ class RoutineFormViewModelTest {
         everySuspend { routineRepository.insertReplaceRoutine(any()) } throws exception
 
         val thrown = assertFailsWith<RuntimeException> {
-            viewModel.process(SubmitRoutineInput(validRoutineForm, routineId))
+            viewModel.process(SubmitRoutineInput(validRoutineForm, 1))
             testDispatcher.scheduler.advanceUntilIdle() // Ensure flow execution
         }
         assertEquals(exception, thrown)
