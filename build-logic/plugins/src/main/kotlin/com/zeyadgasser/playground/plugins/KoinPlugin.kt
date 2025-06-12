@@ -1,7 +1,6 @@
 package com.zeyadgasser.playground.plugins
 
 import com.zeyadgasser.playground.extensions.libs
-import dev.mokkery.gradle.mokkery
 import org.gradle.api.Plugin
 import org.gradle.api.Project
 import org.gradle.kotlin.dsl.configure
@@ -19,6 +18,8 @@ class KoinPlugin : Plugin<Project> {
                 commonMain.dependencies {
                     implementation(libs.findLibrary("koin.core").get())
                     implementation(libs.findLibrary("koin.compose").get())
+//                    implementation(libs.findLibrary("koin.compose.viewmodel").get()) // breaks IOS
+//                    implementation(libs.findLibrary("koin.compose.viewmodel.navigation").get()) // breaks IOS
                 }
             }
         }

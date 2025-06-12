@@ -1,0 +1,12 @@
+<resources>
+    <string name="back">Back button</string>
+    <string name="edit">Edit</string>
+    <string name="delete_routine">Delete Routine</string>
+    <string name="performance">Performance</string>
+    <string name="options">Options</string>
+    <string name="last_7_days">Last 7 days</string>
+    <string name="routine_details">Routine Details</string>
+    <string name="no_routines_yet">No routines yet!</string>
+    <string name="routine_image_description">Routines Image</string>
+    <string name="create_your_first_routine_to_start_organizing_your_day_and_achieving_your_goals">Create your first Routine to start organizing your day and achieving your goals.</string>
+</resources>

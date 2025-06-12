@@ -22,7 +22,6 @@ kotlin {
                 implementation(project(":core:sharedUI"))
                 implementation(project(":features:task:domain"))
                 implementation(project(":features:task:sharedPresentation"))
-                implementation(project(":features:task:detail")) // todo remove
             }
         }
 
