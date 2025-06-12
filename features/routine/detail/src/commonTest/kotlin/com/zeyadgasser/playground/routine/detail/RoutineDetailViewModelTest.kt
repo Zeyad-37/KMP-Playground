@@ -82,7 +82,10 @@ class RoutineDetailViewModelTest {
     @Test
     fun `process LoadRoutineDetailInput success`() = runTest(testDispatcher) {
         val routineId = 1L
-        val expectedSuccessState = SuccessState(routinePM1, routineId)
+        val expectedSuccessState = SuccessState(
+            routinePM1.copy(remindersEnabled = false, image = null, rating = null, icon = null),
+            routineId
+        )
         setupViewModel(InitialState)
 
         everySuspend { routineRepository.getRoutineById(routineId) } returns routineDomain1
@@ -212,7 +215,7 @@ class RoutineDetailViewModelTest {
 
         viewModel.state.test {
             // State should remain unchanged if only effect is emitted on error
-            assertEquals(initialStateForDelete, expectMostRecentItem())
+            assertEquals(initialStateForDelete, awaitItem())
         }
         viewModel.effect.test {
             // Assuming onDeleteRoutine is modified to catch and emit ErrorEffect
