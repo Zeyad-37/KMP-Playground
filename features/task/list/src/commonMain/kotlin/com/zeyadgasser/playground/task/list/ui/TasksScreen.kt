@@ -60,7 +60,7 @@ fun TasksScreenStateHolder(
                 is CantCheckTaskEffect -> coroutineScope.launch {
                     snackBarHostState.showSnackbar(
                         "",
-//                            stringResource(Res.string.cant_check_a_task),
+//                        stringResource(Res.string.cant_check_a_task),
                         duration = SnackbarDuration.Short
                     )
                 }

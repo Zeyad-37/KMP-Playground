@@ -12,7 +12,6 @@ import org.koin.dsl.module
 
 val taskSharedDataModule = module {
     single { TaskDataMapper(get()) }
-    single { TaskDataMapper(get()) }
     single { TasksAPI(get()) }
     single { PlaygroundDAO(get(), get(named(IO))) }
     single { get<PlaygroundDatabase>().taskDAO() }
