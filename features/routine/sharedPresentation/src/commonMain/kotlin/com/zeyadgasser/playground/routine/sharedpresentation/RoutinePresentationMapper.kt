@@ -2,6 +2,7 @@ package com.zeyadgasser.playground.routine.sharedpresentation
 
 import com.zeyadgasser.playground.routine.data.db.RoutineEntity
 import com.zeyadgasser.playground.routine.domain.model.Routine
+import com.zeyadgasser.playground.routine.domain.model.RoutineRating
 
 object RoutinePresentationMapper {
 
@@ -15,7 +16,7 @@ object RoutinePresentationMapper {
             endTime = entity.endTime.toString(),
             description = entity.description,
             completed = entity.completed,
-            rating = entity.rating,
+            ratings = emptyList(),
             category = entity.category,
         )
     }
@@ -30,7 +31,7 @@ object RoutinePresentationMapper {
             endTime = domain.endTime,
             description = domain.description,
             completed = domain.completed,
-            rating = domain.rating,
+            ratings = domain.ratings.map { RoutineRatingPM(it.ratingValue, it.date) },
             category = domain.category,
         )
     }
@@ -45,7 +46,7 @@ object RoutinePresentationMapper {
             endTime = presentation.endTime,
             description = presentation.description,
             completed = presentation.completed,
-            rating = presentation.rating,
+            ratings = presentation.ratings.map { RoutineRating(it.ratingValue, it.date) },
             category = presentation.category,
         )
     }
@@ -60,7 +61,6 @@ object RoutinePresentationMapper {
             endTime = domain.endTime,
             description = domain.description,
             completed = domain.completed,
-            rating = domain.rating,
             category = domain.category
         )
     }
@@ -77,7 +77,7 @@ object RoutinePresentationMapper {
             endTime = entity.endTime.toString(),
             description = entity.description,
             completed = entity.completed,
-            rating = entity.rating,
+            ratings = emptyList(),
             category = entity.category,
         )
     }
@@ -92,7 +92,6 @@ object RoutinePresentationMapper {
             endTime = presentation.endTime,
             description = presentation.description,
             completed = presentation.completed,
-            rating = presentation.rating,
             category = presentation.category
         )
     }

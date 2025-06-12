@@ -10,5 +10,5 @@ data class Routine(
     val category: String,
     val completed: Boolean = false,
     val remindersEnabled: Boolean = false,
-    val rating: Int? = null,
+    val ratings: List<RoutineRating> = emptyList(),
 )

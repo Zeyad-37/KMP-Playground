@@ -39,7 +39,7 @@ class RoutineDetailViewModelTest {
         id = 1L, name = "Morning Workout", type = "Fitness",
         startTime = "07:00", endTime = "08:00", description = "Full body session",
         category = "Health", completed = false, remindersEnabled = true,
-        image = "workout.png", rating = null, icon = 123
+        image = "workout.png", ratings = null, icon = 123
     )
     private val routineDomain1 = Routine(
         id = 1L, name = "Morning Workout", type = "Fitness",

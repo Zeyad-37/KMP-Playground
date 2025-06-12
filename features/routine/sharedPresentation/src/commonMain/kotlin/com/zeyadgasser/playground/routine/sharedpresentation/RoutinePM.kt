@@ -11,7 +11,7 @@ data class RoutinePM(
     val completed: Boolean = false,
     val remindersEnabled: Boolean = false,
     val image: String? = null,
-    val rating: Int? = null, // fixme add history
+    val ratings: List<RoutineRatingPM> = emptyList(),
     val icon: Int? = null,
 ) {
     companion object {

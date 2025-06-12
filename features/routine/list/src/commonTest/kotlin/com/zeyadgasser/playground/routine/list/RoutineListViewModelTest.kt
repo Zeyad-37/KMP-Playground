@@ -53,13 +53,13 @@ class RoutineListViewModelTest {
         id = 1L, name = "Morning Workout", type = "Fitness",
         startTime = "07:00", endTime = "08:00", description = "Full body session",
         category = "Health", completed = false, remindersEnabled = true,
-        image = "workout.png", rating = null, icon = 123
+        image = "workout.png", ratings = null, icon = 123
     )
     private val routinePM_PersonalGrowth_1 = RoutinePM(
         id = 2L, name = "Read Tech Articles", type = "Learning",
         startTime = "21:00", endTime = "22:00", description = "Latest on Kotlin and KMP",
         category = "Personal Growth", completed = true, remindersEnabled = false,
-        image = null, rating = 5, icon = 456
+        image = null, ratings = 5, icon = 456
     )
     private val routinePM_Health_2 = RoutinePM(
         id = 3L, name = "Evening Walk", type = "Fitness",
@@ -71,7 +71,7 @@ class RoutineListViewModelTest {
         startTime = "10:00", endTime = "10:30", description = "Follow up on emails",
         category = "", // Empty string category
         completed = false, remindersEnabled = true,
-        rating = null
+        ratings = null
     )
 
     private val routineDomain_Health_1 = Routine(
@@ -285,7 +285,7 @@ class RoutineListViewModelTest {
         val ratingToApply = 4
         val input = RoutineRatedInput(inputRoutinePM, ratingToApply)
 
-        val ratedRoutinePMForMapping = inputRoutinePM.copy(rating = ratingToApply)
+        val ratedRoutinePMForMapping = inputRoutinePM.copy(ratings = ratingToApply)
         val domainRoutineToUpdate = taskPresentationMapper.fromPresentation(ratedRoutinePMForMapping)
 
         everySuspend { checkRoutineUseCase.invoke(domainRoutineToUpdate) } returns Pair(
@@ -330,7 +330,7 @@ class RoutineListViewModelTest {
         val inputRoutinePM = routinePM_Health_1
         val ratingToApply = 1
         val input = RoutineRatedInput(inputRoutinePM, ratingToApply)
-        val ratedRoutinePMForMapping = inputRoutinePM.copy(rating = ratingToApply)
+        val ratedRoutinePMForMapping = inputRoutinePM.copy(ratings = ratingToApply)
         val domainRoutineToUpdate = taskPresentationMapper.fromPresentation(ratedRoutinePMForMapping)
 
         everySuspend { checkRoutineUseCase.invoke(domainRoutineToUpdate) } returns Pair(
@@ -357,7 +357,7 @@ class RoutineListViewModelTest {
         val inputRoutinePM = routinePM_Health_1
         val ratingToApply = 3
         val input = RoutineRatedInput(inputRoutinePM, ratingToApply)
-        val ratedRoutinePMForMapping = inputRoutinePM.copy(rating = ratingToApply)
+        val ratedRoutinePMForMapping = inputRoutinePM.copy(ratings = ratingToApply)
         val domainRoutineToUpdate = taskPresentationMapper.fromPresentation(ratedRoutinePMForMapping)
         val exception = RuntimeException("Check failed")
 

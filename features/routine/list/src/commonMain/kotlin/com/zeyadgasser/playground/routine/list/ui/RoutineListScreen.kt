@@ -28,6 +28,7 @@ import androidx.compose.runtime.setValue
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.text.style.TextAlign
+import androidx.compose.ui.unit.sp
 import com.zeyadgasser.playground.architecture.presentation.Input
 import com.zeyadgasser.playground.routine.list.viewmodel.CreateRoutineInput
 import com.zeyadgasser.playground.routine.list.viewmodel.GoToCreateRoutineEffect
@@ -90,6 +91,7 @@ private fun RoutineListScreenContent(
                     Text(
 //                        text = stringResource(Res.string.routines),
                         text = "Routines",
+                        fontSize = 24.sp,
                         modifier = Modifier.fillMaxWidth(),
                         textAlign = TextAlign.Center,
                         color = MaterialTheme.colorScheme.onBackground,

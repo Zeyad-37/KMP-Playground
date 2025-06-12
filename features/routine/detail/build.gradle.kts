@@ -21,6 +21,7 @@ kotlin {
                 implementation(project(":features:routine:sharedPresentation"))
                 implementation(project(":core:architecture"))
                 implementation(project(":core:sharedUI"))
+                implementation (libs.compose.charts)
             }
         }
 
