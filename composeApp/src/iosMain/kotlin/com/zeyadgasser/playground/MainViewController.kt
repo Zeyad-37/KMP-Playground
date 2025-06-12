@@ -8,6 +8,12 @@ import com.zeyadgasser.playground.database.iosDataBaseModule
 import com.zeyadgasser.playground.di.commonModule
 import com.zeyadgasser.playground.di.iosModule
 import com.zeyadgasser.playground.networking.networkingModule
+import com.zeyadgasser.playground.routine.data.di.iosRoutineSharedDataModule
+import com.zeyadgasser.playground.routine.data.routineSharedDataModule
+import com.zeyadgasser.playground.routine.detail.routineDetailModule
+import com.zeyadgasser.playground.routine.form.routineFormModule
+import com.zeyadgasser.playground.routine.list.routineListModule
+import com.zeyadgasser.playground.routine.sharedpresentation.routinePresentationModule
 import com.zeyadgasser.playground.task.data.di.iosTaskSharedDataModule
 import com.zeyadgasser.playground.task.list.di.taskListModule
 import com.zeyadgasser.playground.task.sharedpresentation.di.taskPresentationModule
@@ -31,6 +37,12 @@ fun MainViewController() = ComposeUIViewController {
                     + taskSharedDataModule
                     + iosTaskSharedDataModule
                     + breathModule
+                    + routineListModule
+                    + routineSharedDataModule
+                    + iosRoutineSharedDataModule
+                    + routineDetailModule
+                    + routineFormModule
+                    + routinePresentationModule
         )
     }
     App(Modifier)

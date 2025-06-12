@@ -5,7 +5,6 @@ import com.zeyadgasser.playground.routine.list.viewmodel.RoutineListState
 import com.zeyadgasser.playground.routine.list.viewmodel.RoutineListViewModel
 import com.zeyadgasser.playground.routine.list.viewmodel.RoutinesReducer
 import com.zeyadgasser.playground.routine.sharedpresentation.RoutinePresentationMapper
-import org.koin.core.module.dsl.viewModel
 import org.koin.dsl.module
 
 val routineListModule = module {
@@ -13,5 +12,5 @@ val routineListModule = module {
     single<RoutineListState> { RoutineListState.InitialState(false) }
     single { RoutinePresentationMapper }
     single { RoutinesReducer }
-    viewModel { RoutineListViewModel(get(), get(), get(), get(), get()) }
+    factory { RoutineListViewModel(get(), get(), get(), get(), get()) }
 }
