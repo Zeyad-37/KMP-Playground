@@ -93,7 +93,7 @@ abstract class ViewModel<I : Input, R : Result, S : State, E : Effect>(
                 }.onEach { result ->
                     when (result) {
                         is Effect -> _effect.emit(result as E).also { log("Effect", result) }
-                        is State -> _state.update { result as S }.also { log("State", it) }
+                        is State -> _state.update { result as S }.also { log("State", result) }
                         else -> _state.update { state ->
                             log("Result", result)
                             reducer?.reduce(result as R, state)?.also { log("State", it) }
