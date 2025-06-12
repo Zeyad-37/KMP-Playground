@@ -14,10 +14,11 @@ This is a Kotlin Multiplatform project targeting Android, iOS, Desktop.
 Learn more about [Kotlin Multiplatform](https://www.jetbrains.com/help/kotlin-multiplatform-dev/get-started.html)…
 
 TODO:
+- Habit Tracker
+- Main Activity
 - Fix todos
 - Remove database module
 - Fix tests
-- CI Github Actions
 - Add Screens:
   - Profile 
   - Settings (Multiplatform settings)
