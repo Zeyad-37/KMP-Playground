@@ -9,14 +9,16 @@ import androidx.compose.foundation.layout.Spacer
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.layout.padding
-import androidx.compose.material.Button
-import androidx.compose.material.ButtonDefaults
-import androidx.compose.material.MaterialTheme
 import androidx.compose.material.OutlinedButton
 import androidx.compose.material.Text
+import androidx.compose.material3.Button
+import androidx.compose.material3.ButtonDefaults
 import androidx.compose.material3.ExperimentalMaterial3Api
+import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.ModalBottomSheet
 import androidx.compose.material3.ModalBottomSheetProperties
+import androidx.compose.material3.OutlinedButton
+import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.getValue
 import androidx.compose.runtime.mutableStateOf
@@ -47,12 +49,12 @@ fun RatingBottomSheet(onDismiss: () -> Unit, onRatingSaved: (Int) -> Unit) {
             ) {
                 Text(
                     text = "Rating",
-                    style = MaterialTheme.typography.h6,
+                    style = MaterialTheme.typography.headlineSmall,
                     modifier = Modifier.weight(1f)
                 )
                 Text(
                     text = rating.toString(),
-                    style = MaterialTheme.typography.body1,
+                    style = MaterialTheme.typography.bodyLarge,
                     color = Color.Gray
                 )
             }
@@ -87,7 +89,7 @@ fun RatingBottomSheet(onDismiss: () -> Unit, onRatingSaved: (Int) -> Unit) {
                         .weight(1f)
                         .padding(end = 8.dp)
                 ) {
-                    Text(text = "Cancel")
+                    Text(text = "Cancel", color = Color.Black)
                 }
 
                 Button(
@@ -97,7 +99,7 @@ fun RatingBottomSheet(onDismiss: () -> Unit, onRatingSaved: (Int) -> Unit) {
                         .padding(start = 8.dp),
                     colors = ButtonDefaults.buttonColors(backgroundColor = Color.Blue)
                 ) {
-                    Text(text = "Save", color = Color.White)
+                    Text(text = "Save", color = Color.Black)
                 }
             }
         }

@@ -137,10 +137,10 @@ fun TasksScreenContent(
             is TasksState.InitialState -> process(LoadTasksInput)
             is TasksState.ErrorState -> ErrorScreen(state.message)
             is TasksState.SuccessState -> {
-//                    allTabLabel = stringResource(Res.string.all_tasks_tab_label, state.allTasks.size)
+//                allTabLabel = stringResource(Res.string.all_tasks_tab_label, state.allTasks.size)
                 allTabLabel = "All tasks (${state.allTasks.size})"
-                upcomingTabLabel = "Upcoming tasks (${state.allTasks.size})"
-//                        stringResource(Res.string.upcoming_tasks_tab_label, state.allTasks.size)
+                upcomingTabLabel = "Upcoming tasks (${state.upcomingTasks.size})"
+//                upcomingTabLabel = stringResource(Res.string.upcoming_tasks_tab_label, state.upcomingTasks.size)
                 when (selectedTabIndex) {
                     0 -> TaskList(state.allTasks) { process(it) }
                     1 -> TaskList(state.upcomingTasks) { process(it) }

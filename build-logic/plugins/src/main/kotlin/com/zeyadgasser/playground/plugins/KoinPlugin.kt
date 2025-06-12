@@ -18,8 +18,8 @@ class KoinPlugin : Plugin<Project> {
                 commonMain.dependencies {
                     implementation(libs.findLibrary("koin.core").get())
                     implementation(libs.findLibrary("koin.compose").get())
-//                    implementation(libs.findLibrary("koin.compose.viewmodel").get())
-//                    implementation(libs.findLibrary("koin.compose.viewmodel.navigation").get())
+//                    implementation(libs.findLibrary("koin.compose.viewmodel").get()) // breaks IOS
+//                    implementation(libs.findLibrary("koin.compose.viewmodel.navigation").get()) // breaks IOS
                 }
             }
         }

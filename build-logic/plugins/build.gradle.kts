@@ -29,7 +29,7 @@ dependencies {
     compileOnly(libs.plugins.mokkery.toDep())
     compileOnly(libs.plugins.all.open.toDep())
     compileOnly(libs.plugins.detekt.toDep())
-    compileOnly(libs.plugins.kover.toDep())
+    compileOnly(libs.plugins.koverage.toDep())
     compileOnly(libs.detekt.api)
     testImplementation(libs.detekt.api)
     testImplementation(libs.detekt.test)
