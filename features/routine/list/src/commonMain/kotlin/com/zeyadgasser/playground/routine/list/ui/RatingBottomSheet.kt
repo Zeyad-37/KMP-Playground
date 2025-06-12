@@ -9,8 +9,6 @@ import androidx.compose.foundation.layout.Spacer
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.layout.padding
-import androidx.compose.material.OutlinedButton
-import androidx.compose.material.Text
 import androidx.compose.material3.Button
 import androidx.compose.material3.ButtonDefaults
 import androidx.compose.material3.ExperimentalMaterial3Api
@@ -97,7 +95,7 @@ fun RatingBottomSheet(onDismiss: () -> Unit, onRatingSaved: (Int) -> Unit) {
                     modifier = Modifier
                         .weight(1f)
                         .padding(start = 8.dp),
-                    colors = ButtonDefaults.buttonColors(backgroundColor = Color.Blue)
+                    colors = ButtonDefaults.buttonColors(Color.Blue)
                 ) {
                     Text(text = "Save", color = Color.Black)
                 }

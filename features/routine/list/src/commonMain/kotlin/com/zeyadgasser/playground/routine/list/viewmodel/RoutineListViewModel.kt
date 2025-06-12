@@ -2,7 +2,6 @@ package com.zeyadgasser.playground.routine.list.viewmodel
 
 import com.zeyadgasser.playground.architecture.presentation.Result
 import com.zeyadgasser.playground.architecture.presentation.ViewModel
-import com.zeyadgasser.playground.routine.domain.CheckRoutineUseCase
 import kotlinx.coroutines.CoroutineDispatcher
 import kotlinx.coroutines.Dispatchers.Default
 import kotlinx.coroutines.flow.Flow
