@@ -1,6 +1,5 @@
 package com.zeyadgasser.playground.plugins
 
-import androidx.room.gradle.RoomExtension
 import com.google.devtools.ksp.gradle.KspExtension
 import com.zeyadgasser.playground.extensions.libs
 import org.gradle.api.Plugin
