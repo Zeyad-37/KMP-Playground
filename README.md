@@ -24,7 +24,17 @@ TODO:
   - Settings (Multiplatform settings)
   - GEN AI
   - 2FA / Bio security
-  - Forgot password
-  - Sign Up/In (Firebase Auth - Google/Apple/Facebook/Phone/Anonymous)
-- Web JS or Wasm
+  - Forgot password ??
+  - Sign Up/In (Firebase Auth - Google/Apple/Facebook/Phone/Anonymous) ??
+- Web JS or Wasm ??
+Version 2.0:
+- Weekly Routine
+- Monthly Routine ?
+- Yearly Routine ?
 - Theme Picker
+Version 3.0:
+- Mood Tracker
+- Sleep Tracker
+- Heart Rate Tracker
+- Steps Tracker
+- Period Tracker
