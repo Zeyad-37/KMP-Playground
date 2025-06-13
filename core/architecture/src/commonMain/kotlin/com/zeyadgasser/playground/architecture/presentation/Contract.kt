@@ -41,3 +41,22 @@ internal data class InputResultFlow(val input: Input, val results: Flow<Result>)
 class AsyncResultFlow(val flow: Flow<Result>) : Flow<Result> {
     override suspend fun collect(collector: FlowCollector<Result>) = Unit
 }
+
+/**
+ * A [Reducer] is a pure function which takes the current [State] and a [Result] and returns a new [State]
+ */
+interface Reducer<R : Result, S : State> {
+
+    /**
+     * @param result the [Result] to be handled
+     * @param state the current [State]
+     *
+     * @return the new [State]
+     */
+    fun reduce(result: R, state: S): S
+}
+
+interface InputHandler<I : Input, S : State> {
+
+    suspend operator fun invoke(input: I, state: S): Flow<Result>
+}
