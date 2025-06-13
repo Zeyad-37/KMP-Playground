@@ -37,7 +37,7 @@ import kotlin.reflect.KClass
 abstract class ViewModel<I : Input, R : Result, S : State, E : Effect>(
     initialState: S,
     private val reducer: Reducer<R, S>? = null,
-    private val dispatcher: CoroutineDispatcher = Dispatchers.Default, // TODO Create computation dispatcher
+    private val dispatcher: CoroutineDispatcher = Dispatchers.Default,
 ) : ViewModel() {
 
     /**
@@ -78,8 +78,7 @@ abstract class ViewModel<I : Input, R : Result, S : State, E : Effect>(
         if (input is CancelInput<*>) {
             cancellableInputsMap[input.clazz as KClass<I>] = AtomicBoolean(true)
         } else {
-            flow { emit(InputResultFlow(input, resolve(input as I, _state.value))) } // todo review
-//            flowOf(InputResultFlow(input, resolve(input as I, _state.value)))
+            flow { emit(InputResultFlow(input, resolve(input as I, _state.value))) }
                 .shareIn(viewModelScope, Lazily)
                 .run {
                     // create two streams one for sync and one for async processing

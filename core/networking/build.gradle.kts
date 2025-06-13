@@ -2,7 +2,7 @@ plugins {
     alias(libs.plugins.playground.multiplatform.lib)
     alias(libs.plugins.kotlinxSerialization)
     alias(libs.plugins.playground.koin)
-    alias(libs.plugins.playground.networking)// todo move to plugin
+    alias(libs.plugins.playground.networking)
 }
 
 sharedLib.xcfName = "networkingKit"
