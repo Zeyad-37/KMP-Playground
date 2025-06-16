@@ -2,7 +2,7 @@ package com.zeyadgasser.playground.badhabits.sharedpresentation
 
 import com.zeyadgasser.playground.badhabits.domain.BadHabit
 
-class PresentationBadHabitsMapper {
+object BadHabitsPresentationMapper {
     // Domain → Presentation
     fun mapToPresentation(badHabit: BadHabit): BadHabitPM = BadHabitPM(
         id = badHabit.id,
@@ -20,4 +20,15 @@ class PresentationBadHabitsMapper {
         frequency = badHabitPM.frequency,
         reminders = badHabitPM.reminders
     )
+
+    // List mappings
+    fun mapToPresentationList(badHabits: List<BadHabit>): List<BadHabitPM> {
+        return badHabits.map { mapToPresentation(it) }
+    }
+
+    fun mapFromPresentationList(pmList: List<BadHabitPM>, ids: List<Long> = List(pmList.size) { 0 }): List<BadHabit> {
+        return pmList.mapIndexed { index, pm ->
+            mapFromPresentation(pm, ids.getOrElse(index) { 0 })
+        }
+    }
 }

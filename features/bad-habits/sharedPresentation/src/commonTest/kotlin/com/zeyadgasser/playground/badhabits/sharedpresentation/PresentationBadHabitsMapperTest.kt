@@ -6,7 +6,7 @@ import kotlin.test.assertEquals
 
 class PresentationBadHabitsMapperTest {
 
-    private val mapper = PresentationBadHabitsMapper()
+    private val mapper = BadHabitsPresentationMapper()
 
     @Test
     fun `mapToPresentation converts domain to PM`() {

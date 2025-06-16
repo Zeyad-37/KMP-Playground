@@ -1,8 +1,13 @@
 package com.zeyadgasser.playground.badhabits.list.ui
 
-import androidx.compose.foundation.Image
-import androidx.compose.foundation.layout.*
-import androidx.compose.material.*
+import androidx.compose.foundation.layout.Arrangement
+import androidx.compose.foundation.layout.Column
+import androidx.compose.foundation.layout.fillMaxSize
+import androidx.compose.foundation.layout.fillMaxWidth
+import androidx.compose.foundation.layout.padding
+import androidx.compose.material.Button
+import androidx.compose.material.ButtonDefaults
+import androidx.compose.material.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
@@ -10,11 +15,11 @@ import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
-import com.zeyadgasser.playground.badhabits.list.resources.Res
-import org.jetbrains.compose.resources.painterResource
 
 @Composable
-fun NoBadHabitsTrackedScreen() {
+fun NoBadHabitsTrackedScreen(
+    onCreateBadHabit: () -> Unit,
+) {
     Column(
         modifier = Modifier.fillMaxSize(),
         horizontalAlignment = Alignment.CenterHorizontally,
@@ -29,13 +34,13 @@ fun NoBadHabitsTrackedScreen() {
         )
 
         // Illustration
-        Image(
-            painter = painterResource(id = Res.drawable.illustration_no_habits),
-            contentDescription = "No Bad Habits Tracked",
-            modifier = Modifier
-                .size(200.dp)
-                .padding(vertical = 16.dp)
-        )
+//        Image(
+//            painter = painterResource(id = Res.drawable.no_habits),
+//            contentDescription = "No Bad Habits Tracked",
+//            modifier = Modifier
+//                .size(200.dp)
+//                .padding(vertical = 16.dp)
+//        )
 
         // Subtitle
         Text(
@@ -54,7 +59,7 @@ fun NoBadHabitsTrackedScreen() {
 
         // Button
         Button(
-            onClick = { /* Handle add habit action */ },
+            onClick = { onCreateBadHabit() },
             modifier = Modifier
                 .padding(top = 16.dp)
                 .fillMaxWidth(0.7f),

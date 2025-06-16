@@ -8,6 +8,7 @@ import androidx.navigation.compose.NavHost
 import androidx.navigation.compose.composable
 import androidx.navigation.compose.rememberNavController
 import androidx.navigation.toRoute
+import com.zeyadgasser.playground.badhabits.list.ui.BadHabitsListStateHolder
 import com.zeyadgasser.playground.breath.ui.BreathingCoachAppStateHolder
 import com.zeyadgasser.playground.routine.detail.ui.RoutineDetailsStateHolder
 import com.zeyadgasser.playground.routine.form.ui.RoutineFormScreenStateHolder
@@ -20,7 +21,7 @@ import com.zeyadgasser.playground.task.list.ui.TasksScreenStateHolder
 fun App(modifier: Modifier, onNavHostReady: suspend (NavController) -> Unit = {}) {
     AppTheme {
         val navController = rememberNavController()
-        NavHost(navController = navController, startDestination = RoutineList) {
+        NavHost(navController = navController, startDestination = BadHabitList) {
             composable<BreathingCoachApp> { BreathingCoachAppStateHolder(modifier) }
             composable<TaskList> { TasksScreenStateHolder(modifier) { navController.navigate(TaskDetail(it)) } }
             composable<TaskDetail> {
@@ -42,6 +43,22 @@ fun App(modifier: Modifier, onNavHostReady: suspend (NavController) -> Unit = {}
                     routineId = it.toRoute<RoutineForm>().routineId,
                     onCloseFormClick = { navController.popBackStack() })
             }
+            composable<BadHabitList> {
+                BadHabitsListStateHolder(
+                    onBadHabitClick = { navController.navigate(RoutineDetail(it)) },
+                    onCreateBadHabitClick = { navController.navigate(RoutineForm(null)) })
+            }
+//            composable<BadHabitDetail> {
+//                RoutineDetailsStateHolder(
+//                    routineId = it.toRoute<RoutineDetail>().routineId,
+//                    onDelete = { navController.popBackStack() },
+//                    onEdit = { navController.navigate(RoutineForm(it.toRoute<RoutineDetail>().routineId)) })
+//            }
+//            composable<BadHabitForm> {
+//                RoutineFormScreenStateHolder(
+//                    routineId = it.toRoute<RoutineForm>().routineId,
+//                    onCloseFormClick = { navController.popBackStack() })
+//            }
         }
         LaunchedEffect(navController) {
             onNavHostReady(navController)

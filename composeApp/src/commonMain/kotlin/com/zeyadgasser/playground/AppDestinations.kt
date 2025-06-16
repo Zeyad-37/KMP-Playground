@@ -19,3 +19,12 @@ data class RoutineDetail(val routineId: Long)
 
 @Serializable
 data class RoutineForm(val routineId: Long?)
+
+@Serializable
+data object BadHabitList
+
+@Serializable
+data class BadHabitDetail(val routineId: Long)
+
+@Serializable
+data class BadHabitForm(val routineId: Long?)

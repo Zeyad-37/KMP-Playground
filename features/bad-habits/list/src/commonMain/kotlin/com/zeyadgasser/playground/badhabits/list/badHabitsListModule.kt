@@ -1,22 +1,18 @@
 package com.zeyadgasser.playground.badhabits.list
 
 import com.zeyadgasser.playground.architecture.di.IO
-import com.zeyadgasser.playground.routine.domain.CheckRoutineUseCase
-import com.zeyadgasser.playground.routine.list.viewmodel.LoadRoutineListInputHandler
-import com.zeyadgasser.playground.routine.list.viewmodel.RateRoutineInputHandler
-import com.zeyadgasser.playground.routine.list.viewmodel.RoutineListState
-import com.zeyadgasser.playground.routine.list.viewmodel.RoutineListViewModel
-import com.zeyadgasser.playground.routine.list.viewmodel.RoutinesReducer
-import com.zeyadgasser.playground.routine.sharedpresentation.RoutinePresentationMapper
+import com.zeyadgasser.playground.badhabits.list.viewmodel.BadHabitListState
+import com.zeyadgasser.playground.badhabits.list.viewmodel.BadHabitListViewModel
+import com.zeyadgasser.playground.badhabits.list.viewmodel.LoadBadHabitListInputHandler
+import com.zeyadgasser.playground.badhabits.list.viewmodel.RateBadHabitInputHandler
+import com.zeyadgasser.playground.badhabits.sharedpresentation.BadHabitsPresentationMapper
 import org.koin.core.qualifier.named
 import org.koin.dsl.module
 
 val badHabitsListModule = module {
-//    single { CheckRoutineUseCase(get()) }
-//    single<RoutineListState> { RoutineListState.InitialState(false) }
-//    single { RoutinePresentationMapper }
-//    single { RoutinesReducer }
-//    single { LoadRoutineListInputHandler(get(), get()) }
-//    single { RateRoutineInputHandler(get(), get(), get()) }
-//    factory { RoutineListViewModel(get(), get(), get(), get(), get(named(IO))) }
+    single<BadHabitListState> { BadHabitListState.InitialState(false) }
+    single { BadHabitsPresentationMapper }
+    single { LoadBadHabitListInputHandler(get(), get()) }
+    single { RateBadHabitInputHandler(get(), get(), get()) }
+    factory { BadHabitListViewModel(get(), get(), get(), get(named(IO))) }
 }

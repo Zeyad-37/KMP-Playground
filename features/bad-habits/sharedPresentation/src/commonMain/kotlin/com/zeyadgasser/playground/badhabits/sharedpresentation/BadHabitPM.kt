@@ -6,4 +6,6 @@ data class BadHabitPM(
     val description: String,
     val frequency: String,
     val reminders: String,
+    val ratings: List<BadHabitRatingPM> = emptyList(),
+    val currentRating: Int = 0,
 )

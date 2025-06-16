@@ -2,7 +2,7 @@ package com.zeyadgasser.playground.badhabits.data
 
 import com.zeyadgasser.playground.badhabits.domain.BadHabit
 
-class DataBadHabitsMapper {
+object DataBadHabitsMapper {
     fun mapToDomain(entity: BadHabitEntity): BadHabit = BadHabit(
         id = entity.id,
         name = entity.name,
@@ -16,6 +16,6 @@ class DataBadHabitsMapper {
         name = badHabit.name,
         description = badHabit.description,
         frequency = badHabit.frequency,
-        reminders = badHabit.reminders
+        reminders = badHabit.reminders,
     )
 }

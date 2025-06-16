@@ -2,7 +2,7 @@ package com.zeyadgasser.playground.badhabits.detail
 
 import org.koin.dsl.module
 
-val badHabitsListModule = module {
+val badHabitsDetailModule = module {
 //    single { CheckRoutineUseCase(get()) }
 //    single<RoutineListState> { RoutineListState.InitialState(false) }
 //    single { RoutinePresentationMapper }

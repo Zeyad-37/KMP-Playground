@@ -2,6 +2,12 @@ package com.zeyadgasser.playground
 
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.window.ComposeUIViewController
+import com.zeyadgasser.playground.badhabits.data.badHabitsSharedDataModule
+import com.zeyadgasser.playground.badhabits.data.di.iosBadHabitsSharedDataModule
+import com.zeyadgasser.playground.badhabits.detail.badHabitsDetailModule
+import com.zeyadgasser.playground.badhabits.form.badHabitsFormModule
+import com.zeyadgasser.playground.badhabits.list.badHabitsListModule
+import com.zeyadgasser.playground.badhabits.sharedpresentation.badHabitsSharedPresentationModule
 import com.zeyadgasser.playground.breath.di.breathModule
 import com.zeyadgasser.playground.database.di.dataBaseModule
 import com.zeyadgasser.playground.database.iosDataBaseModule
@@ -43,6 +49,12 @@ fun MainViewController() = ComposeUIViewController {
                     + routineDetailModule
                     + routineFormModule
                     + routineSharedPresentationModule
+                    + iosBadHabitsSharedDataModule
+                    + badHabitsListModule
+                    + badHabitsSharedDataModule
+                    + badHabitsFormModule
+                    + badHabitsDetailModule
+                    + badHabitsSharedPresentationModule
         )
     }
     App(Modifier)

@@ -6,6 +6,8 @@ interface BadHabitsRepository {
 
     suspend fun addBadHabit(badHabit: BadHabit)
 
+    suspend fun insertBadHabitWithRatings(badHabit: BadHabit)
+
     suspend fun deleteBadHabitById(id: Long)
 
     suspend fun getBadHabitById(id: Long): BadHabit?

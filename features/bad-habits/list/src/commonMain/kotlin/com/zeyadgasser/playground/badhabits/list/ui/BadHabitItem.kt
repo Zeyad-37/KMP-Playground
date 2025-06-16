@@ -1,12 +1,14 @@
 package com.zeyadgasser.playground.badhabits.list.ui
 
+import androidx.compose.foundation.clickable
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.Row
 import androidx.compose.foundation.layout.fillMaxWidth
-import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.layout.padding
-import androidx.compose.foundation.layout.width
-import androidx.compose.material3.LinearProgressIndicator
+import androidx.compose.material.icons.Icons
+import androidx.compose.material.icons.filled.Add
+import androidx.compose.material.icons.filled.Minimize
+import androidx.compose.material3.Icon
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Alignment
@@ -17,15 +19,18 @@ import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 
 @Composable
-fun HabitItem(
+fun BadHabitItem(
     name: String,
     frequency: String,
-    progress: Int,
+    currentCount: String,
+    onClick: () -> Unit,
+    onCountChanged: (Int) -> Unit,
 ) {
     Row(
         modifier = Modifier
             .fillMaxWidth()
-            .padding(vertical = 8.dp),
+            .padding(vertical = 8.dp)
+            .clickable(onClick = onClick),
         verticalAlignment = Alignment.CenterVertically
     ) {
         // Habit Name and Frequency
@@ -34,20 +39,19 @@ fun HabitItem(
             Text(text = frequency, fontSize = 14.sp, color = Color.Gray)
         }
 
-        // Progress Bar
-        LinearProgressIndicator(
-            progress = { progress / 100f },
-            modifier = Modifier
-                .width(100.dp)
-                .height(8.dp),
-            color = Color.Gray,
+        Icon(
+            imageVector = Icons.Default.Minimize,
+            contentDescription = null,
+            Modifier.clickable { onCountChanged(currentCount.toInt() - 1) }
         )
-
-        // Progress Value
         Text(
-            text = progress.toString(),
+            text = currentCount,
             fontSize = 16.sp,
             modifier = Modifier.padding(start = 8.dp)
         )
+        Icon(
+            imageVector = Icons.Default.Add,
+            contentDescription = null,
+            Modifier.clickable { onCountChanged(currentCount.toInt() + 1) })
     }
 }

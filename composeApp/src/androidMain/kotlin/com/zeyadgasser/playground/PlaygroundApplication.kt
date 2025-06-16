@@ -1,6 +1,12 @@
 package com.zeyadgasser.playground
 
 import android.app.Application
+import com.zeyadgasser.playground.badhabits.data.androidBadHabitSharedDataModule
+import com.zeyadgasser.playground.badhabits.data.badHabitsSharedDataModule
+import com.zeyadgasser.playground.badhabits.detail.badHabitsDetailModule
+import com.zeyadgasser.playground.badhabits.form.badHabitsFormModule
+import com.zeyadgasser.playground.badhabits.list.badHabitsListModule
+import com.zeyadgasser.playground.badhabits.sharedpresentation.badHabitsSharedPresentationModule
 import com.zeyadgasser.playground.breath.di.breathModule
 import com.zeyadgasser.playground.database.androidDataBaseModule
 import com.zeyadgasser.playground.database.di.dataBaseModule
@@ -50,6 +56,12 @@ class PlaygroundApplication : Application(), KoinComponent {
                         + routineDetailModule
                         + routineFormModule
                         + routineSharedPresentationModule
+                        + androidBadHabitSharedDataModule
+                        + badHabitsListModule
+                        + badHabitsSharedDataModule
+                        + badHabitsFormModule
+                        + badHabitsDetailModule
+                        + badHabitsSharedPresentationModule
             )
         }
         Sync.initialize(this)
