@@ -1,6 +1,7 @@
 package com.zeyadgasser.playground.badhabits.sharedpresentation
 
 import com.zeyadgasser.playground.badhabits.domain.BadHabit
+import com.zeyadgasser.playground.badhabits.sharedpresentation.BadHabitsPresentationMapper
 import kotlin.test.Test
 import kotlin.test.assertEquals
 

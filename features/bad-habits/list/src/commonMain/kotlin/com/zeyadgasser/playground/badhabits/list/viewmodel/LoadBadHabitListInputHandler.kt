@@ -7,7 +7,7 @@ import com.zeyadgasser.playground.badhabits.list.viewmodel.BadHabitListState.Emp
 import com.zeyadgasser.playground.badhabits.list.viewmodel.BadHabitListState.SuccessState
 import com.zeyadgasser.playground.badhabits.sharedpresentation.BadHabitsPresentationMapper
 import kotlinx.coroutines.flow.Flow
-import kotlinx.coroutines.flow.flow
+import kotlinx.coroutines.flow.map
 import kotlinx.coroutines.flow.onStart
 import kotlinx.datetime.Clock
 import kotlinx.datetime.TimeZone
@@ -19,14 +19,9 @@ class LoadBadHabitListInputHandler(
 ) : InputHandler<LoadBadHabitListInput, BadHabitListState> {
 
     override suspend fun invoke(input: LoadBadHabitListInput, currentState: BadHabitListState): Flow<Result> =
-        flow {
-            val badHabit = taskPresentationMapper.mapToPresentationList(repository.getBadHabits())
-            emit(
-                if (badHabit.isNotEmpty())
-                    SuccessState(badHabit, getCurrentDate(), false)
-                else EmptyState
-            )
-        }.onStart { emit(SuccessState(emptyList(), getCurrentDate(), true)) }
+        repository.getBadHabits().map { taskPresentationMapper.mapToPresentationList(it) }
+            .map { if (it.isNotEmpty()) SuccessState(it, getCurrentDate(), false) else EmptyState }
+            .onStart { emit(SuccessState(emptyList(), getCurrentDate(), true)) }
 
     private fun getCurrentDate(): String {
         val time = Clock.System.now().toLocalDateTime(TimeZone.currentSystemDefault())

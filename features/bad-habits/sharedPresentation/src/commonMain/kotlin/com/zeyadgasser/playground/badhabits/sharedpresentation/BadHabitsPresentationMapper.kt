@@ -9,7 +9,8 @@ object BadHabitsPresentationMapper {
         name = badHabit.name,
         description = badHabit.description,
         frequency = badHabit.frequency,
-        reminders = badHabit.reminders
+        reminders = badHabit.reminders,
+        ratings = badHabit.ratings.map { BadHabitRatingPM(it.id, it.ratingValue, it.date) }
     )
 
     // Presentation → Domain

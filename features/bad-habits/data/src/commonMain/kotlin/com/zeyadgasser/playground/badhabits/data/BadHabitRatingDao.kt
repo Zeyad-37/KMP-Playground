@@ -11,6 +11,6 @@ interface BadHabitRatingDao {
     @Insert(onConflict = OnConflictStrategy.REPLACE)
     suspend fun insertRating(rating: BadHabitRatingEntity)
 
-    @Query("SELECT * FROM BadHabitRatings WHERE badHabitId = :routineId ORDER BY date DESC")
-    suspend fun getRatingsForRoutine(routineId: Long): List<BadHabitRatingEntity>
+    @Query("SELECT * FROM BadHabitRatings WHERE badHabitId = :badHabitId ORDER BY date DESC")
+    suspend fun getRatingsForBadHabit(badHabitId: Long): List<BadHabitRatingEntity>
 }

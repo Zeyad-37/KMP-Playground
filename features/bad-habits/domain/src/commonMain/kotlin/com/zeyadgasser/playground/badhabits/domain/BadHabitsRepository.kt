@@ -1,8 +1,10 @@
 package com.zeyadgasser.playground.badhabits.domain
 
+import kotlinx.coroutines.flow.Flow
+
 interface BadHabitsRepository {
 
-    suspend fun getBadHabits(): List<BadHabit>
+    fun getBadHabits(): Flow<List<BadHabit>>
 
     suspend fun addBadHabit(badHabit: BadHabit)
 

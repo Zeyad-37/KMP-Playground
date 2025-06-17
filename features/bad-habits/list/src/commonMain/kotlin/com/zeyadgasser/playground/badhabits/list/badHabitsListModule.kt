@@ -16,5 +16,5 @@ val badHabitsListModule = module {
     single { LoadBadHabitListInputHandler(get(), get()) }
     single { RateBadHabitInputHandler(get(), get(), get()) }
     single { NavigationInputHandler }
-    factory { BadHabitListViewModel(get(), get(), get(), get(named(IO))) }
+    factory { BadHabitListViewModel(get(), get(), get(), get(), get(named(IO))) }
 }

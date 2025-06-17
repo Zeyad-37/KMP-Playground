@@ -33,7 +33,7 @@ import com.zeyadgasser.playground.badhabits.list.viewmodel.BadHabitListState.Err
 import com.zeyadgasser.playground.badhabits.list.viewmodel.BadHabitListState.InitialState
 import com.zeyadgasser.playground.badhabits.list.viewmodel.BadHabitListState.SuccessState
 import com.zeyadgasser.playground.badhabits.list.viewmodel.BadHabitListViewModel
-import com.zeyadgasser.playground.badhabits.list.viewmodel.CreateBadHabitInput
+import com.zeyadgasser.playground.badhabits.list.viewmodel.NavigationInput.CreateBadHabitInput
 import com.zeyadgasser.playground.badhabits.list.viewmodel.GoToBadHabitDetailsEffect
 import com.zeyadgasser.playground.badhabits.list.viewmodel.GoToCreateBadHabitEffect
 import com.zeyadgasser.playground.badhabits.list.viewmodel.LoadBadHabitListInput

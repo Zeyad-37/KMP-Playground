@@ -14,9 +14,9 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
-import com.zeyadgasser.playground.badhabits.list.viewmodel.BadHabitClickedInput
 import com.zeyadgasser.playground.badhabits.list.viewmodel.BadHabitListInput
 import com.zeyadgasser.playground.badhabits.list.viewmodel.BadHabitRatedInput
+import com.zeyadgasser.playground.badhabits.list.viewmodel.NavigationInput.BadHabitClickedInput
 import com.zeyadgasser.playground.badhabits.sharedpresentation.BadHabitPM
 
 @OptIn(ExperimentalFoundationApi::class)

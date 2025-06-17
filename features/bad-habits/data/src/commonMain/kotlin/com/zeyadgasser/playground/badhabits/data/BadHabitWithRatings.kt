@@ -9,7 +9,7 @@ data class BadHabitWithRatings(
 
     @Relation(
         parentColumn = "id",
-        entityColumn = "routineId"
+        entityColumn = "badHabitId"
     )
     val ratings: List<BadHabitRatingEntity>,
 )

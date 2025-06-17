@@ -2,6 +2,8 @@ package com.zeyadgasser.playground.badhabits.data
 
 import com.zeyadgasser.playground.badhabits.domain.BadHabit
 import com.zeyadgasser.playground.badhabits.domain.BadHabitsRepository
+import kotlinx.coroutines.flow.Flow
+import kotlinx.coroutines.flow.map
 
 class BadHabitsRepositoryImpl(
     private val badHabitsDao: BadHabitsDao,
@@ -9,8 +11,8 @@ class BadHabitsRepositoryImpl(
     private val dataMapper: DataBadHabitsMapper,
 ) : BadHabitsRepository {
 
-    override suspend fun getBadHabits(): List<BadHabit> =
-        badHabitsDao.getAll().map { dataMapper.mapToDomain(it) }
+    override fun getBadHabits(): Flow<List<BadHabit>> =
+        badHabitsDao.getBadHabitWithRatings().map { dataMapper.mapToDomainList(it) }
 
     override suspend fun addBadHabit(badHabit: BadHabit) =
         badHabitsDao.insert(dataMapper.mapFromDomain(badHabit))

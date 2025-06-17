@@ -24,7 +24,7 @@ class RateBadHabitInputHandler(
             badHabitsPresentationMapper.mapFromPresentation(
                 input.badHabit.copy(
                     ratings = input.badHabit.ratings
-                        .plus(BadHabitRatingPM(input.rating, getCurrentDate()))
+                        .plus(BadHabitRatingPM(0, input.rating, getCurrentDate()))
                 )
             )
         )

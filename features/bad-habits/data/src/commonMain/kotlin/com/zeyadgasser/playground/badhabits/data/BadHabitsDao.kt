@@ -4,11 +4,14 @@ import androidx.room.Dao
 import androidx.room.Insert
 import androidx.room.OnConflictStrategy
 import androidx.room.Query
+import androidx.room.Transaction
+import kotlinx.coroutines.flow.Flow
 
 @Dao
 interface BadHabitsDao {
+    @Transaction
     @Query("SELECT * FROM Bad_Habits")
-    suspend fun getAll(): List<BadHabitEntity>
+    fun getBadHabitWithRatings(): Flow<List<BadHabitWithRatings>>
 
     @Query("SELECT * FROM Bad_Habits WHERE id = :id")
     suspend fun getBadHabitById(id: Long): BadHabitEntity
