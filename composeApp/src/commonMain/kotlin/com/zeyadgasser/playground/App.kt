@@ -8,6 +8,7 @@ import androidx.navigation.compose.NavHost
 import androidx.navigation.compose.composable
 import androidx.navigation.compose.rememberNavController
 import androidx.navigation.toRoute
+import com.zeyadgasser.playground.badhabits.form.ui.BadHabitFormStateHolder
 import com.zeyadgasser.playground.badhabits.list.ui.BadHabitsListStateHolder
 import com.zeyadgasser.playground.breath.ui.BreathingCoachAppStateHolder
 import com.zeyadgasser.playground.routine.detail.ui.RoutineDetailsStateHolder
@@ -45,20 +46,20 @@ fun App(modifier: Modifier, onNavHostReady: suspend (NavController) -> Unit = {}
             }
             composable<BadHabitList> {
                 BadHabitsListStateHolder(
-                    onBadHabitClick = { navController.navigate(RoutineDetail(it)) },
-                    onCreateBadHabitClick = { navController.navigate(RoutineForm(null)) })
+                    onBadHabitClick = { navController.navigate(BadHabitDetail(it)) },
+                    onCreateBadHabitClick = { navController.navigate(BadHabitForm(null)) })
             }
 //            composable<BadHabitDetail> {
-//                RoutineDetailsStateHolder(
-//                    routineId = it.toRoute<RoutineDetail>().routineId,
+//                BadHabitDetailsStateHolder(
+//                    routineId = it.toRoute<BadHabitDetail>().routineId,
 //                    onDelete = { navController.popBackStack() },
-//                    onEdit = { navController.navigate(RoutineForm(it.toRoute<RoutineDetail>().routineId)) })
+//                    onEdit = { navController.navigate(BadHabitForm(it.toRoute<BadHabit>().badHabitId)) })
 //            }
-//            composable<BadHabitForm> {
-//                RoutineFormScreenStateHolder(
-//                    routineId = it.toRoute<RoutineForm>().routineId,
-//                    onCloseFormClick = { navController.popBackStack() })
-//            }
+            composable<BadHabitForm> {
+                BadHabitFormStateHolder(
+                    badHabitId = it.toRoute<BadHabitForm>().badHabitId,
+                    onCloseFormClick = { navController.popBackStack() })
+            }
         }
         LaunchedEffect(navController) {
             onNavHostReady(navController)

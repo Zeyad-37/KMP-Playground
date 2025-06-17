@@ -11,7 +11,7 @@ interface BadHabitsDao {
     suspend fun getAll(): List<BadHabitEntity>
 
     @Query("SELECT * FROM Bad_Habits WHERE id = :id")
-    suspend fun getBadHabitById(id: Long): BadHabitEntity?
+    suspend fun getBadHabitById(id: Long): BadHabitEntity
 
     @Insert(onConflict = OnConflictStrategy.REPLACE)
     suspend fun insert(habit: BadHabitEntity)

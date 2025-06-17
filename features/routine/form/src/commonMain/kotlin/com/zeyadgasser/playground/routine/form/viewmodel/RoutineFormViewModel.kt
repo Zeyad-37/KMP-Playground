@@ -54,7 +54,7 @@ class RoutineFormViewModel(
         val categoryValidation = if (form.routineCategory.isBlank()) "Category is required" else null
         val startValidation = if (form.startTime.isBlank()) "Start time is required" else null
         val endValidation = if (form.endTime.isBlank()) "End time is required" else null
-        val descriptionValidation = if (form.description.isBlank()) "Description time is required" else null
+        val descriptionValidation = if (form.description.isBlank()) "Description is required" else null
         if (nameValidation != null || typeValidation != null || descriptionValidation != null)
             emit(
                 ValidationErrorState(

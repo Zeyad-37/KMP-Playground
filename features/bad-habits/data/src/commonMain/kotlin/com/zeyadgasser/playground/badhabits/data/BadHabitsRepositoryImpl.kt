@@ -9,25 +9,21 @@ class BadHabitsRepositoryImpl(
     private val dataMapper: DataBadHabitsMapper,
 ) : BadHabitsRepository {
 
-    override suspend fun getBadHabits(): List<BadHabit> = badHabitsDao.getAll().map { dataMapper.mapToDomain(it) }
+    override suspend fun getBadHabits(): List<BadHabit> =
+        badHabitsDao.getAll().map { dataMapper.mapToDomain(it) }
 
-    override suspend fun addBadHabit(badHabit: BadHabit) = badHabitsDao.insert(dataMapper.mapFromDomain(badHabit))
+    override suspend fun addBadHabit(badHabit: BadHabit) =
+        badHabitsDao.insert(dataMapper.mapFromDomain(badHabit))
 
     override suspend fun insertBadHabitWithRatings(badHabit: BadHabit) {
         badHabitsDao.insert(dataMapper.mapFromDomain(badHabit))
-        // Step 3: Map ratings and insert them
-        val ratingEntities = badHabit.ratings.map { rating ->
-            BadHabitRatingEntity(
-                badHabitId = badHabit.id,
-                ratingValue = rating.ratingValue,
-                date = rating.date
-            )
-        }
-        ratingEntities.forEach { badHabitRatingDao.insertRating(it) }
+        badHabit.ratings.map {
+            BadHabitRatingEntity(badHabitId = badHabit.id, ratingValue = it.ratingValue, date = it.date)
+        }.forEach { badHabitRatingDao.insertRating(it) }
     }
 
     override suspend fun deleteBadHabitById(id: Long) = badHabitsDao.deleteById(id)
 
-    override suspend fun getBadHabitById(id: Long): BadHabit? =
-        badHabitsDao.getBadHabitById(id)?.let { dataMapper.mapToDomain(it) }
+    override suspend fun getBadHabitById(id: Long): BadHabit =
+        dataMapper.mapToDomain(badHabitsDao.getBadHabitById(id))
 }

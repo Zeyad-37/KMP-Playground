@@ -17,12 +17,12 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.unit.dp
 
 @Composable
-fun DropdownMenuExample(
+fun DropdownMenu(
     selectedOption: String,
     onOptionSelected: (String) -> Unit,
     options: List<String>,
 ) {
-    var expanded by remember { mutableStateOf(false) }
+    var expanded by remember { mutableStateOf(true) }
 
     Box(modifier = Modifier.wrapContentSize(Alignment.TopStart)) {
         Text(

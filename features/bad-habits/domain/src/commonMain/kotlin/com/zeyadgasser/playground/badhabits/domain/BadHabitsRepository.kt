@@ -10,5 +10,5 @@ interface BadHabitsRepository {
 
     suspend fun deleteBadHabitById(id: Long)
 
-    suspend fun getBadHabitById(id: Long): BadHabit?
+    suspend fun getBadHabitById(id: Long): BadHabit
 }

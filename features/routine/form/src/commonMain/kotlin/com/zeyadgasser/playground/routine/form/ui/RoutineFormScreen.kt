@@ -138,7 +138,7 @@ fun RoutineFormScreenContent(
             state is ValidationErrorState && state.formValidation.descriptionValidationErrorMessage != null
         )
     }
-    var descriptionTimeErrorMessage by remember {
+    var descriptionErrorMessage by remember {
         mutableStateOf((state as? ValidationErrorState)?.formValidation?.descriptionValidationErrorMessage.orEmpty())
     }
     var remindersEnabled by remember { mutableStateOf(state.form.remindersEnabled) }
@@ -380,7 +380,7 @@ fun RoutineFormScreenContent(
                     if (isDescriptionError) {
                         Text(
                             modifier = Modifier.fillMaxWidth(),
-                            text = descriptionTimeErrorMessage,
+                            text = descriptionErrorMessage,
                             color = MaterialTheme.colorScheme.error
                         )
                     }

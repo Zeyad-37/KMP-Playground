@@ -24,7 +24,7 @@ data class RoutineForm(val routineId: Long?)
 data object BadHabitList
 
 @Serializable
-data class BadHabitDetail(val routineId: Long)
+data class BadHabitDetail(val badHabitId: Long)
 
 @Serializable
-data class BadHabitForm(val routineId: Long?)
+data class BadHabitForm(val badHabitId: Long?)
