@@ -13,19 +13,25 @@ This is a Kotlin Multiplatform project targeting Android, iOS, Desktop.
 Learn more about [Kotlin Multiplatform](https://www.jetbrains.com/help/kotlin-multiplatform-dev/get-started.html)…
 
 TODO:
+Version 1.0:
 - Bad Habit Tracker
 - Main Activity
-- Fix todos
-- Remove database module
-- Fix tests
+- Fix todos (AI)
+- Remove database module (Spike)
+- Fix tests (AI)
 - Notifications
-- Add Screens:
-  - Profile 
-  - Settings (Multiplatform settings)
-  - GEN AI
-  - 2FA / Bio security
-  - Forgot password ??
-  - Sign Up/In (Firebase Auth - Google/Apple/Facebook/Phone/Anonymous) ??
+- Profile 
+- Settings (Multiplatform settings / Storo)
+- GEN AI
+  - Icon Generation
+  - Motivational quotes generation
+- 2FA / Bio security
+- Forgot password ??
+- Sign Up/In (Firebase Auth - Google/Apple/Facebook/Phone/Anonymous) ??
+- Firebase Crashlytics
+- Firebase Analytics
+- Firebase RemoteConfig
+- Monetization
 - Web JS or Wasm ??
 Version 2.0:
 - Weekly Routine
@@ -33,8 +39,17 @@ Version 2.0:
 - Yearly Routine ?
 - Theme Picker
 Version 3.0:
+- Release Bad Habit Tracker?
 - Mood Tracker
-- Sleep Tracker
-- Heart Rate Tracker
-- Steps Tracker
-- Period Tracker
+- Sleep Tracker (integration?)
+- Heart Rate Tracker (integration?)
+- Steps Tracker (integration?)
+- Period Tracker (integration?)
+Version 4.0:
+- Data Overview and analysis (AI)
+- Multi device support
+Version 5.0:
+- Advice as content
+- Social media integration
+Version 6.0:
+- In app purchases
