@@ -6,10 +6,12 @@ import com.zeyadgasser.playground.architecture.presentation.State
 import com.zeyadgasser.playground.badhabits.sharedpresentation.BadHabitPM
 
 sealed class BadHabitListInput : Input
-data object CreateBadHabitInput : BadHabitListInput()
 data object LoadBadHabitListInput : BadHabitListInput()
-data class BadHabitClickedInput(val badHabit: BadHabitPM) : BadHabitListInput()
 data class BadHabitRatedInput(val badHabit: BadHabitPM, val rating: Int) : BadHabitListInput()
+sealed class NavigationInput : BadHabitListInput() {
+    data object CreateBadHabitInput : NavigationInput()
+    data class BadHabitClickedInput(val badHabit: BadHabitPM) : NavigationInput()
+}
 
 sealed class BadHabitListEffect : Effect
 data class GoToBadHabitDetailsEffect(val badHabitId: Long) : BadHabitListEffect()

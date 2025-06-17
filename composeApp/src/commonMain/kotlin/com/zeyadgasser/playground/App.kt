@@ -8,6 +8,8 @@ import androidx.navigation.compose.NavHost
 import androidx.navigation.compose.composable
 import androidx.navigation.compose.rememberNavController
 import androidx.navigation.toRoute
+import com.zeyadgasser.playground.badhabits.detail.ui.BadHabitDetailsStateHolder
+import com.zeyadgasser.playground.badhabits.domain.BadHabit
 import com.zeyadgasser.playground.badhabits.form.ui.BadHabitFormStateHolder
 import com.zeyadgasser.playground.badhabits.list.ui.BadHabitsListStateHolder
 import com.zeyadgasser.playground.breath.ui.BreathingCoachAppStateHolder
@@ -49,12 +51,12 @@ fun App(modifier: Modifier, onNavHostReady: suspend (NavController) -> Unit = {}
                     onBadHabitClick = { navController.navigate(BadHabitDetail(it)) },
                     onCreateBadHabitClick = { navController.navigate(BadHabitForm(null)) })
             }
-//            composable<BadHabitDetail> {
-//                BadHabitDetailsStateHolder(
-//                    routineId = it.toRoute<BadHabitDetail>().routineId,
-//                    onDelete = { navController.popBackStack() },
-//                    onEdit = { navController.navigate(BadHabitForm(it.toRoute<BadHabit>().badHabitId)) })
-//            }
+            composable<BadHabitDetail> {
+                BadHabitDetailsStateHolder(
+                    badHabitId = it.toRoute<BadHabitDetail>().badHabitId,
+                    onDelete = { navController.popBackStack() },
+                    onEdit = { navController.navigate(BadHabitForm(it.toRoute<BadHabit>().id)) })
+            }
             composable<BadHabitForm> {
                 BadHabitFormStateHolder(
                     badHabitId = it.toRoute<BadHabitForm>().badHabitId,

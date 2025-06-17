@@ -24,7 +24,6 @@ import androidx.compose.material.icons.filled.Edit
 import androidx.compose.material3.ExperimentalMaterial3Api
 import androidx.compose.material3.Icon
 import androidx.compose.material3.IconButton
-import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.Scaffold
 import androidx.compose.material3.Snackbar
 import androidx.compose.material3.SnackbarDuration
@@ -49,11 +48,12 @@ import androidx.compose.ui.unit.sp
 import androidx.lifecycle.compose.collectAsStateWithLifecycle
 import com.zeyadgasser.playground.architecture.presentation.Input
 import com.zeyadgasser.playground.routine.detail.viewmodel.DeleteRoutineDetailInput
-import com.zeyadgasser.playground.routine.detail.viewmodel.EditRoutineDetailInput
 import com.zeyadgasser.playground.routine.detail.viewmodel.ErrorEffect
-import com.zeyadgasser.playground.routine.detail.viewmodel.GoBackInput
 import com.zeyadgasser.playground.routine.detail.viewmodel.LoadRoutineDetailInput
 import com.zeyadgasser.playground.routine.detail.viewmodel.NavToEffect
+import com.zeyadgasser.playground.routine.detail.viewmodel.NavigationInput
+import com.zeyadgasser.playground.routine.detail.viewmodel.NavigationInput.EditRoutineDetailInput
+import com.zeyadgasser.playground.routine.detail.viewmodel.NavigationInput.GoBackInput
 import com.zeyadgasser.playground.routine.detail.viewmodel.RoutineDetailState
 import com.zeyadgasser.playground.routine.detail.viewmodel.RoutineDetailState.InitialState
 import com.zeyadgasser.playground.routine.detail.viewmodel.RoutineDetailState.SuccessState
@@ -64,10 +64,6 @@ import ir.ehsannarmani.compose_charts.models.AnimationMode
 import ir.ehsannarmani.compose_charts.models.BarProperties
 import ir.ehsannarmani.compose_charts.models.Bars
 import ir.ehsannarmani.compose_charts.models.Bars.Data.Radius.Circular
-import ir.ehsannarmani.compose_charts.models.HorizontalIndicatorProperties
-import ir.ehsannarmani.compose_charts.models.IndicatorCount
-import ir.ehsannarmani.compose_charts.models.IndicatorPosition
-import ir.ehsannarmani.compose_charts.models.LabelProperties
 import kotlinx.coroutines.flow.collectLatest
 import kotlinx.coroutines.launch
 import org.jetbrains.compose.ui.tooling.preview.Preview

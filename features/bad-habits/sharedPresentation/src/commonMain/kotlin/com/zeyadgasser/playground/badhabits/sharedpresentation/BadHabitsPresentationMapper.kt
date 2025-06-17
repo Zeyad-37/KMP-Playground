@@ -13,8 +13,8 @@ object BadHabitsPresentationMapper {
     )
 
     // Presentation → Domain
-    fun mapFromPresentation(badHabitPM: BadHabitPM, id: Long = 0): BadHabit = BadHabit(
-        id = id,
+    fun mapFromPresentation(badHabitPM: BadHabitPM): BadHabit = BadHabit(
+        id = badHabitPM.id,
         name = badHabitPM.name,
         description = badHabitPM.description,
         frequency = badHabitPM.frequency,
@@ -26,9 +26,6 @@ object BadHabitsPresentationMapper {
         return badHabits.map { mapToPresentation(it) }
     }
 
-    fun mapFromPresentationList(pmList: List<BadHabitPM>, ids: List<Long> = List(pmList.size) { 0 }): List<BadHabit> {
-        return pmList.mapIndexed { index, pm ->
-            mapFromPresentation(pm, ids.getOrElse(index) { 0 })
-        }
-    }
+    fun mapFromPresentationList(pmList: List<BadHabitPM>): List<BadHabit> =
+        pmList.map { pm -> mapFromPresentation(pm) }
 }

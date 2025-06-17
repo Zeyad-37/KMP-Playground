@@ -19,21 +19,19 @@ class RateBadHabitInputHandler(
     private val loadBadHabitListInputHandler: LoadBadHabitListInputHandler,
 ) : InputHandler<BadHabitRatedInput, BadHabitListState> {
 
-    override suspend fun invoke(input: BadHabitRatedInput, currentState: BadHabitListState): Flow<Result> =
-        flow {
-            repository.insertBadHabitWithRatings(
-                badHabitsPresentationMapper.mapFromPresentation(
-                    input.badHabit.copy(
-                        ratings = input.badHabit.ratings
-                            .plus(BadHabitRatingPM(input.rating, getCurrentDate()))
-                    )
+    override suspend fun invoke(input: BadHabitRatedInput, state: BadHabitListState): Flow<Result> = flow {
+        repository.insertBadHabitWithRatings(
+            badHabitsPresentationMapper.mapFromPresentation(
+                input.badHabit.copy(
+                    ratings = input.badHabit.ratings
+                        .plus(BadHabitRatingPM(input.rating, getCurrentDate()))
                 )
             )
-            emitAll(loadBadHabitListInputHandler.invoke(LoadBadHabitListInput, currentState))
-        }
-
-    private fun getCurrentDate(): String { // todo centralise in a use-case
-        val time = Clock.System.now().toLocalDateTime(TimeZone.currentSystemDefault())
-        return "${time.date.dayOfMonth}, ${time.date.month.number}, ${time.date.year}"
+        )
+        emitAll(loadBadHabitListInputHandler.invoke(LoadBadHabitListInput, state))
     }
+
+    private fun getCurrentDate(): String = // todo centralise in a use-case
+        Clock.System.now().toLocalDateTime(TimeZone.currentSystemDefault())
+            .let { "${it.date.dayOfMonth}, ${it.date.month.number}, ${it.date.year}" }
 }
