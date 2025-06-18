@@ -1,6 +1,7 @@
 package com.zeyadgasser.playground.badhabits.sharedpresentation
 
 import com.zeyadgasser.playground.badhabits.domain.BadHabit
+import com.zeyadgasser.playground.badhabits.domain.BadHabitRating
 
 object BadHabitsPresentationMapper {
     // Domain → Presentation
@@ -10,7 +11,8 @@ object BadHabitsPresentationMapper {
         description = badHabit.description,
         frequency = badHabit.frequency,
         reminders = badHabit.reminders,
-        ratings = badHabit.ratings.map { BadHabitRatingPM(it.id, it.ratingValue, it.date) }
+        ratings = badHabit.ratings.map { BadHabitRatingPM(it.id, it.ratingValue, it.date) },
+        currentRating = badHabit.ratings.lastOrNull()?.ratingValue ?: 0
     )
 
     // Presentation → Domain
@@ -19,7 +21,8 @@ object BadHabitsPresentationMapper {
         name = badHabitPM.name,
         description = badHabitPM.description,
         frequency = badHabitPM.frequency,
-        reminders = badHabitPM.reminders
+        reminders = badHabitPM.reminders,
+        ratings = badHabitPM.ratings.map { BadHabitRating(it.id, it.ratingValue, it.date) }
     )
 
     // List mappings

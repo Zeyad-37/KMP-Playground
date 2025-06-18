@@ -8,6 +8,7 @@ import androidx.compose.foundation.layout.padding
 import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.filled.Add
 import androidx.compose.material.icons.filled.Minimize
+import androidx.compose.material.icons.filled.Remove
 import androidx.compose.material3.Icon
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
@@ -40,7 +41,7 @@ fun BadHabitItem(
         }
 
         Icon(
-            imageVector = Icons.Default.Minimize,
+            imageVector = Icons.Default.Remove,
             contentDescription = null,
             Modifier.clickable { onCountChanged(currentCount.toInt() - 1) }
         )

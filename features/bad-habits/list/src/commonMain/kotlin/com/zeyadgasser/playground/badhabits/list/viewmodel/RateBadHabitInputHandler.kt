@@ -6,32 +6,29 @@ import com.zeyadgasser.playground.badhabits.domain.BadHabitsRepository
 import com.zeyadgasser.playground.badhabits.sharedpresentation.BadHabitRatingPM
 import com.zeyadgasser.playground.badhabits.sharedpresentation.BadHabitsPresentationMapper
 import kotlinx.coroutines.flow.Flow
-import kotlinx.coroutines.flow.emitAll
 import kotlinx.coroutines.flow.flow
 import kotlinx.datetime.Clock
 import kotlinx.datetime.TimeZone
-import kotlinx.datetime.number
 import kotlinx.datetime.toLocalDateTime
 
 class RateBadHabitInputHandler(
     private val repository: BadHabitsRepository,
     private val badHabitsPresentationMapper: BadHabitsPresentationMapper,
-    private val loadBadHabitListInputHandler: LoadBadHabitListInputHandler,
 ) : InputHandler<BadHabitRatedInput, BadHabitListState> {
 
     override suspend fun invoke(input: BadHabitRatedInput, state: BadHabitListState): Flow<Result> = flow {
-        repository.insertBadHabitWithRatings(
-            badHabitsPresentationMapper.mapFromPresentation(
-                input.badHabit.copy(
-                    ratings = input.badHabit.ratings
-                        .plus(BadHabitRatingPM(0, input.rating, getCurrentDate()))
+        if (input.rating >= 0)
+            repository.insertBadHabitWithRatings(
+                badHabitsPresentationMapper.mapFromPresentation(
+                    input.badHabit.copy(
+                        ratings = input.badHabit.ratings
+                            .plus(BadHabitRatingPM(0, input.rating, getCurrentDate()))
+                    )
                 )
             )
-        )
-        emitAll(loadBadHabitListInputHandler.invoke(LoadBadHabitListInput, state))
+        else emit(ErrorEffect("Can not rate a bad habit with a negative rating"))
     }
 
     private fun getCurrentDate(): String = // todo centralise in a use-case
-        Clock.System.now().toLocalDateTime(TimeZone.currentSystemDefault())
-            .let { "${it.date.dayOfMonth}, ${it.date.month.number}, ${it.date.year}" }
+        Clock.System.now().toLocalDateTime(TimeZone.currentSystemDefault()).toString()
 }

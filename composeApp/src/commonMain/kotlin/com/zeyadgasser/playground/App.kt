@@ -55,7 +55,7 @@ fun App(modifier: Modifier, onNavHostReady: suspend (NavController) -> Unit = {}
                 BadHabitDetailsStateHolder(
                     badHabitId = it.toRoute<BadHabitDetail>().badHabitId,
                     onDelete = { navController.popBackStack() },
-                    onEdit = { navController.navigate(BadHabitForm(it.toRoute<BadHabit>().id)) })
+                    onEdit = { navController.navigate(BadHabitForm(it.toRoute<BadHabitDetail>().badHabitId)) })
             }
             composable<BadHabitForm> {
                 BadHabitFormStateHolder(

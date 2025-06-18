@@ -15,6 +15,7 @@ import androidx.compose.material3.Scaffold
 import androidx.compose.material3.Snackbar
 import androidx.compose.material3.SnackbarHost
 import androidx.compose.material3.SnackbarHostState
+import androidx.compose.material3.Text
 import androidx.compose.material3.TopAppBar
 import androidx.compose.material3.TopAppBarDefaults
 import androidx.compose.runtime.Composable
@@ -24,6 +25,7 @@ import androidx.compose.runtime.getValue
 import androidx.compose.runtime.remember
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
+import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.unit.sp
 import com.zeyadgasser.playground.architecture.presentation.Input
@@ -33,6 +35,7 @@ import com.zeyadgasser.playground.badhabits.list.viewmodel.BadHabitListState.Err
 import com.zeyadgasser.playground.badhabits.list.viewmodel.BadHabitListState.InitialState
 import com.zeyadgasser.playground.badhabits.list.viewmodel.BadHabitListState.SuccessState
 import com.zeyadgasser.playground.badhabits.list.viewmodel.BadHabitListViewModel
+import com.zeyadgasser.playground.badhabits.list.viewmodel.ErrorEffect
 import com.zeyadgasser.playground.badhabits.list.viewmodel.NavigationInput.CreateBadHabitInput
 import com.zeyadgasser.playground.badhabits.list.viewmodel.GoToBadHabitDetailsEffect
 import com.zeyadgasser.playground.badhabits.list.viewmodel.GoToCreateBadHabitEffect
@@ -54,6 +57,7 @@ fun BadHabitsListStateHolder(
             when (it) {
                 is GoToBadHabitDetailsEffect -> onBadHabitClick(it.badHabitId)
                 GoToCreateBadHabitEffect -> onCreateBadHabitClick()
+                is ErrorEffect -> snackBarHostState.showSnackbar(it.message)
             }
         }
     }
@@ -74,9 +78,10 @@ fun BadHabitListScreenContent(
         topBar = {
             TopAppBar(
                 title = {
-                    androidx.compose.material3.Text(
-                        text = "BadHabits",
+                    Text(
+                        text = "Bad Habits",
                         fontSize = 24.sp,
+                        fontWeight = FontWeight.Bold,
                         modifier = Modifier.fillMaxWidth(),
                         textAlign = TextAlign.Center,
                         color = MaterialTheme.colorScheme.onBackground,
@@ -85,7 +90,6 @@ fun BadHabitListScreenContent(
                 },
                 actions = {
                     IconButton({ process(CreateBadHabitInput) }) {
-//                        Icon(painterResource(Res.drawable.add_icon), stringResource(Res.string.add_routine))
                         Icon(Icons.Default.Add, "Add BadHabit")
                     }
                 },

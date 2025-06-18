@@ -194,7 +194,7 @@ fun BadHabitFormContent(
             onClick = {
                 process(
                     SubmitBadHabitInput(
-                        BadHabitForm(name, description, frequency, reminders),
+                        BadHabitForm(name, frequency, description, reminders),
                         badHabitId
                     )
                 )

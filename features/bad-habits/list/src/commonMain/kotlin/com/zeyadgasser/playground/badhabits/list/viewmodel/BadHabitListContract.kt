@@ -16,6 +16,7 @@ sealed class NavigationInput : BadHabitListInput() {
 sealed class BadHabitListEffect : Effect
 data class GoToBadHabitDetailsEffect(val badHabitId: Long) : BadHabitListEffect()
 data object GoToCreateBadHabitEffect : BadHabitListEffect()
+data class ErrorEffect(val message: String) : BadHabitListEffect()
 
 sealed class BadHabitListState(
     open val isLoading: Boolean, open val badHabit: List<BadHabitPM>,

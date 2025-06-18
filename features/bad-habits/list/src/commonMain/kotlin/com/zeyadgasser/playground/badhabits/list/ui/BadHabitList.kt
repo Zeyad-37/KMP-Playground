@@ -30,7 +30,7 @@ fun BadHabitList(
 ) {
     Column(modifier.fillMaxSize()) {
         Text(date, Modifier.fillMaxWidth().padding(16.dp), color = Color.Gray, fontSize = 14.sp)
-        LazyColumn(Modifier.fillMaxSize(), listState) {
+        LazyColumn(Modifier.fillMaxSize().padding(16.dp), listState) {
             items(badHabits, { item -> item.id }) { item ->
                 BadHabitItem(
                     name = item.name,
