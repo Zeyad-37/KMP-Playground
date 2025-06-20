@@ -4,12 +4,13 @@ import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.Row
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.padding
-import androidx.compose.material.Icon
-import androidx.compose.material.MaterialTheme
-import androidx.compose.material.Text
 import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.sharp.DateRange
 import androidx.compose.material.icons.sharp.Notifications
+import androidx.compose.material3.Icon
+import androidx.compose.material3.MaterialTheme
+import androidx.compose.material3.Text
+
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
@@ -24,7 +25,7 @@ fun TaskItemTextSlot(title: String, description: String, createdDate: String, du
         modifier = Modifier.padding(16.dp)
     ) {
         Text(text = title)
-        Text(text = description, style = MaterialTheme.typography.body2)
+        Text(text = description, style = MaterialTheme.typography.bodyMedium)
         Row {
             Column(modifier = Modifier.padding(top = 8.dp)) {
                 Row(
@@ -33,12 +34,12 @@ fun TaskItemTextSlot(title: String, description: String, createdDate: String, du
                     Icon(
                         painter = rememberVectorPainter(image = Icons.Sharp.DateRange),
                         contentDescription = null,
-                        tint = MaterialTheme.colors.primary,
+                        tint = MaterialTheme.colorScheme.primary,
                     )
                     Text(
                         text = "Created:",
                         modifier = Modifier.padding(start = 8.dp),
-                        style = MaterialTheme.typography.body1
+                        style = MaterialTheme.typography.bodyLarge
                     )
                     Text(
                         text = createdDate,
@@ -46,7 +47,7 @@ fun TaskItemTextSlot(title: String, description: String, createdDate: String, du
                         overflow = TextOverflow.Ellipsis,
                         modifier = Modifier.fillMaxWidth(),
                         textAlign = TextAlign.End,
-                        style = MaterialTheme.typography.body2,
+                        style = MaterialTheme.typography.bodyMedium,
                     )
                 }
                 Row(
@@ -55,12 +56,12 @@ fun TaskItemTextSlot(title: String, description: String, createdDate: String, du
                     Icon(
                         painter = rememberVectorPainter(image = Icons.Sharp.Notifications),
                         contentDescription = null,
-                        tint = MaterialTheme.colors.primary,
+                        tint = MaterialTheme.colorScheme.primary,
                     )
                     Text(
                         text = "Due:",
                         modifier = Modifier.padding(start = 8.dp),
-                        style = MaterialTheme.typography.body1
+                        style = MaterialTheme.typography.bodyLarge
                     )
                     Text(
                         text = dueDate,
@@ -68,7 +69,7 @@ fun TaskItemTextSlot(title: String, description: String, createdDate: String, du
                         overflow = TextOverflow.Ellipsis,
                         modifier = Modifier.fillMaxWidth(),
                         textAlign = TextAlign.End,
-                        style = MaterialTheme.typography.body2,
+                        style = MaterialTheme.typography.bodyMedium,
                     )
                 }
             }

@@ -1,6 +1,6 @@
 package com.zeyadgasser.playground.sharedui.theme
 
-import androidx.compose.material.MaterialTheme
+import androidx.compose.material3.MaterialTheme
 import androidx.compose.runtime.Composable
 
 @Composable
@@ -9,7 +9,7 @@ fun AppTheme(
 ) {
     MaterialTheme(
         content = content,
-        colors = MaterialTheme.colors.copy(
+        colorScheme = MaterialTheme.colorScheme.copy(
             primary = AppColors.Primary,
             onPrimary = AppColors.OnPrimary,
             background = AppColors.Background,

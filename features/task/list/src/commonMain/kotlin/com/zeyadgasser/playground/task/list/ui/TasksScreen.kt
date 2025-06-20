@@ -4,18 +4,19 @@ import androidx.compose.foundation.clickable
 import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.padding
-import androidx.compose.material.AlertDialog
-import androidx.compose.material.MaterialTheme
-import androidx.compose.material.Scaffold
-import androidx.compose.material.Snackbar
-import androidx.compose.material.SnackbarDuration
-import androidx.compose.material.SnackbarHost
-import androidx.compose.material.SnackbarHostState
-import androidx.compose.material.Tab
-import androidx.compose.material.TabRow
-import androidx.compose.material.Text
-import androidx.compose.material.TextButton
-import androidx.compose.material.TopAppBar
+import androidx.compose.material3.AlertDialog
+import androidx.compose.material3.ExperimentalMaterial3Api
+import androidx.compose.material3.MaterialTheme
+import androidx.compose.material3.Scaffold
+import androidx.compose.material3.Snackbar
+import androidx.compose.material3.SnackbarDuration
+import androidx.compose.material3.SnackbarHost
+import androidx.compose.material3.SnackbarHostState
+import androidx.compose.material3.Tab
+import androidx.compose.material3.TabRow
+import androidx.compose.material3.Text
+import androidx.compose.material3.TextButton
+import androidx.compose.material3.TopAppBar
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.LaunchedEffect
 import androidx.compose.runtime.getValue
@@ -73,6 +74,7 @@ fun TasksScreenStateHolder(
     TasksScreenContent(modifier, tasksState, showDialog, snackBarHostState) { viewModel.process(it) }
 }
 
+@OptIn(ExperimentalMaterial3Api::class)
 @Composable
 fun TasksScreenContent(
     modifier: Modifier,
@@ -96,8 +98,8 @@ fun TasksScreenContent(
                             .fillMaxWidth()
                             .clickable { process(if (showDialog) HideDialogInput else ShowDialogInput) },
                         textAlign = TextAlign.Start,
-                        color = MaterialTheme.colors.onBackground,
-                        style = MaterialTheme.typography.h3
+                        color = MaterialTheme.colorScheme.onBackground,
+                        style = MaterialTheme.typography.headlineSmall
                     )
                 },
             )
@@ -111,12 +113,12 @@ fun TasksScreenContent(
     ) { innerPadding ->
         TabRow(selectedTabIndex = selectedTabIndex) {
             Tab(
-                text = { Text(allTabLabel, color = MaterialTheme.colors.onBackground) },
+                text = { Text(allTabLabel, color = MaterialTheme.colorScheme.onBackground) },
                 selected = selectedTabIndex == 0,
                 onClick = { selectedTabIndex = 0 }
             )
             Tab(
-                text = { Text(upcomingTabLabel, color = MaterialTheme.colors.onBackground) },
+                text = { Text(upcomingTabLabel, color = MaterialTheme.colorScheme.onBackground) },
                 selected = selectedTabIndex == 1,
                 onClick = { selectedTabIndex = 1 }
             )

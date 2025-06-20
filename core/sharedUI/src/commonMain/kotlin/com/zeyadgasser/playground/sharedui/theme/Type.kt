@@ -1,25 +1,27 @@
 package com.zeyadgasser.playground.sharedui.theme
 
-import androidx.compose.material.Typography
+import androidx.compose.material3.Typography
 import androidx.compose.ui.text.TextStyle
 import androidx.compose.ui.text.font.FontFamily
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.unit.sp
 
-val Typography = Typography(
-    h1 = AppTypography.Headline,
-    h2 = AppTypography.Headline,
-    h3 = AppTypography.Headline,
-    h4 = AppTypography.Headline,
-    h5 = AppTypography.Headline,
-    body1 = AppTypography.Body1Medium,
-    body2 = AppTypography.Body2Medium,
-    subtitle1 = AppTypography.Body1Regular,
-    subtitle2 = AppTypography.Body2Regular,
-//    displayLarge = AppTypography.Headline,
-//    bodyLarge = AppTypography.Body1Medium,
-//    bodyMedium = AppTypography.Body2Medium,
-//    bodySmall = AppTypography.Body1Regular,
+val Typography = Typography( // TODO Review
+    displayLarge = AppTypography.Headline,
+    displayMedium = AppTypography.Body2Medium,
+    displaySmall = AppTypography.Body2Regular,
+    headlineLarge = AppTypography.Headline,
+    headlineMedium = AppTypography.Headline,
+    headlineSmall = AppTypography.Headline,
+    titleLarge = AppTypography.Headline,
+    titleMedium = AppTypography.Headline,
+    titleSmall = AppTypography.Headline,
+    bodyLarge = AppTypography.Body1Medium,
+    bodyMedium = AppTypography.Body2Medium,
+    bodySmall = AppTypography.Body1Regular,
+    labelLarge = AppTypography.Body1Medium,
+    labelMedium = AppTypography.Body1Medium,
+    labelSmall = AppTypography.Body1Medium,
 )
 
 object AppTypography {
