@@ -2,6 +2,10 @@ package com.zeyadgasser.playground.badhabits.data
 
 import com.zeyadgasser.playground.badhabits.domain.BadHabit
 import com.zeyadgasser.playground.badhabits.domain.BadHabitRating
+import kotlinx.datetime.LocalDateTime
+import kotlinx.datetime.TimeZone
+import kotlinx.datetime.format.DateTimeFormat
+import kotlinx.datetime.toInstant
 
 object DataBadHabitsMapper {
 
@@ -16,6 +20,15 @@ object DataBadHabitsMapper {
         reminders = entity.badHabit.reminders,
         ratings = entity.ratings.map { BadHabitRating(it.id, it.ratingValue, it.date) }
     )
+
+//    private fun mapdate(date: Long): String {
+//        val inputFormat = DateTimeFormat.forPattern("yyyy-MM-dd'T'HH:mm:ss")
+//        val localDateTime = LocalDateTime.parse(date, inputFormat)
+//        val instant = localDateTime.toInstant(TimeZone.UTC)
+//        // Format the output as desired
+//        val outputFormat = DateTimeFormat.forPattern("dd/MM/yyyy HH:mm:ss")
+//        return outputFormat.format(instant)
+//    }
 
     fun mapToDomain(entity: BadHabitEntity): BadHabit = BadHabit(
         id = entity.id,

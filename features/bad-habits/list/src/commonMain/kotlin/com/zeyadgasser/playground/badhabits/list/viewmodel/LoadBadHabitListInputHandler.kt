@@ -18,7 +18,7 @@ class LoadBadHabitListInputHandler(
     private val taskPresentationMapper: BadHabitsPresentationMapper,
 ) : InputHandler<LoadBadHabitListInput, BadHabitListState> {
 
-    override suspend fun invoke(input: LoadBadHabitListInput, currentState: BadHabitListState): Flow<Result> =
+    override fun invoke(input: LoadBadHabitListInput, currentState: BadHabitListState): Flow<Result> =
         repository.getBadHabits().map { taskPresentationMapper.mapToPresentationList(it) }
             .map { if (it.isNotEmpty()) SuccessState(it, getCurrentDate(), false) else EmptyState }
             .onStart { emit(SuccessState(emptyList(), getCurrentDate(), true)) }

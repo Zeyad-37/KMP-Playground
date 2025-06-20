@@ -196,14 +196,11 @@ fun RoutineFormScreenContent(
                 IconButton(onClick = { process(CloseRoutineFormInput) }) {
                     Icon(
                         imageVector = Icons.Default.Close,
-//                        painter = painterResource(Res.drawable.ic_close),
-//                        contentDescription = stringResource(Res.string.close),
                         contentDescription = "Close",
                     )
                 }
                 Box(modifier = Modifier.fillMaxWidth()) {
                     Text(
-//                        text = stringResource(Res.string.new_routine),
                         text = "New Routine",
                         fontWeight = FontWeight.Bold,
                         fontSize = 20.sp,

@@ -7,6 +7,6 @@ import kotlinx.coroutines.flow.Flow
 import kotlinx.coroutines.flow.flowOf
 
 object NavigationInputHandler : InputHandler<NavigationInput, RoutineDetailState> {
-    override suspend fun invoke(input: NavigationInput, state: RoutineDetailState): Flow<Result> =
+    override fun invoke(input: NavigationInput, state: RoutineDetailState): Flow<Result> =
         flowOf(NavToEffect(input is GoBackInput))
 }

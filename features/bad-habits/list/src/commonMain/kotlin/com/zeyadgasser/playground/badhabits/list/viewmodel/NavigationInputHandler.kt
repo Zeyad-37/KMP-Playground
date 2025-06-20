@@ -8,7 +8,7 @@ import kotlinx.coroutines.flow.Flow
 import kotlinx.coroutines.flow.flowOf
 
 object NavigationInputHandler : InputHandler<NavigationInput, BadHabitListState> {
-    override suspend fun invoke(input: NavigationInput, currentState: BadHabitListState): Flow<Result> =
+    override fun invoke(input: NavigationInput, currentState: BadHabitListState): Flow<Result> =
         when (input) {
             is BadHabitClickedInput -> flowOf(GoToBadHabitDetailsEffect(input.badHabit.id))
             CreateBadHabitInput -> flowOf(GoToCreateBadHabitEffect)

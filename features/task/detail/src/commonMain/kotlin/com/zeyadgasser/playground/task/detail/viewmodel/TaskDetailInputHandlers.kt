@@ -14,7 +14,7 @@ class LoadTaskInputHandler(
     private val taskRepository: TaskRepository,
     private val taskPresentationMapper: TaskPresentationMapper,
 ) : InputHandler<LoadTaskInput, TaskDetailState> {
-    override suspend fun invoke(input: LoadTaskInput, state: TaskDetailState): Flow<Result> = flow {
+    override fun invoke(input: LoadTaskInput, state: TaskDetailState): Flow<Result> = flow {
         if (input.taskId.isNotEmpty()) {
             emit(InitialState(true, input.taskId))
             emit(
@@ -28,7 +28,6 @@ class LoadTaskInputHandler(
 }
 
 class BackButtonTappedInputHandler : InputHandler<BackButtonTappedInput, TaskDetailState> {
-    override suspend fun invoke(
-        input: BackButtonTappedInput, state: TaskDetailState,
-    ): Flow<Result> = flowOf(GoBackEffect)
+    override fun invoke(input: BackButtonTappedInput, state: TaskDetailState): Flow<Result> =
+        flowOf(GoBackEffect)
 }

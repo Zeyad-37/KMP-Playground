@@ -12,7 +12,7 @@ class LoadBadHabitDetailInputHandler(
     private val routineRepository: BadHabitsRepository,
     private val mapper: BadHabitsPresentationMapper = BadHabitsPresentationMapper,
 ) : InputHandler<LoadBadHabitDetailInput, BadHabitDetailState> {
-    override suspend fun invoke(input: LoadBadHabitDetailInput, state: BadHabitDetailState): Flow<Result> =
+    override fun invoke(input: LoadBadHabitDetailInput, state: BadHabitDetailState): Flow<Result> =
         flow {
             emit(
                 SuccessState(

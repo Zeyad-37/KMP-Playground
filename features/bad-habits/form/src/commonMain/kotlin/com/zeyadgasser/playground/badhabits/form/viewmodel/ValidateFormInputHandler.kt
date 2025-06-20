@@ -8,7 +8,7 @@ import kotlinx.coroutines.flow.Flow
 import kotlinx.coroutines.flow.flow
 
 object ValidateFormInputHandler : InputHandler<ValidateFormInput, BadHabitFormState> {
-    override suspend fun invoke(input: ValidateFormInput, state: BadHabitFormState): Flow<Result> = flow {
+    override fun invoke(input: ValidateFormInput, state: BadHabitFormState): Flow<Result> = flow {
         val nameValidation = if (input.form.name.isBlank()) "Name is required" else null
         val frequencyValidation = if (input.form.frequency.isBlank()) "Type is required" else null
         val descriptionValidation = if (input.form.description.isBlank()) "Description is required" else null

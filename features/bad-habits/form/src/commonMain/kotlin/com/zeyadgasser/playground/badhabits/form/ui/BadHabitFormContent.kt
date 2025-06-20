@@ -44,9 +44,7 @@ import org.koin.compose.koinInject
 
 @Composable
 fun BadHabitFormStateHolder(
-    viewModel: BadHabitFormViewModel = koinInject(),
-    badHabitId: Long? = null,
-    onCloseFormClick: () -> Unit,
+    viewModel: BadHabitFormViewModel = koinInject(), badHabitId: Long? = null, onCloseFormClick: () -> Unit,
 ) {
     val badHabitsState by viewModel.state.collectAsStateWithLifecycle()
     LaunchedEffect(Unit) {
@@ -60,11 +58,7 @@ fun BadHabitFormStateHolder(
 }
 
 @Composable
-fun BadHabitFormContent(
-    state: BadHabitFormState,
-    badHabitId: Long? = null,
-    process: (Input) -> Unit,
-) {
+fun BadHabitFormContent(state: BadHabitFormState, badHabitId: Long? = null, process: (Input) -> Unit) {
     var isCreate by remember { mutableStateOf(badHabitId == null) }
     var name by remember { mutableStateOf(state.form.name) }
     var isNameError by remember {
@@ -73,14 +67,15 @@ fun BadHabitFormContent(
     var nameErrorMessage by remember {
         mutableStateOf((state as? ValidationErrorState)?.formValidation?.nameValidationErrorMessage.orEmpty())
     }
-    var frequency by remember { mutableStateOf(state.form.frequency) }
+    var frequency by remember {
+        mutableStateOf(if (state.form.frequency.isBlank()) "Daily" else state.form.frequency.toString())
+    }
     var isFrequencyError by remember {
         mutableStateOf((state as? ValidationErrorState)?.formValidation?.frequencyValidationErrorMessage != null)
     }
     var frequencyErrorMessage by remember {
         mutableStateOf((state as? ValidationErrorState)?.formValidation?.frequencyValidationErrorMessage.orEmpty())
     }
-
     var description by remember { mutableStateOf(state.form.description) }
     var isDescriptionError by remember {
         mutableStateOf(
@@ -91,7 +86,6 @@ fun BadHabitFormContent(
         mutableStateOf((state as? ValidationErrorState)?.formValidation?.descriptionValidationErrorMessage.orEmpty())
     }
     var reminders by remember { mutableStateOf(false) }
-
 
     when (state) {
         BadHabitFormState.InitialState -> if (badHabitId != null) process(LoadBadHabitByIdInput(badHabitId))
@@ -109,11 +103,8 @@ fun BadHabitFormContent(
         }
     }
 
-
     Column(
-        modifier = Modifier
-            .fillMaxSize()
-            .padding(16.dp),
+        modifier = Modifier.fillMaxSize().padding(vertical = 56.dp, horizontal = 16.dp),
         verticalArrangement = Arrangement.Top,
         horizontalAlignment = Alignment.Start
     ) {
@@ -130,7 +121,7 @@ fun BadHabitFormContent(
                 )
             }
             Text(
-                text = "New Habit",
+                text = if (isCreate) "Track New Bad Habit" else "Edit Bad Habit",
                 fontSize = 20.sp,
                 fontWeight = FontWeight.Bold,
                 modifier = Modifier.weight(1f)
@@ -142,26 +133,21 @@ fun BadHabitFormContent(
             onValueChange = { name = it },
             label = { Text(text = "Habit Name") },
             placeholder = { Text(text = "e.g., Smoking") },
-            modifier = Modifier
-                .fillMaxWidth()
-                .padding(top = 16.dp)
+            modifier = Modifier.fillMaxWidth().padding(top = 16.dp),
+            isError = isNameError,
         )
         // Description
         OutlinedTextField(
             value = description,
             onValueChange = { description = it },
             label = { Text(text = "Description") },
-            modifier = Modifier
-                .fillMaxWidth()
-                .padding(top = 16.dp)
-                .height(100.dp),
-            maxLines = 5
+            modifier = Modifier.fillMaxWidth().padding(top = 16.dp).height(100.dp),
+            maxLines = 5,
+            isError = isDescriptionError,
         )
         // Frequency
         Row(
-            modifier = Modifier
-                .fillMaxWidth()
-                .padding(top = 16.dp),
+            modifier = Modifier.fillMaxWidth().padding(top = 16.dp),
             verticalAlignment = Alignment.CenterVertically
         ) {
             Text(
@@ -172,7 +158,7 @@ fun BadHabitFormContent(
             DropdownMenu(
                 selectedOption = frequency,
                 onOptionSelected = { frequency = it },
-                options = listOf("Select", "Daily", "Weekly", "Monthly")
+                options = listOf("Daily", "Weekly", "Monthly")
             )
         }
         // Reminders
@@ -193,22 +179,14 @@ fun BadHabitFormContent(
         Button(
             onClick = {
                 process(
-                    SubmitBadHabitInput(
-                        BadHabitForm(name, frequency, description, reminders),
-                        badHabitId
-                    )
+                    SubmitBadHabitInput(BadHabitForm(name, frequency, description, reminders), badHabitId)
                 )
             },
-            modifier = Modifier
-                .fillMaxWidth()
-                .padding(top = 32.dp)
-                .height(56.dp),
+            modifier = Modifier.fillMaxWidth().padding(top = 32.dp).height(56.dp),
             colors = ButtonDefaults.buttonColors(
                 backgroundColor = Color.Black,
                 contentColor = Color.White
             )
-        ) {
-            Text(text = "Save", fontSize = 18.sp)
-        }
+        ) { Text(text = "Save", fontSize = 18.sp) }
     }
 }

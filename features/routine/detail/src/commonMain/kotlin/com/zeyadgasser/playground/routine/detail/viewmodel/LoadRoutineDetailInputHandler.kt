@@ -12,7 +12,7 @@ class LoadRoutineDetailInputHandler(
     private val routineRepository: RoutineRepository,
     private val mapper: RoutinePresentationMapper = RoutinePresentationMapper,
 ) : InputHandler<LoadRoutineDetailInput, RoutineDetailState> {
-    override suspend fun invoke(input: LoadRoutineDetailInput, state: RoutineDetailState): Flow<Result> =
+    override fun invoke(input: LoadRoutineDetailInput, state: RoutineDetailState): Flow<Result> =
         flow {
             emit(
                 SuccessState(

@@ -58,5 +58,5 @@ interface Reducer<R : Result, S : State> {
 
 interface InputHandler<I : Input, S : State> {
 
-    suspend operator fun invoke(input: I, state: S): Flow<Result>
+    fun invoke(input: I, state: S): Flow<Result>
 }

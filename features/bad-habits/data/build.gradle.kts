@@ -16,6 +16,7 @@ kotlin {
         commonMain {
             dependencies {
                 implementation(project(":features:bad-habits:domain"))
+                implementation(libs.kotlinx.datetime)
             }
         }
 

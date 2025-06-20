@@ -9,6 +9,7 @@ import kotlinx.coroutines.flow.Flow
 import kotlinx.coroutines.flow.flow
 import kotlinx.datetime.Clock
 import kotlinx.datetime.TimeZone
+import kotlinx.datetime.number
 import kotlinx.datetime.toLocalDateTime
 
 class RateBadHabitInputHandler(
@@ -16,19 +17,18 @@ class RateBadHabitInputHandler(
     private val badHabitsPresentationMapper: BadHabitsPresentationMapper,
 ) : InputHandler<BadHabitRatedInput, BadHabitListState> {
 
-    override suspend fun invoke(input: BadHabitRatedInput, state: BadHabitListState): Flow<Result> = flow {
-        if (input.rating >= 0)
-            repository.insertBadHabitWithRatings(
-                badHabitsPresentationMapper.mapFromPresentation(
-                    input.badHabit.copy(
-                        ratings = input.badHabit.ratings
-                            .plus(BadHabitRatingPM(0, input.rating, getCurrentDate()))
-                    )
-                )
-            )
-        else emit(ErrorEffect("Can not rate a bad habit with a negative rating"))
+    override fun invoke(input: BadHabitRatedInput, state: BadHabitListState): Flow<Result> = flow {
+        if (input.rating >= 0) {
+            val currentData = getCurrentDate()
+            input.badHabit.copy(
+                ratings = if (input.badHabit.ratings.firstOrNull { it.date == currentData } != null) {
+                    input.badHabit.ratings
+                        .map { if (it.date == currentData) it.copy(ratingValue = input.rating) else it }
+                } else input.badHabit.ratings.plus(BadHabitRatingPM(0, input.rating, getCurrentDate()))
+            ).let { repository.insertBadHabitWithRatings(badHabitsPresentationMapper.mapFromPresentation(it)) }
+        } else emit(ErrorEffect("Can not rate a bad habit with a negative rating"))
     }
 
-    private fun getCurrentDate(): String = // todo centralise in a use-case
-        Clock.System.now().toLocalDateTime(TimeZone.currentSystemDefault()).toString()
+    private fun getCurrentDate(): String = Clock.System.now().toLocalDateTime(TimeZone.currentSystemDefault())
+        .let { "${it.date.dayOfMonth}/${it.date.month.number}/${it.date.year}" }// todo centralise in a use-case
 }

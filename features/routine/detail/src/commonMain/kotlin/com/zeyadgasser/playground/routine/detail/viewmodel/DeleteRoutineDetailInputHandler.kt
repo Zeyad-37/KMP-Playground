@@ -8,7 +8,7 @@ import kotlinx.coroutines.flow.flow
 
 class DeleteRoutineDetailInputHandler(private val routineRepository: RoutineRepository) :
     InputHandler<DeleteRoutineDetailInput, RoutineDetailState> {
-    override suspend fun invoke(input: DeleteRoutineDetailInput, state: RoutineDetailState): Flow<Result> =
+    override fun invoke(input: DeleteRoutineDetailInput, state: RoutineDetailState): Flow<Result> =
         flow {
             if (routineRepository.deleteRoutine(state.id) == 1) emit(NavToEffect(true))
             else emit(ErrorEffect("Could not delete routine!"))

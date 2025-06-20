@@ -12,7 +12,7 @@ class SubmitBadHabitInputHandler(
     private val badHabitRepository: BadHabitsRepository,
     private val validateFormInputHandler: ValidateFormInputHandler,
 ) : InputHandler<SubmitBadHabitInput, BadHabitFormState> {
-    override suspend fun invoke(input: SubmitBadHabitInput, state: BadHabitFormState): Flow<Result> = flow {
+    override fun invoke(input: SubmitBadHabitInput, state: BadHabitFormState): Flow<Result> = flow {
         // TODO Add notifications if reminders are enabled
         if (input.form.name.isBlank() || input.form.frequency.isBlank() || input.form.description.isBlank())
             emitAll(validateFormInputHandler.invoke(ValidateFormInput(input.form), state))

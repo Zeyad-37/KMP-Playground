@@ -8,7 +8,7 @@ import kotlinx.coroutines.flow.flow
 
 class DeleteBadHabitInputHandler(private val routineRepository: BadHabitsRepository) :
     InputHandler<DeleteBadHabitDetailInput, BadHabitDetailState> {
-    override suspend fun invoke(input: DeleteBadHabitDetailInput, state: BadHabitDetailState): Flow<Result> =
+    override fun invoke(input: DeleteBadHabitDetailInput, state: BadHabitDetailState): Flow<Result> =
         flow {
             routineRepository.deleteBadHabitById(state.id)
             emit(NavToEffect(true))

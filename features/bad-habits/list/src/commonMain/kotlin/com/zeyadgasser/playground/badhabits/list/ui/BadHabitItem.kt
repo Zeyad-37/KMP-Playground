@@ -53,6 +53,6 @@ fun BadHabitItem(
         Icon(
             imageVector = Icons.Default.Add,
             contentDescription = null,
-            Modifier.clickable { onCountChanged(currentCount.toInt() + 1) })
+            Modifier.padding(start = 8.dp).clickable { onCountChanged(currentCount.toInt() + 1) })
     }
 }

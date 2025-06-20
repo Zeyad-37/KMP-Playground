@@ -19,7 +19,7 @@ class LoadRoutineListInputHandler(
     private val taskPresentationMapper: RoutinePresentationMapper,
 ) : InputHandler<LoadRoutineListInput, RoutineListState> {
 
-    override suspend fun invoke(input: LoadRoutineListInput, currentState: RoutineListState): Flow<Result> =
+    override fun invoke(input: LoadRoutineListInput, currentState: RoutineListState): Flow<Result> =
         flow {
             val routine = taskPresentationMapper.toPresentationList(repository.getAllRoutines())
             emit(
