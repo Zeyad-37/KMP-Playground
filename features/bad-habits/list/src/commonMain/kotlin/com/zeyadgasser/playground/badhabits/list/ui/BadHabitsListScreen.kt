@@ -8,8 +8,9 @@ import androidx.compose.foundation.lazy.rememberLazyListState
 import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.filled.Add
 import androidx.compose.material3.ExperimentalMaterial3Api
+import androidx.compose.material3.ExtendedFloatingActionButton
+import androidx.compose.material3.FloatingActionButton
 import androidx.compose.material3.Icon
-import androidx.compose.material3.IconButton
 import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.Scaffold
 import androidx.compose.material3.Snackbar
@@ -36,10 +37,10 @@ import com.zeyadgasser.playground.badhabits.list.viewmodel.BadHabitListState.Ini
 import com.zeyadgasser.playground.badhabits.list.viewmodel.BadHabitListState.SuccessState
 import com.zeyadgasser.playground.badhabits.list.viewmodel.BadHabitListViewModel
 import com.zeyadgasser.playground.badhabits.list.viewmodel.ErrorEffect
-import com.zeyadgasser.playground.badhabits.list.viewmodel.NavigationInput.CreateBadHabitInput
 import com.zeyadgasser.playground.badhabits.list.viewmodel.GoToBadHabitDetailsEffect
 import com.zeyadgasser.playground.badhabits.list.viewmodel.GoToCreateBadHabitEffect
 import com.zeyadgasser.playground.badhabits.list.viewmodel.LoadBadHabitListInput
+import com.zeyadgasser.playground.badhabits.list.viewmodel.NavigationInput.CreateBadHabitInput
 import com.zeyadgasser.playground.sharedui.composables.ErrorScreen
 import kotlinx.coroutines.flow.collectLatest
 import org.koin.compose.koinInject
@@ -67,14 +68,14 @@ fun BadHabitsListStateHolder(
 @OptIn(ExperimentalMaterial3Api::class)
 @Composable
 fun BadHabitListScreenContent(
-    Modifier: Modifier.Companion,
+    modifier: Modifier,
     state: BadHabitListState,
     snackBarHostState: SnackbarHostState,
     listState: LazyListState = rememberLazyListState(),
     process: (Input) -> Unit,
 ) {
     Scaffold(
-        Modifier.fillMaxSize(),
+        modifier.fillMaxSize(),
         topBar = {
             TopAppBar(
                 title = {
@@ -82,26 +83,26 @@ fun BadHabitListScreenContent(
                         text = "Bad Habits",
                         fontSize = 24.sp,
                         fontWeight = FontWeight.Bold,
-                        modifier = Modifier.fillMaxWidth(),
+                        modifier = modifier.fillMaxWidth(),
                         textAlign = TextAlign.Center,
                         color = MaterialTheme.colorScheme.onBackground,
                         style = MaterialTheme.typography.displayLarge
                     )
                 },
-                actions = {
-                    IconButton({ process(CreateBadHabitInput) }) {
-                        Icon(Icons.Default.Add, "Add BadHabit")
-                    }
-                },
-                colors = TopAppBarDefaults.topAppBarColors(
-                    containerColor = MaterialTheme.colorScheme.onPrimary,
-                )
+                colors = TopAppBarDefaults.topAppBarColors(containerColor = MaterialTheme.colorScheme.onPrimary)
+            )
+        },
+        floatingActionButton = {
+            ExtendedFloatingActionButton(
+                onClick = { process(CreateBadHabitInput) },
+                icon = { Icon(Icons.Filled.Add, "Add new item") }, // The icon part
+                text = { Text("Add Item") }, // The text part
+                containerColor = MaterialTheme.colorScheme.primary,
+                contentColor = MaterialTheme.colorScheme.onPrimary
             )
         },
         snackbarHost = {
-            SnackbarHost(
-                hostState = snackBarHostState,
-                snackbar = { Snackbar(it, contentColor = Color.Red) })
+            SnackbarHost(hostState = snackBarHostState, snackbar = { Snackbar(it, contentColor = Color.Red) })
         },
         containerColor = Color.White,
     ) { innerPadding ->
@@ -110,7 +111,7 @@ fun BadHabitListScreenContent(
             is ErrorState -> ErrorScreen(state.message)
             EmptyState -> NoBadHabitsTrackedScreen { process(CreateBadHabitInput) }
             is SuccessState ->
-                BadHabitList(Modifier.padding(innerPadding), state.date, state.badHabits, listState)
+                BadHabitList(modifier.padding(innerPadding), state.date, state.badHabits, listState)
                 { process(it) }
         }
     }
