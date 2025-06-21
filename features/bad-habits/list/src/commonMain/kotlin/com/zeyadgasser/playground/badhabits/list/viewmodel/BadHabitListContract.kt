@@ -19,7 +19,7 @@ data object GoToCreateBadHabitEffect : BadHabitListEffect()
 data class ErrorEffect(val message: String) : BadHabitListEffect()
 
 sealed class BadHabitListState(
-    open val isLoading: Boolean, open val badHabit: List<BadHabitPM>,
+    open val isLoading: Boolean, open val badHabits: List<BadHabitPM>,
 ) : State {
     data class InitialState(override val isLoading: Boolean) : BadHabitListState(isLoading, emptyList())
     data object EmptyState : BadHabitListState(false, emptyList())
@@ -29,8 +29,8 @@ sealed class BadHabitListState(
     ) : BadHabitListState(isLoading, emptyList())
 
     data class SuccessState(
-        override val badHabit: List<BadHabitPM>, val date: String, override val isLoading: Boolean,
-    ) : BadHabitListState(isLoading, badHabit)
+        override val badHabits: List<BadHabitPM>, val date: String, override val isLoading: Boolean,
+    ) : BadHabitListState(isLoading, badHabits)
 }
 
 

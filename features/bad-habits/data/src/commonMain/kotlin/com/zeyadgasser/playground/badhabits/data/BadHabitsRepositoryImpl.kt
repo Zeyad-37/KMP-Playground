@@ -14,13 +14,26 @@ class BadHabitsRepositoryImpl(
     override fun getBadHabits(): Flow<List<BadHabit>> =
         badHabitsDao.getBadHabitWithRatings().map { dataMapper.mapToDomainList(it) }
 
-    override suspend fun addBadHabit(badHabit: BadHabit) =
-        badHabitsDao.insert(dataMapper.mapFromDomain(badHabit))
+    override suspend fun saveBadHabit(badHabit: BadHabit): Long {
+        val badHabitEntity = dataMapper.mapFromDomain(badHabit)
+        return if (badHabitEntity.id == 0L) { // New habit: insert
+            badHabitsDao.insert(badHabitEntity)
+        } else { // Existing habit: update
+            badHabitsDao.update(badHabitEntity)
+            badHabitEntity.id // Return the existing ID for updates
+        }
+    }
 
     override suspend fun insertBadHabitWithRatings(badHabit: BadHabit) {
-        badHabitsDao.insert(dataMapper.mapFromDomain(badHabit))
+        val badHabitEntity = dataMapper.mapFromDomain(badHabit)
+        val badHabitId = if (badHabitEntity.id == 0L) {
+            badHabitsDao.insert(badHabitEntity) // Insert new habit
+        } else {
+            badHabitsDao.update(badHabitEntity) // Update existing habit
+            badHabitEntity.id
+        }
         badHabit.ratings.map {
-            BadHabitRatingEntity(badHabitId = badHabit.id, ratingValue = it.ratingValue, date = it.date)
+            BadHabitRatingEntity(badHabitId = badHabitId, ratingValue = it.ratingValue, date = it.date)
         }.forEach { badHabitRatingDao.insertRating(it) }
     }
 

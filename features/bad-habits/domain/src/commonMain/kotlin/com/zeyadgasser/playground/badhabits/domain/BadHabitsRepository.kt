@@ -6,7 +6,7 @@ interface BadHabitsRepository {
 
     fun getBadHabits(): Flow<List<BadHabit>>
 
-    suspend fun addBadHabit(badHabit: BadHabit)
+    suspend fun saveBadHabit(badHabit: BadHabit): Long
 
     suspend fun insertBadHabitWithRatings(badHabit: BadHabit)
 

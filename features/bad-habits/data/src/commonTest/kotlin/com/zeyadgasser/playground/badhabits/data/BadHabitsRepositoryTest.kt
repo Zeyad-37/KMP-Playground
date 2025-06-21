@@ -62,7 +62,7 @@ class BadHabitsRepositoryTest {
         everySuspend { dao.insert(expectedEntity) } returns Unit
 
         // When
-        repository.addBadHabit(habit)
+        repository.saveBadHabit(habit)
 
         // Then
         verifySuspend { dao.insert(expectedEntity) }

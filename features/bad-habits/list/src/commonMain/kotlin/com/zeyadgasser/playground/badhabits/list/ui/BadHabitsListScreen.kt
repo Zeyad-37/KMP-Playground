@@ -110,7 +110,7 @@ fun BadHabitListScreenContent(
             is ErrorState -> ErrorScreen(state.message)
             EmptyState -> NoBadHabitsTrackedScreen { process(CreateBadHabitInput) }
             is SuccessState ->
-                BadHabitList(Modifier.padding(innerPadding), state.date, state.badHabit, listState)
+                BadHabitList(Modifier.padding(innerPadding), state.date, state.badHabits, listState)
                 { process(it) }
         }
     }
