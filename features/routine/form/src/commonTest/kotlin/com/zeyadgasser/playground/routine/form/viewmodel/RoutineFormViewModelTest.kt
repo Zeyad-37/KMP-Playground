@@ -12,7 +12,6 @@ import dev.mokkery.everySuspend
 import dev.mokkery.matcher.any
 import dev.mokkery.matcher.eq
 import dev.mokkery.mock
-import dev.mokkery.verify.VerifyMode
 import dev.mokkery.verify.VerifyMode.Companion.atMost
 import dev.mokkery.verifySuspend
 import kotlinx.coroutines.Dispatchers
@@ -39,12 +38,12 @@ class RoutineFormViewModelTest {
     private val routineFormFromDomain1 = RoutineForm(routineDomain1)
 
     private val validRoutineForm = RoutineForm(
-        routineName = "Daily Standup", routineType = "Meeting",
+        name = "Daily Standup", type = "Meeting",
         startTime = "09:00", endTime = "09:15", description = "Quick sync with the team",
-        routineCategory = "Work", remindersEnabled = true
+        category = "Work", remindersEnabled = true
     )
-    private val invalidRoutineForm_BlankName = validRoutineForm.copy(routineName = "")
-    private val invalidRoutineForm_BlankType = validRoutineForm.copy(routineType = "")
+    private val invalidRoutineForm_BlankName = validRoutineForm.copy(name = "")
+    private val invalidRoutineForm_BlankType = validRoutineForm.copy(type = "")
     private val invalidRoutineForm_BlankDesc = validRoutineForm.copy(description = "")
 
 
@@ -253,9 +252,9 @@ class RoutineFormViewModelTest {
             }
             // Verify the routine passed to repository
             val expectedRoutine = Routine(
-                name = validRoutineForm.routineName, type = validRoutineForm.routineType,
+                name = validRoutineForm.name, type = validRoutineForm.type,
                 startTime = validRoutineForm.startTime, endTime = validRoutineForm.endTime,
-                description = validRoutineForm.description, category = validRoutineForm.routineCategory,
+                description = validRoutineForm.description, category = validRoutineForm.category,
                 // id is not passed from form to Routine constructor in VM
                 // completed, remindersEnabled, rating will take defaults
             )

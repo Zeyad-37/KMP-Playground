@@ -14,15 +14,15 @@ class SubmitBadHabitInputHandler(
 ) : InputHandler<SubmitBadHabitInput, BadHabitFormState> {
     override fun invoke(input: SubmitBadHabitInput, state: BadHabitFormState): Flow<Result> = flow {
         // TODO Add notifications if reminders are enabled
-        if (input.form.name.isBlank() || input.form.frequency.isBlank() || input.form.description.isBlank())
+        if (input.form.name.text.isBlank() || input.form.frequency.isBlank() || input.form.description.text.isBlank())
             emitAll(validateFormInputHandler.invoke(ValidateFormInput(input.form), state))
         else {
             badHabitRepository.insertBadHabitWithRatings(with(input.form) {
                 BadHabit(
                     id = input.badHabitId ?: 0,
-                    name = name,
+                    name = name.text,
                     frequency = frequency,
-                    description = description,
+                    description = description.text,
                     reminders = reminders,
                 )
             })

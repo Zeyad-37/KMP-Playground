@@ -1,5 +1,6 @@
 package com.zeyadgasser.playground.badhabits.form.viewmodel
 
+import androidx.compose.ui.text.input.TextFieldValue
 import com.zeyadgasser.playground.architecture.presentation.Effect
 import com.zeyadgasser.playground.architecture.presentation.Input
 import com.zeyadgasser.playground.architecture.presentation.State
@@ -15,7 +16,8 @@ sealed class BadHabitFormEffect : Effect
 data object CloseCreateBadHabitEffect : BadHabitFormEffect()
 
 sealed class BadHabitFormState(open val form: BadHabitForm) : State {
-    data object InitialState : BadHabitFormState(BadHabitForm("", "", "", false))
+    data object InitialState :
+        BadHabitFormState(BadHabitForm(TextFieldValue(""), "", TextFieldValue(""), false))
 
     data class ValidationErrorState(
         val formValidation: BadHabitFormValidation, override val form: BadHabitForm,
@@ -25,15 +27,15 @@ sealed class BadHabitFormState(open val form: BadHabitForm) : State {
 }
 
 data class BadHabitForm(
-    val name: String,
-    val frequency: String,
-    val description: String,
-    val reminders: Boolean,
+    val name: TextFieldValue = TextFieldValue(""), // Initialize with empty TextFieldValue
+    val frequency: String = "Daily", // Frequency is still a String (dropdown doesn't need TextFieldValue)
+    val description: TextFieldValue = TextFieldValue(""),
+    val reminders: Boolean = false,
 ) {
     constructor(badHabit: BadHabit) : this(
-        badHabit.name,
+        TextFieldValue(badHabit.name),
         badHabit.frequency,
-        badHabit.description,
+        TextFieldValue(badHabit.description),
         badHabit.reminders
     )
 }

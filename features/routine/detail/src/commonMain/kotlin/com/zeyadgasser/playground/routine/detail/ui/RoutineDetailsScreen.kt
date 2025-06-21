@@ -51,7 +51,6 @@ import com.zeyadgasser.playground.routine.detail.viewmodel.DeleteRoutineDetailIn
 import com.zeyadgasser.playground.routine.detail.viewmodel.ErrorEffect
 import com.zeyadgasser.playground.routine.detail.viewmodel.LoadRoutineDetailInput
 import com.zeyadgasser.playground.routine.detail.viewmodel.NavToEffect
-import com.zeyadgasser.playground.routine.detail.viewmodel.NavigationInput
 import com.zeyadgasser.playground.routine.detail.viewmodel.NavigationInput.EditRoutineDetailInput
 import com.zeyadgasser.playground.routine.detail.viewmodel.NavigationInput.GoBackInput
 import com.zeyadgasser.playground.routine.detail.viewmodel.RoutineDetailState
@@ -213,35 +212,36 @@ fun PerformanceSection(routine: RoutinePM) {
             )
         }
         Spacer(modifier = Modifier.height(16.dp))
-        ColumnChart(
-            modifier = Modifier.fillMaxWidth().padding(22.dp).height(300.dp),
-            data = remember {
-                routine.ratings.map { // todo move logic to input handler
-                    Bars(
-                        label = it.date,
-                        values = listOf(
-                            Bars.Data(
-                                label = it.ratingValue.toString(),
-                                value = it.ratingValue.toDouble(),
-                                color = SolidColor(Color(0xFF23af92)),
+        if (routine.ratings.isNotEmpty())
+            ColumnChart(
+                modifier = Modifier.fillMaxWidth().padding(22.dp).height(300.dp),
+                data = remember {
+                    routine.ratings.map { // todo move logic to input handler
+                        Bars(
+                            label = it.date,
+                            values = listOf(
+                                Bars.Data(
+                                    label = it.ratingValue.toString(),
+                                    value = it.ratingValue.toDouble(),
+                                    color = SolidColor(Color(0xFF23af92)),
+                                )
                             )
                         )
-                    )
-                }
-            },
-            barProperties = BarProperties(
-                spacing = 12.dp,
-                thickness = 37.dp,
-                cornerRadius = Circular(7.dp),
-            ),
-            animationMode = AnimationMode.Together(delayBuilder = { it * 200L }),
-            animationSpec = spring(
-                dampingRatio = Spring.DampingRatioMediumBouncy,
-                stiffness = Spring.StiffnessLow
-            ),
-            minValue = 0.0,
-            maxValue = 5.0,
-        )
+                    }
+                },
+                barProperties = BarProperties(
+                    spacing = 12.dp,
+                    thickness = 37.dp,
+                    cornerRadius = Circular(7.dp),
+                ),
+                animationMode = AnimationMode.Together(delayBuilder = { it * 200L }),
+                animationSpec = spring(
+                    dampingRatio = Spring.DampingRatioMediumBouncy,
+                    stiffness = Spring.StiffnessLow
+                ),
+                minValue = 0.0,
+                maxValue = 5.0,
+            )
     }
 }
 
