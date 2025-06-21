@@ -63,6 +63,7 @@ import com.zeyadgasser.playground.badhabits.detail.viewmodel.NavToEffect
 import com.zeyadgasser.playground.badhabits.detail.viewmodel.NavigationInput.EditBadHabitDetailInput
 import com.zeyadgasser.playground.badhabits.detail.viewmodel.NavigationInput.GoBackInput
 import com.zeyadgasser.playground.badhabits.sharedpresentation.BadHabitPM
+import com.zeyadgasser.playground.sharedui.composables.StreaksContent
 import ir.ehsannarmani.compose_charts.ColumnChart
 import ir.ehsannarmani.compose_charts.models.AnimationMode
 import ir.ehsannarmani.compose_charts.models.BarProperties
@@ -128,23 +129,20 @@ fun BadHabitDetailsContent(
                 actions = {
                     IconButton(onClick = { process(EditBadHabitDetailInput) }) {
 //                        Text(text = stringResource(Res.string.edit), color = Color.Black)
-                        Text(text = "Edit", color = Color.Black)
+//                        Text(text = "Edit", color = Color.Black)
+                        Icon(imageVector = Icons.Default.Edit, contentDescription = "Edit")
+                    }
+                    IconButton(onClick = { process(DeleteBadHabitDetailInput) }) {
+//                        Text(text = stringResource(Res.string.edit), color = Color.Black)
+//                        Text(text = "Delete", color = Color.Black)
+                        Icon(imageVector = Icons.Default.Delete, contentDescription = "Delete")
                     }
                 }
             )
         },
-        snackbarHost = {
-            SnackbarHost(
-                hostState = snackBarHostState,
-                snackbar = { Snackbar(it, contentColor = Color.Red) })
-        },
+        snackbarHost = { SnackbarHost(snackBarHostState) { Snackbar(it, contentColor = Color.Red) } },
     ) { padding ->
-        Column(
-            modifier = Modifier
-                .padding(padding)
-                .fillMaxSize()
-                .verticalScroll(rememberScrollState())
-        ) {
+        Column(modifier = Modifier.padding(padding).fillMaxSize().verticalScroll(rememberScrollState())) {
             when (state) {
                 InitialState -> process(LoadBadHabitDetailInput(routineId))
                 is SuccessState -> {
@@ -270,7 +268,6 @@ fun BadHabitInfoSection(state: SuccessState) {
     }
 }
 
-
 @Composable
 fun BadHabitInfoSection(badHabit: BadHabitPM) {
     Column(modifier = Modifier.padding(16.dp)) {
@@ -331,7 +328,7 @@ fun PerformanceSection(badHabit: BadHabitPM) {
             )
         }
         Spacer(modifier = Modifier.height(16.dp))
-        if (badHabit.ratings.isNotEmpty())
+        if (badHabit.ratings.isNotEmpty()) {
             ColumnChart(
                 modifier = Modifier.fillMaxWidth().padding(22.dp).height(300.dp),
                 data = remember {
@@ -360,6 +357,8 @@ fun PerformanceSection(badHabit: BadHabitPM) {
                 ),
                 minValue = 0.0,
             )
+            StreaksContent()
+        }
     }
 }
 
