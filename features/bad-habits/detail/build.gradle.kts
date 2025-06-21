@@ -22,6 +22,7 @@ kotlin {
                 implementation(project(":core:architecture"))
                 implementation(project(":core:sharedUI"))
                 implementation (libs.compose.charts)
+                implementation (libs.kotlinx.datetime)
             }
         }
 

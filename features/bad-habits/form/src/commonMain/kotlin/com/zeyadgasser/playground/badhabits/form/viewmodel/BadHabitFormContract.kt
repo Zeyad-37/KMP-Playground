@@ -7,7 +7,10 @@ import com.zeyadgasser.playground.architecture.presentation.State
 import com.zeyadgasser.playground.badhabits.domain.BadHabit
 
 sealed class BadHabitFormInput : Input
-data class SubmitBadHabitInput(val form: BadHabitForm, val badHabitId: Long?) : BadHabitFormInput()
+data class SubmitBadHabitInput(
+    val form: BadHabitForm, val badHabitId: Long?, val creationDate: String = "",
+) : BadHabitFormInput()
+
 data object CloseBadHabitFormInput : BadHabitFormInput()
 data class ValidateFormInput(val form: BadHabitForm) : BadHabitFormInput()
 data class LoadBadHabitByIdInput(val id: Long) : BadHabitFormInput()

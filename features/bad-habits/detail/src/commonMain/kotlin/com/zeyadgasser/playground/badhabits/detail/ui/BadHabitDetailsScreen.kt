@@ -357,8 +357,8 @@ fun PerformanceSection(badHabit: BadHabitPM) {
                 ),
                 minValue = 0.0,
             )
-            StreaksContent()
         }
+        StreaksContent(badHabit.currentStreak, badHabit.longestStreak)
     }
 }
 

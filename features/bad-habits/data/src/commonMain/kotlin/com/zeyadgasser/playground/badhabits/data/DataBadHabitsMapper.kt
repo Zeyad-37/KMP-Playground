@@ -18,6 +18,7 @@ object DataBadHabitsMapper {
         description = entity.badHabit.description,
         frequency = entity.badHabit.frequency,
         reminders = entity.badHabit.reminders,
+        creationDate = entity.badHabit.creationDate,
         ratings = entity.ratings.map { BadHabitRating(it.id, it.ratingValue, it.date) }
     )
 
@@ -35,7 +36,8 @@ object DataBadHabitsMapper {
         name = entity.name,
         description = entity.description,
         frequency = entity.frequency,
-        reminders = entity.reminders
+        reminders = entity.reminders,
+        creationDate = entity.creationDate,
     )
 
     fun mapFromDomain(badHabit: BadHabit): BadHabitEntity = BadHabitEntity(
@@ -44,5 +46,6 @@ object DataBadHabitsMapper {
         description = badHabit.description,
         frequency = badHabit.frequency,
         reminders = badHabit.reminders,
+        creationDate = badHabit.creationDate,
     )
 }

@@ -2,6 +2,7 @@ package com.zeyadgasser.playground.badhabits.sharedpresentation
 
 import com.zeyadgasser.playground.badhabits.domain.BadHabit
 import com.zeyadgasser.playground.badhabits.domain.BadHabitRating
+import kotlin.String
 
 object BadHabitsPresentationMapper {
     // Domain → Presentation
@@ -11,6 +12,7 @@ object BadHabitsPresentationMapper {
         description = badHabit.description,
         frequency = badHabit.frequency,
         reminders = badHabit.reminders,
+        creationDate = badHabit.creationDate,
         ratings = badHabit.ratings.map { BadHabitRatingPM(it.id, it.ratingValue, it.date) },
         currentRating = badHabit.ratings.lastOrNull()?.ratingValue ?: 0
     )
@@ -22,6 +24,7 @@ object BadHabitsPresentationMapper {
         description = badHabitPM.description,
         frequency = badHabitPM.frequency,
         reminders = badHabitPM.reminders,
+        creationDate = badHabitPM.creationDate,
         ratings = badHabitPM.ratings.map { BadHabitRating(it.id, it.ratingValue, it.date) }
     )
 

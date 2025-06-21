@@ -34,7 +34,18 @@ class BadHabitsRepositoryImpl(
         }
         badHabit.ratings.map {
             BadHabitRatingEntity(badHabitId = badHabitId, ratingValue = it.ratingValue, date = it.date)
-        }.forEach { badHabitRatingDao.insertRating(it) }
+        }.forEach {
+            if (it.ratingValue == 0) {
+                // If the rating value is 0, we want to remove it from the DB.
+                // Only attempt to delete if it's an existing rating (has a non-zero ID).
+                if (it.id != 0L) badHabitRatingDao.deleteRatingByHabitIdAndDate(it.id, it.date)
+                // If rating.id is 0L (new rating) and value is 0, we simply do not insert it.
+            } else {
+                // If rating value is not 0, insert/update it in the DB.
+                // The DataMapper is crucial here to convert the domain model to the entity.
+                badHabitRatingDao.insertRating(it)
+            }
+        }
     }
 
     override suspend fun deleteBadHabitById(id: Long) = badHabitsDao.deleteById(id)

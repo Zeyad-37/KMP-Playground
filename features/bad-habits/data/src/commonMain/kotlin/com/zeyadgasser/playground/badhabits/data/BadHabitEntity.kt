@@ -10,4 +10,5 @@ data class BadHabitEntity(
     val description: String,
     val frequency: String,
     val reminders: Boolean,
+    val creationDate: String,
 )
