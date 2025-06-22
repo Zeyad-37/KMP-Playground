@@ -15,7 +15,7 @@ import androidx.room.PrimaryKey
             onDelete = ForeignKey.CASCADE
         )
     ],
-    indices = [Index("badHabitId")]
+    indices = [Index(value = ["badHabitId", "date"], unique = true)]
 )
 data class BadHabitRatingEntity(
     @PrimaryKey(autoGenerate = true)

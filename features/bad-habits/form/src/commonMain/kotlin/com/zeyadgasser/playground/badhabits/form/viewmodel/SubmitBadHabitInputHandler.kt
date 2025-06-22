@@ -8,7 +8,10 @@ import kotlinx.coroutines.flow.Flow
 import kotlinx.coroutines.flow.emitAll
 import kotlinx.coroutines.flow.flow
 import kotlinx.datetime.Clock
+import kotlinx.datetime.LocalDate
 import kotlinx.datetime.TimeZone
+import kotlinx.datetime.format
+import kotlinx.datetime.format.char
 import kotlinx.datetime.number
 import kotlinx.datetime.toLocalDateTime
 
@@ -16,6 +19,7 @@ class SubmitBadHabitInputHandler(
     private val badHabitRepository: BadHabitsRepository,
     private val validateFormInputHandler: ValidateFormInputHandler,
 ) : InputHandler<SubmitBadHabitInput, BadHabitFormState> {
+
     override fun invoke(input: SubmitBadHabitInput, state: BadHabitFormState): Flow<Result> = flow {
         // TODO Add notifications if reminders are enabled
         if (input.form.name.text.isBlank() || input.form.frequency.isBlank() || input.form.description.text.isBlank())
@@ -35,5 +39,11 @@ class SubmitBadHabitInputHandler(
         }
     }
     private fun getCurrentDate(): String = Clock.System.now().toLocalDateTime(TimeZone.currentSystemDefault())
-        .let { "${it.date.dayOfMonth}/${it.date.month.number}/${it.date.year}" }// todo centralise in a use-case
+        .date.format(LocalDate.Format {
+            dayOfMonth()
+            char('/')
+            monthNumber()
+            char('/')
+            year()
+        })
 }

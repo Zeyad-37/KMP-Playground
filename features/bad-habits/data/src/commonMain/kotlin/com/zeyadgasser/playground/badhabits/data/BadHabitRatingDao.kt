@@ -11,10 +11,6 @@ interface BadHabitRatingDao {
     @Insert(onConflict = OnConflictStrategy.REPLACE)
     suspend fun insertRating(rating: BadHabitRatingEntity)
 
-    @Query("SELECT * FROM BadHabitRatings WHERE badHabitId = :badHabitId ORDER BY date DESC")
-    suspend fun getRatingsForBadHabit(badHabitId: Long): List<BadHabitRatingEntity>
-
-    // Optional: Function to delete a rating by habit ID and date (useful if ID is unknown)
-    @Query("DELETE FROM BadHabitRatings WHERE badHabitId = :badHabitId AND date = :date")
-    suspend fun deleteRatingByHabitIdAndDate(badHabitId: Long, date: String)
+    @Query("SELECT * FROM BadHabitRatings WHERE badHabitId = :badHabitId AND date = :date")
+    suspend fun getRatingByBadHabitIdAndDate(badHabitId: Long, date: String): BadHabitRatingEntity?
 }

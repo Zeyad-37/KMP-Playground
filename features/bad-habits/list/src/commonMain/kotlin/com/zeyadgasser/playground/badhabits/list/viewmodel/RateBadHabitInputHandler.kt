@@ -8,7 +8,10 @@ import com.zeyadgasser.playground.badhabits.sharedpresentation.BadHabitsPresenta
 import kotlinx.coroutines.flow.Flow
 import kotlinx.coroutines.flow.flow
 import kotlinx.datetime.Clock
+import kotlinx.datetime.LocalDate
 import kotlinx.datetime.TimeZone
+import kotlinx.datetime.format
+import kotlinx.datetime.format.char
 import kotlinx.datetime.number
 import kotlinx.datetime.toLocalDateTime
 
@@ -30,5 +33,11 @@ class RateBadHabitInputHandler(
     }
 
     private fun getCurrentDate(): String = Clock.System.now().toLocalDateTime(TimeZone.currentSystemDefault())
-        .let { "${it.date.dayOfMonth}/${it.date.month.number}/${it.date.year}" }// todo centralise in a use-case
+        .date.format(LocalDate.Format {
+            dayOfMonth()
+            char('/')
+            monthNumber()
+            char('/')
+            year()
+        })
 }
