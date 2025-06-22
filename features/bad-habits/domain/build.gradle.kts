@@ -16,6 +16,7 @@ kotlin {
             dependencies {
                 implementation(project(":core:sharedUI"))
                 api(project(":core:architecture"))
+                implementation(libs.kotlinx.datetime)
             }
         }
 

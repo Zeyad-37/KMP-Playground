@@ -10,6 +10,7 @@ import androidx.compose.ui.window.rememberWindowState
 import com.zeyadgasser.playground.badhabits.data.badHabitsSharedDataModule
 import com.zeyadgasser.playground.badhabits.data.db.di.desktopBadHabitsSharedDataModule
 import com.zeyadgasser.playground.badhabits.detail.badHabitsDetailModule
+import com.zeyadgasser.playground.badhabits.domain.badHabitsDomainModule
 import com.zeyadgasser.playground.badhabits.form.badHabitsFormModule
 import com.zeyadgasser.playground.badhabits.list.badHabitsListModule
 import com.zeyadgasser.playground.badhabits.sharedpresentation.badHabitsSharedPresentationModule
@@ -62,6 +63,7 @@ fun main() = application {
                         + badHabitsSharedDataModule
                         + badHabitsFormModule
                         + badHabitsDetailModule
+                        + badHabitsDomainModule
                         + badHabitsSharedPresentationModule
                         + desktopBadHabitsSharedDataModule
             )

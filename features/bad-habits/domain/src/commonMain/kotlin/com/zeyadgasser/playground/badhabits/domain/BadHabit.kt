@@ -9,4 +9,6 @@ data class  BadHabit(
     val creationDate: String,
     val ratings: List<BadHabitRating> = emptyList(),
     val currentRating: Int = 0,
+    val longestStreak: String = "",
+    val currentStreak: String = "",
 )

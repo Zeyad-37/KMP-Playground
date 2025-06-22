@@ -4,6 +4,7 @@ import android.app.Application
 import com.zeyadgasser.playground.badhabits.data.androidBadHabitSharedDataModule
 import com.zeyadgasser.playground.badhabits.data.badHabitsSharedDataModule
 import com.zeyadgasser.playground.badhabits.detail.badHabitsDetailModule
+import com.zeyadgasser.playground.badhabits.domain.badHabitsDomainModule
 import com.zeyadgasser.playground.badhabits.form.badHabitsFormModule
 import com.zeyadgasser.playground.badhabits.list.badHabitsListModule
 import com.zeyadgasser.playground.badhabits.sharedpresentation.badHabitsSharedPresentationModule
@@ -61,6 +62,7 @@ class PlaygroundApplication : Application(), KoinComponent {
                         + androidBadHabitSharedDataModule
                         + badHabitsListModule
                         + badHabitsSharedDataModule
+                        + badHabitsDomainModule
                         + badHabitsFormModule
                         + badHabitsDetailModule
                         + badHabitsSharedPresentationModule

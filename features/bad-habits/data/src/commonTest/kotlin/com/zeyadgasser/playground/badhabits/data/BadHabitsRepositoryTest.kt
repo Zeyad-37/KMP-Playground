@@ -14,15 +14,16 @@ import kotlin.test.assertNull
 
 class BadHabitsRepositoryTest {
 
-    private val dao = mock<BadHabitsDao>()
+    private val badHabitsDao = mock<BadHabitsDao>()
+    private val ratingDao = mock<BadHabitRatingDao>()
 
-    private val mapper = DataBadHabitsMapper()
+    private val mapper = DataBadHabitsMapper
 
     private lateinit var repository: BadHabitsRepository
 
     @BeforeTest
     fun setUp() {
-        repository = BadHabitsRepositoryImpl(dao, mapper)
+        repository = BadHabitsRepositoryImpl(badHabitsDao, mapper)
     }
 
     @Test
@@ -33,11 +34,12 @@ class BadHabitsRepositoryTest {
             name = "Smoking",
             description = "Don't smoke",
             frequency = "Daily",
-            reminders = "Morning"
+            reminders = true,
+            creationDate = "12/12/12"
         )
         val expected = mapper.mapToDomain(entity)
 
-        everySuspend { dao.getAll() } returns listOf(entity)
+        everySuspend { badHabitsDao.getBadHabitWithRatings() } returns listOf(entity)
 
         // When
         val result = repository.getBadHabits()
@@ -54,29 +56,30 @@ class BadHabitsRepositoryTest {
             name = "Smoking",
             description = "Don't smoke",
             frequency = "Daily",
-            reminders = "Morning"
+            reminders = true,
+            creationDate = "12/12/12"
         )
 
         val expectedEntity = mapper.mapFromDomain(habit)
 
-        everySuspend { dao.insert(expectedEntity) } returns Unit
+        everySuspend { badHabitsDao.insert(expectedEntity) } returns Unit
 
         // When
         repository.saveBadHabit(habit)
 
         // Then
-        verifySuspend { dao.insert(expectedEntity) }
+        verifySuspend { badHabitsDao.insert(expectedEntity) }
     }
 
     @Test
     fun `deleteBadHabitById calls DAO delete method`() = runTest {
         val id = 1L
 
-        everySuspend { dao.deleteById(id) } returns Unit
+        everySuspend { badHabitsDao.deleteById(id) } returns Unit
 
         repository.deleteBadHabitById(id)
 
-        verifySuspend { dao.deleteById(id) }
+        verifySuspend { badHabitsDao.deleteById(id) }
     }
 
     @Test
@@ -86,11 +89,12 @@ class BadHabitsRepositoryTest {
             name = "Smoking",
             description = "Don't smoke",
             frequency = "Daily",
-            reminders = "Morning"
+            reminders = true,
+            creationDate = "12/12/12"
         )
         val expected = mapper.mapToDomain(entity)
 
-        everySuspend { dao.getBadHabitById(1L) } returns entity
+        everySuspend { badHabitsDao.getBadHabitById(1L) } returns entity
 
         val result = repository.getBadHabitById(1L)
 
@@ -99,7 +103,7 @@ class BadHabitsRepositoryTest {
 
     @Test
     fun `getBadHabitById returns null if not found`() = runTest {
-        everySuspend { dao.getBadHabitById(1L) } returns null
+        everySuspend { badHabitsDao.getBadHabitById(1L) } returns null
 
         val result = repository.getBadHabitById(1L)
 

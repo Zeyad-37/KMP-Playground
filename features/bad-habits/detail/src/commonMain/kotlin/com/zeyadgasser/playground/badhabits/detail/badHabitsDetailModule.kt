@@ -14,7 +14,7 @@ import org.koin.dsl.module
 val badHabitsDetailModule = module {
     single<BadHabitDetailState> { InitialState }
     single { BadHabitsPresentationMapper }
-    single { LoadBadHabitDetailInputHandler(get(), get()) }
+    single { LoadBadHabitDetailInputHandler(get(), get(), get()) }
     single { DeleteBadHabitInputHandler(get()) }
     single { NavigationInputHandler }
     factory { BadHabitDetailViewModel(get(), get(), get(), get(), get(named(COMPUTATION))) }

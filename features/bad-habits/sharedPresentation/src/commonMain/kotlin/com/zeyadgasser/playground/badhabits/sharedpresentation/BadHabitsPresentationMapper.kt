@@ -2,7 +2,6 @@ package com.zeyadgasser.playground.badhabits.sharedpresentation
 
 import com.zeyadgasser.playground.badhabits.domain.BadHabit
 import com.zeyadgasser.playground.badhabits.domain.BadHabitRating
-import kotlin.String
 
 object BadHabitsPresentationMapper {
     // Domain → Presentation
@@ -14,7 +13,9 @@ object BadHabitsPresentationMapper {
         reminders = badHabit.reminders,
         creationDate = badHabit.creationDate,
         ratings = badHabit.ratings.map { BadHabitRatingPM(it.id, it.ratingValue, it.date) },
-        currentRating = badHabit.ratings.lastOrNull()?.ratingValue ?: 0
+        currentRating = badHabit.ratings.lastOrNull()?.ratingValue ?: 0,
+        currentStreak = badHabit.currentStreak,
+        longestStreak = badHabit.longestStreak
     )
 
     // Presentation → Domain
@@ -25,13 +26,14 @@ object BadHabitsPresentationMapper {
         frequency = badHabitPM.frequency,
         reminders = badHabitPM.reminders,
         creationDate = badHabitPM.creationDate,
-        ratings = badHabitPM.ratings.map { BadHabitRating(it.id, it.ratingValue, it.date) }
+        ratings = badHabitPM.ratings.map { BadHabitRating(it.id, it.ratingValue, it.date) },
+        currentStreak = badHabitPM.currentStreak,
+        longestStreak = badHabitPM.longestStreak
     )
 
     // List mappings
-    fun mapToPresentationList(badHabits: List<BadHabit>): List<BadHabitPM> {
-        return badHabits.map { mapToPresentation(it) }
-    }
+    fun mapToPresentationList(badHabits: List<BadHabit>): List<BadHabitPM> =
+        badHabits.map { mapToPresentation(it) }
 
     fun mapFromPresentationList(pmList: List<BadHabitPM>): List<BadHabit> =
         pmList.map { pm -> mapFromPresentation(pm) }

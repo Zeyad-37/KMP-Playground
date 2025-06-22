@@ -10,7 +10,7 @@ import org.koin.dsl.module
 
 val badHabitsFormModule = module {
     single<BadHabitFormState> { BadHabitFormState.InitialState }
-    single { SubmitBadHabitInputHandler(get(), get()) }
+    single { SubmitBadHabitInputHandler(get(), get(), get()) }
     single { ValidateFormInputHandler }
     factory { BadHabitFormViewModel(get(), get(), get(), get(), get(named(IO))) }
 }

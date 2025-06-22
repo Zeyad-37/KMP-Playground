@@ -29,6 +29,7 @@ import com.zeyadgasser.playground.utils.utilModule
 import io.github.aakira.napier.DebugAntilog
 import io.github.aakira.napier.Napier
 import org.koin.core.context.startKoin
+import kotlin.collections.plus
 
 fun MainViewController() = ComposeUIViewController {
     Napier.base(DebugAntilog())
@@ -54,6 +55,7 @@ fun MainViewController() = ComposeUIViewController {
                     + iosBadHabitsSharedDataModule
                     + badHabitsListModule
                     + badHabitsSharedDataModule
+                    + badHabitsDomainModule
                     + badHabitsFormModule
                     + badHabitsDetailModule
                     + badHabitsSharedPresentationModule
