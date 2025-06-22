@@ -7,25 +7,20 @@ import com.zeyadgasser.playground.badhabits.domain.BadHabitsRepository
 import com.zeyadgasser.playground.badhabits.list.viewmodel.BadHabitListState.EmptyState
 import com.zeyadgasser.playground.badhabits.list.viewmodel.BadHabitListState.SuccessState
 import com.zeyadgasser.playground.badhabits.sharedpresentation.BadHabitsPresentationMapper
+import com.zeyadgasser.playground.utils.TimeService
 import kotlinx.coroutines.flow.Flow
 import kotlinx.coroutines.flow.map
 import kotlinx.coroutines.flow.onStart
-import kotlinx.datetime.Clock
-import kotlinx.datetime.LocalDate
-import kotlinx.datetime.TimeZone
-import kotlinx.datetime.format
-import kotlinx.datetime.format.DayOfWeekNames
-import kotlinx.datetime.format.char
-import kotlinx.datetime.toLocalDateTime
 
 class LoadBadHabitListInputHandler(
     private val repository: BadHabitsRepository,
     private val taskPresentationMapper: BadHabitsPresentationMapper,
+    private val timeService: TimeService,
 ) : InputHandler<LoadBadHabitListInput, BadHabitListState> {
 
     override fun invoke(input: LoadBadHabitListInput, currentState: BadHabitListState): Flow<Result> {
         return repository.getBadHabits().map { domainBadHabits ->
-            val currentDate = getCurrentDateFormatted()
+            val currentDate = timeService.getCurrentDateFormatted()
             val updatedBadHabits = domainBadHabits.map { badHabit ->
                 // Check if a rating exists for the current date for this bad habit
                 val hasTodayRating = badHabit.ratings.any { it.date == currentDate }
@@ -45,29 +40,7 @@ class LoadBadHabitListInputHandler(
                 } else badHabit // No change needed if rating exists for today
             }
             taskPresentationMapper.mapToPresentationList(updatedBadHabits)
-        }.map { if (it.isNotEmpty()) SuccessState(it, getCurrentDateLabel(), false) else EmptyState }
-            .onStart { emit(SuccessState(emptyList(), getCurrentDateLabel(), true)) }
+        }.map { if (it.isNotEmpty()) SuccessState(it, timeService.getCurrentDateLabel(), false) else EmptyState }
+            .onStart { emit(SuccessState(emptyList(), timeService.getCurrentDateLabel(), true)) }
     }
-
-    private fun getCurrentDateFormatted(): String = getCurrentDate().format(LocalDate.Format {
-        dayOfMonth()
-        char('/')
-        monthNumber()
-        char('/')
-        year()
-    })
-
-    private fun getCurrentDateLabel(): String = getCurrentDate().format(LocalDate.Format {
-        dayOfWeek(DayOfWeekNames.ENGLISH_FULL)
-        char(',')
-        char(' ')
-        dayOfMonth()
-        char('/')
-        monthNumber()
-        char('/')
-        year()
-    })
-
-    private fun getCurrentDate(): LocalDate =
-        Clock.System.now().toLocalDateTime(TimeZone.currentSystemDefault()).date
 }

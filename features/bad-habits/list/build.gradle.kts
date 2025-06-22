@@ -21,6 +21,7 @@ kotlin {
                 implementation(project(":features:bad-habits:sharedPresentation"))
                 implementation(project(":core:architecture"))
                 implementation(project(":core:sharedUI"))
+                implementation(project(":core:utils"))
                 implementation(libs.kotlinx.datetime)
             }
         }

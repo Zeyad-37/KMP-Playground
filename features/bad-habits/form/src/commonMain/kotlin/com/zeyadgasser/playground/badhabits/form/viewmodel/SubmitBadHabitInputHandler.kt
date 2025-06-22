@@ -4,6 +4,7 @@ import com.zeyadgasser.playground.architecture.presentation.InputHandler
 import com.zeyadgasser.playground.architecture.presentation.Result
 import com.zeyadgasser.playground.badhabits.domain.BadHabit
 import com.zeyadgasser.playground.badhabits.domain.BadHabitsRepository
+import com.zeyadgasser.playground.utils.TimeService
 import kotlinx.coroutines.flow.Flow
 import kotlinx.coroutines.flow.emitAll
 import kotlinx.coroutines.flow.flow
@@ -18,6 +19,7 @@ import kotlinx.datetime.toLocalDateTime
 class SubmitBadHabitInputHandler(
     private val badHabitRepository: BadHabitsRepository,
     private val validateFormInputHandler: ValidateFormInputHandler,
+    private val timeService: TimeService,
 ) : InputHandler<SubmitBadHabitInput, BadHabitFormState> {
 
     override fun invoke(input: SubmitBadHabitInput, state: BadHabitFormState): Flow<Result> = flow {
@@ -32,18 +34,10 @@ class SubmitBadHabitInputHandler(
                     frequency = frequency,
                     description = description.text,
                     reminders = reminders,
-                    creationDate = getCurrentDate(), // todo use existing date if exists
+                    creationDate = timeService.getCurrentDateFormatted(), // todo use existing date if exists
                 )
             })
             emit(CloseCreateBadHabitEffect)
         }
     }
-    private fun getCurrentDate(): String = Clock.System.now().toLocalDateTime(TimeZone.currentSystemDefault())
-        .date.format(LocalDate.Format {
-            dayOfMonth()
-            char('/')
-            monthNumber()
-            char('/')
-            year()
-        })
 }

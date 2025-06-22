@@ -25,6 +25,7 @@ import com.zeyadgasser.playground.task.detail.di.taskDetailModule
 import com.zeyadgasser.playground.task.list.di.taskListModule
 import com.zeyadgasser.playground.task.sharedpresentation.di.taskPresentationModule
 import com.zeyadgasser.playground.tasks.data.sync.Sync
+import com.zeyadgasser.playground.utils.utilModule
 import io.github.aakira.napier.DebugAntilog
 import io.github.aakira.napier.Napier
 import org.koin.android.ext.koin.androidContext
@@ -43,6 +44,7 @@ class PlaygroundApplication : Application(), KoinComponent {
                 androidModule + commonModule
                         + networkingModule
                         + dataBaseModule
+                        + utilModule
                         + androidDataBaseModule
                         + taskListModule
                         + taskDetailModule

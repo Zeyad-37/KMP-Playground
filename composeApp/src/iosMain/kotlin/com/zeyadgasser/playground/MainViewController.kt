@@ -25,6 +25,7 @@ import com.zeyadgasser.playground.task.list.di.taskListModule
 import com.zeyadgasser.playground.task.sharedpresentation.di.taskPresentationModule
 import com.zeyadgasser.playground.task.data.di.taskSharedDataModule
 import com.zeyadgasser.playground.task.detail.di.taskDetailModule
+import com.zeyadgasser.playground.utils.utilModule
 import io.github.aakira.napier.DebugAntilog
 import io.github.aakira.napier.Napier
 import org.koin.core.context.startKoin
@@ -36,6 +37,7 @@ fun MainViewController() = ComposeUIViewController {
             commonModule + iosModule
                     + networkingModule
                     + dataBaseModule
+                    + utilModule
                     + iosDataBaseModule
                     + taskListModule
                     + taskDetailModule
