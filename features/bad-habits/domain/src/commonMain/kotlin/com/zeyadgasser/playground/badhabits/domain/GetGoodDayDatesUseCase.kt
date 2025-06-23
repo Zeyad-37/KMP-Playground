@@ -43,5 +43,4 @@ object GetGoodDayDatesUseCase {
             .sorted() // Sort dates in ascending order
             .distinct() // Remove duplicate dates if multiple good ratings on same day
     }
-
 }

@@ -34,7 +34,7 @@ class PresentationBadHabitsMapperTest {
             name = "Late Night TV",
             description = "Stop watching TV after 10 PM",
             frequency = "Daily",
-            reminders = "Evening"
+            reminders = false
         )
 
         val habit = mapper.mapFromPresentation(pm)

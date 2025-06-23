@@ -1,6 +1,6 @@
 package com.zeyadgasser.playground.badhabits.domain
 
-data class  BadHabit(
+data class BadHabit(
     val id: Long,
     val name: String,
     val description: String,

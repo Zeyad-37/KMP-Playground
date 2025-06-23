@@ -12,6 +12,5 @@ class DeleteBadHabitInputHandler(private val routineRepository: BadHabitsReposit
         flow {
             routineRepository.deleteBadHabitById(state.id)
             emit(NavToEffect(true))
-//            else emit(ErrorEffect("Could not delete routine!"))
         }
 }
