@@ -47,6 +47,7 @@ import com.zeyadgasser.playground.routine.form.viewmodel.RoutineFormState
 import com.zeyadgasser.playground.routine.form.viewmodel.RoutineFormState.InitialState
 import com.zeyadgasser.playground.routine.form.viewmodel.RoutineFormState.ReadyToSubmitState
 import com.zeyadgasser.playground.routine.form.viewmodel.RoutineFormState.ValidationErrorState
+import com.zeyadgasser.playground.routine.form.viewmodel.RoutineFormValidation
 import com.zeyadgasser.playground.routine.form.viewmodel.RoutineFormViewModel
 import com.zeyadgasser.playground.routine.form.viewmodel.ShowTimePickerEffect
 import com.zeyadgasser.playground.routine.form.viewmodel.ShowTimePickerInput
@@ -93,91 +94,20 @@ fun RoutineFormScreenContent(
     process: (Input) -> Unit,
 ) {
     var isCreate by remember { mutableStateOf(routineId == null) }
-    var name by remember { mutableStateOf(state.form.routineName) }
-    var isNameError by remember {
-        mutableStateOf((state as? ValidationErrorState)?.formValidation?.nameValidationErrorMessage != null)
-    }
-    var nameErrorMessage by remember {
-        mutableStateOf((state as? ValidationErrorState)?.formValidation?.nameValidationErrorMessage.orEmpty())
-    }
-    var type by remember { mutableStateOf(state.form.routineType) }
-    var isTypeError by remember {
-        mutableStateOf((state as? ValidationErrorState)?.formValidation?.typeValidationErrorMessage != null)
-    }
-    var typeErrorMessage by remember {
-        mutableStateOf((state as? ValidationErrorState)?.formValidation?.typeValidationErrorMessage.orEmpty())
-    }
-    var category by remember { mutableStateOf(state.form.routineCategory) }
-    var isCategoryError by remember {
-        mutableStateOf((state as? ValidationErrorState)?.formValidation?.categoryValidationErrorMessage != null)
-    }
-    var categoryErrorMessage by remember {
-        mutableStateOf((state as? ValidationErrorState)?.formValidation?.categoryValidationErrorMessage.orEmpty())
-    }
-    var startTime by remember { mutableStateOf(state.form.startTime) }
-    var isStartTimeError by remember {
-        mutableStateOf(
-            state is ValidationErrorState && state.formValidation.startTimeValidationErrorMessage != null
-        )
-    }
-    var startTimeErrorMessage by remember {
-        mutableStateOf((state as? ValidationErrorState)?.formValidation?.startTimeValidationErrorMessage.orEmpty())
-    }
-    var endTime by remember { mutableStateOf(state.form.endTime) }
-    var isEndTimeError by remember {
-        mutableStateOf(
-            state is ValidationErrorState && state.formValidation.endTimeValidationErrorMessage != null
-        )
-    }
-    var endTimeErrorMessage by remember {
-        mutableStateOf((state as? ValidationErrorState)?.formValidation?.endTimeValidationErrorMessage.orEmpty())
-    }
-    var description by remember { mutableStateOf(state.form.description) }
-    var isDescriptionError by remember {
-        mutableStateOf(
-            state is ValidationErrorState && state.formValidation.descriptionValidationErrorMessage != null
-        )
-    }
-    var descriptionTimeErrorMessage by remember {
-        mutableStateOf((state as? ValidationErrorState)?.formValidation?.descriptionValidationErrorMessage.orEmpty())
-    }
-    var remindersEnabled by remember { mutableStateOf(state.form.remindersEnabled) }
     if (showStartTimePicker) {
-        WheelTimePickerBottomSheet(onTimeSelected = {
-            startTime = it
-            process(TimePickedInput(startTime, true))
-        }) {
-            process(TimePickedInput("", true))
-        }
+        WheelTimePickerBottomSheet(onTimeSelected = { process(TimePickedInput(it, true)) })
+        { process(TimePickedInput("", true)) }
     }
     if (showEndTimePicker) {
-        WheelTimePickerBottomSheet(onTimeSelected = {
-            endTime = it
-            process(TimePickedInput(endTime, false))
-        }) {
-            process(TimePickedInput("", false))
-        }
+        WheelTimePickerBottomSheet(onTimeSelected = { process(TimePickedInput(it, false)) })
+        { process(TimePickedInput("", false)) }
     }
-
     when (state) {
         InitialState -> if (routineId != null) process(LoadRoutineByIdInput(routineId))
-        is ReadyToSubmitState -> with(state) {
-            name = form.routineName
-            type = form.routineType
-            category = form.routineCategory
-            startTime = form.startTime
-            endTime = form.endTime
-            description = form.description
-            remindersEnabled = form.remindersEnabled
-        }
-
-        is ValidationErrorState -> with(state.formValidation) {
-            nameErrorMessage = nameValidationErrorMessage.orEmpty()
-            typeErrorMessage = typeValidationErrorMessage.orEmpty()
-            categoryErrorMessage = categoryValidationErrorMessage.orEmpty()
-        }
+        is ReadyToSubmitState, is ValidationErrorState -> Unit
     }
-
+    val form: RoutineForm = state.form
+    val validationErrors: RoutineFormValidation? = (state as? ValidationErrorState)?.formValidation
     Column(
         modifier = Modifier
             .fillMaxSize()
@@ -196,15 +126,12 @@ fun RoutineFormScreenContent(
                 IconButton(onClick = { process(CloseRoutineFormInput) }) {
                     Icon(
                         imageVector = Icons.Default.Close,
-//                        painter = painterResource(Res.drawable.ic_close),
-//                        contentDescription = stringResource(Res.string.close),
                         contentDescription = "Close",
                     )
                 }
                 Box(modifier = Modifier.fillMaxWidth()) {
                     Text(
-//                        text = stringResource(Res.string.new_routine),
-                        text = "New Routine",
+                        text = if (isCreate) "Track New Routine" else "Edit Routine",
                         fontWeight = FontWeight.Bold,
                         fontSize = 20.sp,
                         textAlign = Center,
@@ -214,28 +141,19 @@ fun RoutineFormScreenContent(
             }
             // Routine Name
             TextField(
-                value = name,
-                onValueChange = {
-                    name = it
-                    process(
-                        ValidateFormInput(
-                            RoutineForm(
-                                name, type, category, startTime, endTime, description, remindersEnabled
-                            )
-                        )
-                    )
-                },
+                value = form.name,
+                onValueChange = { process(ValidateFormInput(form.copy(name = it))) },
 //                label = { Text(text = stringResource(Res.string.routine_name)) },
                 label = { Text(text = "Routine Name") },
 //                placeholder = { Text(text = stringResource(Res.string.morning_run)) },
                 placeholder = { Text(text = "Morning Run") },
                 modifier = Modifier.fillMaxWidth(),
-                isError = isNameError,
+                isError = validationErrors?.nameValidationErrorMessage != null,
                 supportingText = {
-                    if (isNameError) {
+                    if (validationErrors?.nameValidationErrorMessage != null) {
                         Text(
                             modifier = Modifier.fillMaxWidth(),
-                            text = nameErrorMessage,
+                            text = validationErrors.nameValidationErrorMessage,
                             color = MaterialTheme.colorScheme.error
                         )
                     }
@@ -243,26 +161,17 @@ fun RoutineFormScreenContent(
             )
             // Routine Type
             TextField(
-                value = type,
-                onValueChange = {
-                    type = it
-                    process(
-                        ValidateFormInput(
-                            RoutineForm(
-                                name, type, category, startTime, endTime, description, remindersEnabled
-                            )
-                        )
-                    )
-                },
+                value = form.type,
+                onValueChange = { process(ValidateFormInput(form.copy(type = it))) },
 //                label = { Text(text = stringResource(Res.string.routine_type)) },
                 label = { Text(text = "Routine Type") },
                 modifier = Modifier.fillMaxWidth(),
-                isError = isTypeError,
+                isError = validationErrors?.typeValidationErrorMessage != null,
                 supportingText = {
-                    if (isTypeError) {
+                    if (validationErrors?.typeValidationErrorMessage != null) {
                         Text(
                             modifier = Modifier.fillMaxWidth(),
-                            text = typeErrorMessage,
+                            text = validationErrors.typeValidationErrorMessage,
                             color = MaterialTheme.colorScheme.error
                         )
                     }
@@ -270,26 +179,17 @@ fun RoutineFormScreenContent(
             )
             // Routine Category TODO add search dropdown
             TextField(
-                value = category,
-                onValueChange = {
-                    category = it
-                    process(
-                        ValidateFormInput(
-                            RoutineForm(
-                                name, type, category, startTime, endTime, description, remindersEnabled
-                            )
-                        )
-                    )
-                },
+                value = form.category,
+                onValueChange = { process(ValidateFormInput(form.copy(category = it))) },
 //                label = { Text(text = stringResource(Res.string.routine_category)) },
                 label = { Text(text = "Routine Category") },
                 modifier = Modifier.fillMaxWidth(),
-                isError = isCategoryError,
+                isError = validationErrors?.categoryValidationErrorMessage != null,
                 supportingText = {
-                    if (isTypeError) {
+                    if (validationErrors?.categoryValidationErrorMessage != null) {
                         Text(
                             modifier = Modifier.fillMaxWidth(),
-                            text = categoryErrorMessage,
+                            text = validationErrors.categoryValidationErrorMessage,
                             color = MaterialTheme.colorScheme.error
                         )
                     }
@@ -298,28 +198,19 @@ fun RoutineFormScreenContent(
             // Start Time and End Time
             Row(modifier = Modifier.fillMaxWidth(), horizontalArrangement = Arrangement.SpaceBetween) {
                 OutlinedTextField(
-                    value = startTime,
-                    onValueChange = {
-                        startTime = it
-                        process(
-                            ValidateFormInput(
-                                RoutineForm(
-                                    name, type, category, startTime, endTime, description, remindersEnabled
-                                )
-                            )
-                        )
-                    },
-                    isError = isStartTimeError,
+                    value = form.startTime,
+                    onValueChange = { process(ValidateFormInput(form.copy(startTime = it))) },
+                    isError = validationErrors?.startTimeValidationErrorMessage != null,
 //                    label = { Text(text = stringResource(Res.string.start_time)) },
                     label = { Text(text = "Start Time") },
                     modifier = Modifier
                         .weight(1f)
                         .clickable { process(ShowTimePickerInput(true)) },
                     supportingText = {
-                        if (isStartTimeError) {
+                        if (validationErrors?.startTimeValidationErrorMessage != null) {
                             Text(
                                 modifier = Modifier.fillMaxWidth(),
-                                text = startTimeErrorMessage,
+                                text = validationErrors.startTimeValidationErrorMessage,
                                 color = MaterialTheme.colorScheme.error
                             )
                         }
@@ -327,28 +218,19 @@ fun RoutineFormScreenContent(
                 )
                 Spacer(modifier = Modifier.width(8.dp))
                 OutlinedTextField(
-                    value = endTime,
-                    onValueChange = {
-                        endTime = it
-                        process(
-                            ValidateFormInput(
-                                RoutineForm(
-                                    name, type, category, startTime, endTime, description, remindersEnabled
-                                )
-                            )
-                        )
-                    },
+                    value = form.endTime,
+                    onValueChange = { process(ValidateFormInput(form.copy(endTime = it))) },
 //                    label = { Text(text = stringResource(Res.string.end_time)) },
                     label = { Text(text = "End Time") },
-                    isError = isEndTimeError,
+                    isError = validationErrors?.endTimeValidationErrorMessage != null,
                     modifier = Modifier
                         .weight(1f)
                         .clickable { process(ShowTimePickerInput(false)) },
                     supportingText = {
-                        if (isEndTimeError) {
+                        if (validationErrors?.endTimeValidationErrorMessage != null) {
                             Text(
                                 modifier = Modifier.fillMaxWidth(),
-                                text = endTimeErrorMessage,
+                                text = validationErrors.endTimeValidationErrorMessage,
                                 color = MaterialTheme.colorScheme.error
                             )
                         }
@@ -357,18 +239,9 @@ fun RoutineFormScreenContent(
             }
             // Description
             TextField(
-                value = description,
-                onValueChange = {
-                    description = it
-                    process(
-                        ValidateFormInput(
-                            RoutineForm(
-                                name, type, category, startTime, endTime, description, remindersEnabled
-                            )
-                        )
-                    )
-                },
-                isError = isDescriptionError,
+                value = form.description,
+                onValueChange = { process(ValidateFormInput(form.copy(description = it))) },
+                isError = validationErrors?.descriptionValidationErrorMessage != null,
 //                label = { Text(text = stringResource(Res.string.description)) },
                 label = { Text(text = "Description") },
                 modifier = Modifier
@@ -377,10 +250,10 @@ fun RoutineFormScreenContent(
                 singleLine = false,
                 shape = RoundedCornerShape(8.dp),
                 supportingText = {
-                    if (isDescriptionError) {
+                    if (validationErrors?.descriptionValidationErrorMessage != null) {
                         Text(
                             modifier = Modifier.fillMaxWidth(),
-                            text = descriptionTimeErrorMessage,
+                            text = validationErrors.descriptionValidationErrorMessage,
                             color = MaterialTheme.colorScheme.error
                         )
                     }
@@ -394,30 +267,22 @@ fun RoutineFormScreenContent(
             ) {
 //                Text(text = stringResource(Res.string.reminders))
                 Text(text = "Reminders")
-                Switch(checked = remindersEnabled, onCheckedChange = { remindersEnabled = it })
+                Switch(
+                    checked = form.remindersEnabled,
+                    onCheckedChange = { process(ValidateFormInput(form.copy(remindersEnabled = it))) }
+                )
             }
         }
         // Create Routine Button
         Button(
             enabled = state is ReadyToSubmitState,
-            onClick = {
-                process(
-                    SubmitRoutineInput(
-                        RoutineForm(
-                            name, type, category, startTime, endTime, description, remindersEnabled
-                        ), routineId
-                    )
-                )
-            }, modifier = Modifier
-                .fillMaxWidth()
-                .height(48.dp), colors = ButtonDefaults.buttonColors(),
+            onClick = { process(SubmitRoutineInput(form, routineId)) },
+            modifier = Modifier.fillMaxWidth().height(48.dp),
+            colors = ButtonDefaults.buttonColors(),
             shape = RoundedCornerShape(8.dp)
         ) {
-            Text(
 //                text = stringResource(if (isCreate) Res.string.create_routine else Res.string.update_routine),
-                text = if (isCreate) "Create Routine" else "Update Routine",
-                fontSize = 16.sp
-            )
+            Text(text = if (isCreate) "Create Routine" else "Update Routine", fontSize = 16.sp)
         }
     }
 }

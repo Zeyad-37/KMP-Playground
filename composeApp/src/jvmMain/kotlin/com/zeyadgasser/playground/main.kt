@@ -7,6 +7,13 @@ import androidx.compose.ui.window.Window
 import androidx.compose.ui.window.WindowPosition
 import androidx.compose.ui.window.application
 import androidx.compose.ui.window.rememberWindowState
+import com.zeyadgasser.playground.badhabits.data.badHabitsSharedDataModule
+import com.zeyadgasser.playground.badhabits.data.db.di.desktopBadHabitsSharedDataModule
+import com.zeyadgasser.playground.badhabits.detail.badHabitsDetailModule
+import com.zeyadgasser.playground.badhabits.domain.badHabitsDomainModule
+import com.zeyadgasser.playground.badhabits.form.badHabitsFormModule
+import com.zeyadgasser.playground.badhabits.list.badHabitsListModule
+import com.zeyadgasser.playground.badhabits.sharedpresentation.badHabitsSharedPresentationModule
 import com.zeyadgasser.playground.breath.di.breathModule
 import com.zeyadgasser.playground.database.desktopDataBaseModule
 import com.zeyadgasser.playground.database.di.dataBaseModule
@@ -24,6 +31,7 @@ import com.zeyadgasser.playground.task.data.di.taskSharedDataModule
 import com.zeyadgasser.playground.task.detail.di.taskDetailModule
 import com.zeyadgasser.playground.task.list.di.taskListModule
 import com.zeyadgasser.playground.task.sharedpresentation.di.taskPresentationModule
+import com.zeyadgasser.playground.utils.utilModule
 import io.github.aakira.napier.DebugAntilog
 import io.github.aakira.napier.Napier
 import org.koin.core.context.startKoin
@@ -37,6 +45,7 @@ fun main() = application {
                 commonModule + desktopModule
                         + networkingModule
                         + dataBaseModule
+                        + utilModule
                         + desktopDataBaseModule
                         + taskListModule
                         + taskDetailModule
@@ -50,6 +59,13 @@ fun main() = application {
                         + desktopRoutineSharedDataModule
                         + routineFormModule
                         + routineSharedPresentationModule
+                        + badHabitsListModule
+                        + badHabitsSharedDataModule
+                        + badHabitsFormModule
+                        + badHabitsDetailModule
+                        + badHabitsDomainModule
+                        + badHabitsSharedPresentationModule
+                        + desktopBadHabitsSharedDataModule
             )
         }
         App(Modifier)

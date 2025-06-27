@@ -6,10 +6,12 @@ import com.zeyadgasser.playground.architecture.presentation.State
 import com.zeyadgasser.playground.routine.sharedpresentation.RoutinePM
 
 sealed class RoutineDetailInput : Input
-data object GoBackInput : RoutineDetailInput()
-data object EditRoutineDetailInput : RoutineDetailInput()
 data object DeleteRoutineDetailInput : RoutineDetailInput()
 data class LoadRoutineDetailInput(val routineId: Long) : RoutineDetailInput()
+sealed class NavigationInput : RoutineDetailInput() {
+    data object GoBackInput : NavigationInput()
+    data object EditRoutineDetailInput : NavigationInput()
+}
 
 sealed class RoutineDetailEffect : Effect
 data class NavToEffect(val isUp: Boolean) : RoutineDetailEffect() // true to list, false to edit

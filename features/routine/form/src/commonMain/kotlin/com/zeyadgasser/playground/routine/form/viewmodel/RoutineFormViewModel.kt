@@ -49,12 +49,12 @@ class RoutineFormViewModel(
         }
 
     private fun onValidateFormInput(form: RoutineForm): Flow<Result> = flow {
-        val nameValidation = if (form.routineName.isBlank()) "Name is required" else null
-        val typeValidation = if (form.routineType.isBlank()) "Type is required" else null
-        val categoryValidation = if (form.routineCategory.isBlank()) "Category is required" else null
+        val nameValidation = if (form.name.text.isBlank()) "Name is required" else null
+        val typeValidation = if (form.type.text.isBlank()) "Type is required" else null
+        val categoryValidation = if (form.category.text.isBlank()) "Category is required" else null
         val startValidation = if (form.startTime.isBlank()) "Start time is required" else null
         val endValidation = if (form.endTime.isBlank()) "End time is required" else null
-        val descriptionValidation = if (form.description.isBlank()) "Description time is required" else null
+        val descriptionValidation = if (form.description.text.isBlank()) "Description is required" else null
         if (nameValidation != null || typeValidation != null || descriptionValidation != null)
             emit(
                 ValidationErrorState(
@@ -73,17 +73,17 @@ class RoutineFormViewModel(
 
     private fun onSubmitRoutineInput(form: RoutineForm, id: Long?): Flow<Result> = flow {
         // TODO Add notifications if reminders are enabled
-        if (form.routineName.isBlank() || form.routineType.isBlank() || form.description.isBlank())
+        if (form.name.text.isBlank() || form.type.text.isBlank() || form.description.text.isBlank())
             emitAll(onValidateFormInput(form))
         else {
             routineRepository.insertReplaceRoutine(with(form) {
                 Routine(
-                    name = routineName,
-                    type = routineType,
+                    name = name.text,
+                    type = type.text,
                     startTime = startTime,
                     endTime = endTime,
-                    description = description,
-                    category = routineCategory,
+                    description = description.text,
+                    category = category.text,
                     id = id ?: 0,
                 )
             })

@@ -51,6 +51,5 @@ class RoutineRepositoryImpl(
         ratingEntities.forEach { ratingDao.insertRating(it) }
     }
 
-    override suspend fun deleteRoutine(id: Long): Int =
-        routineDao.deleteById(id)
+    override suspend fun deleteRoutine(id: Long): Int = routineDao.deleteById(id)
 }

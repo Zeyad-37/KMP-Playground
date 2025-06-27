@@ -1,5 +1,6 @@
 package com.zeyadgasser.playground.routine.form.viewmodel // Adjust package if needed
 
+import androidx.compose.ui.text.input.TextFieldValue
 import app.cash.turbine.test
 import com.zeyadgasser.playground.routine.domain.RoutineRepository
 import com.zeyadgasser.playground.routine.domain.model.Routine
@@ -12,7 +13,6 @@ import dev.mokkery.everySuspend
 import dev.mokkery.matcher.any
 import dev.mokkery.matcher.eq
 import dev.mokkery.mock
-import dev.mokkery.verify.VerifyMode
 import dev.mokkery.verify.VerifyMode.Companion.atMost
 import dev.mokkery.verifySuspend
 import kotlinx.coroutines.Dispatchers
@@ -34,18 +34,18 @@ class RoutineFormViewModelTest {
     private val routineDomain1 = Routine(
         id = 1L, name = "Morning Yoga", type = "Exercise",
         startTime = "07:00", endTime = "07:30", description = "Gentle stretching",
-        category = "Wellness", completed = false, remindersEnabled = false, rating = null
+        category = "Wellness", completed = false, remindersEnabled = false, ratings = emptyList(),
     )
     private val routineFormFromDomain1 = RoutineForm(routineDomain1)
 
     private val validRoutineForm = RoutineForm(
-        routineName = "Daily Standup", routineType = "Meeting",
-        startTime = "09:00", endTime = "09:15", description = "Quick sync with the team",
-        routineCategory = "Work", remindersEnabled = true
+        name = TextFieldValue("Daily Standup"), type = TextFieldValue("Meeting"),
+        startTime = "09:00", endTime = "09:15", description = TextFieldValue("Quick sync with the team"),
+        category = TextFieldValue("Work"), remindersEnabled = true
     )
-    private val invalidRoutineForm_BlankName = validRoutineForm.copy(routineName = "")
-    private val invalidRoutineForm_BlankType = validRoutineForm.copy(routineType = "")
-    private val invalidRoutineForm_BlankDesc = validRoutineForm.copy(description = "")
+    private val invalidRoutineForm_BlankName = validRoutineForm.copy(name = TextFieldValue(""))
+    private val invalidRoutineForm_BlankType = validRoutineForm.copy(type = TextFieldValue(""))
+    private val invalidRoutineForm_BlankDesc = validRoutineForm.copy(description = TextFieldValue(""))
 
 
     // --- Dependencies ---
@@ -253,9 +253,9 @@ class RoutineFormViewModelTest {
             }
             // Verify the routine passed to repository
             val expectedRoutine = Routine(
-                name = validRoutineForm.routineName, type = validRoutineForm.routineType,
+                name = validRoutineForm.name.text, type = validRoutineForm.type.text,
                 startTime = validRoutineForm.startTime, endTime = validRoutineForm.endTime,
-                description = validRoutineForm.description, category = validRoutineForm.routineCategory,
+                description = validRoutineForm.description.text, category = validRoutineForm.category.text,
                 // id is not passed from form to Routine constructor in VM
                 // completed, remindersEnabled, rating will take defaults
             )

@@ -19,24 +19,23 @@ class RateRoutineInputHandler(
     private val loadRoutineListInputHandler: LoadRoutineListInputHandler,
 ) : InputHandler<RoutineRatedInput, RoutineListState> {
 
-    override suspend fun invoke(input: RoutineRatedInput, currentState: RoutineListState): Flow<Result> =
-        flow {
-            emit(LoadingResult(true))
-            checkRoutineUseCase.invoke(
-                taskPresentationMapper.fromPresentation(
-                    input.routine.copy(
-                        ratings = input.routine.ratings.plus(RoutineRatingPM(input.rating, getCurrentDate()))
-                    )
+    override fun invoke(input: RoutineRatedInput, currentState: RoutineListState): Flow<Result> = flow {
+        emit(LoadingResult(true))
+        val currentData = getCurrentDate()
+        checkRoutineUseCase.invoke(
+            taskPresentationMapper.fromPresentation(
+                input.routine.copy(
+                    ratings = input.routine.ratings
+                        .map { if (it.date == currentData) it.copy(ratingValue = input.rating) else it }
                 )
-            ).let { pair ->
-                if (pair.first.success)
-                    emitAll(loadRoutineListInputHandler.invoke(LoadRoutineListInput, currentState))
-            }
-            emit(LoadingResult(false))
+            )
+        ).let { pair ->
+            if (pair.first.success)
+                emitAll(loadRoutineListInputHandler.invoke(LoadRoutineListInput, currentState))
         }
-
-    private fun getCurrentDate(): String {
-        val time = Clock.System.now().toLocalDateTime(TimeZone.currentSystemDefault())
-        return "${time.date.dayOfMonth}, ${time.date.month.number}, ${time.date.year}"
+        emit(LoadingResult(false))
     }
+
+    private fun getCurrentDate(): String = Clock.System.now().toLocalDateTime(TimeZone.currentSystemDefault())
+        .let { "${it.date.dayOfMonth}/${it.date.month.number}/${it.date.year}" }// todo centralise in a use-case
 }

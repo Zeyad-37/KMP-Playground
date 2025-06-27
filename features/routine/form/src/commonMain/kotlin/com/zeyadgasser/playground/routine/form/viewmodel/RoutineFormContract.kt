@@ -1,5 +1,6 @@
 package com.zeyadgasser.playground.routine.form.viewmodel
 
+import androidx.compose.ui.text.input.TextFieldValue
 import com.zeyadgasser.playground.architecture.presentation.Effect
 import com.zeyadgasser.playground.architecture.presentation.Input
 import com.zeyadgasser.playground.architecture.presentation.State
@@ -19,7 +20,17 @@ data object HideTimePickerEffect : RoutineFormEffect()
 data class ShowTimePickerEffect(val isStart: Boolean) : RoutineFormEffect()
 
 sealed class RoutineFormState(open val form: RoutineForm) : State {
-    data object InitialState : RoutineFormState(RoutineForm("", "", "", "", "", "", false))
+    data object InitialState : RoutineFormState(
+        RoutineForm(
+            TextFieldValue(""),
+            TextFieldValue(""),
+            TextFieldValue(""),
+            "",
+            "",
+            TextFieldValue(""),
+            false
+        )
+    )
 
     data class ValidationErrorState(
         val formValidation: RoutineFormValidation, override val form: RoutineForm,
@@ -29,21 +40,21 @@ sealed class RoutineFormState(open val form: RoutineForm) : State {
 }
 
 data class RoutineForm(
-    val routineName: String,
-    val routineType: String,
-    val routineCategory: String,
+    val name: TextFieldValue,
+    val type: TextFieldValue,
+    val category: TextFieldValue,
     val startTime: String,
     val endTime: String,
-    val description: String,
+    val description: TextFieldValue,
     val remindersEnabled: Boolean,
 ) {
     constructor(routine: Routine) : this(
-        routine.name,
-        routine.type,
-        routine.category,
+        TextFieldValue(routine.name),
+        TextFieldValue(routine.type),
+        TextFieldValue(routine.category),
         routine.startTime,
         routine.endTime,
-        routine.description,
+        TextFieldValue(routine.description),
         routine.remindersEnabled
     )
 }
