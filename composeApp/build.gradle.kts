@@ -66,7 +66,7 @@ kotlin {
 
         androidUnitTest.dependencies {
             implementation(libs.junit)
-//            implementation(libs.sql.delight.jvm.driver)
+            implementation(libs.sql.delight.jvm.driver)
             implementation(libs.androidx.test.junit)
             implementation(libs.androidx.espresso.core)
         }
@@ -117,19 +117,23 @@ kotlin {
             implementation(libs.ktor.mock)
             @OptIn(org.jetbrains.compose.ExperimentalComposeLibrary::class)
             implementation(compose.uiTest)
+            implementation(project(":core:database"))
+            implementation(project(":core:networking"))
+            implementation(project(":features:task:data"))
+            implementation(project(":features:task:domain"))
         }
 
         iosMain.dependencies {
         }
         iosTest.dependencies {
-//            implementation(libs.sql.delight.native.driver)
+            implementation(libs.sql.delight.native.driver)
         }
         jvmMain.dependencies {
             implementation(compose.desktop.currentOs)
             implementation(libs.kotlinx.coroutines.swing)
         }
         jvmTest.dependencies {
-//            implementation(libs.sql.delight.jvm.driver)
+            implementation(libs.sql.delight.jvm.driver)
         }
     }
 }
