@@ -15,7 +15,6 @@ Learn more about [Kotlin Multiplatform](https://www.jetbrains.com/help/kotlin-mu
 TODO:
 Version 1.0:
 - Bad Habit Tracker
-- Main Activity
 - Fix todos (AI)
 - Remove database module (Spike)
 - Fix tests (AI)

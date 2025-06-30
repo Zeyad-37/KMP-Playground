@@ -83,6 +83,7 @@ kotlin {
             implementation(project(":features:task:detail"))
             implementation(project(":features:task:sharedPresentation"))
             implementation(project(":features:breath"))
+            implementation(project(":features:user:profile"))
             implementation(project(":features:routine:data"))
             implementation(project(":features:routine:domain"))
             implementation(project(":features:routine:form"))

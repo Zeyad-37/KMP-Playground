@@ -7,14 +7,14 @@ import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.layout.padding
-import androidx.compose.material.Button
-import androidx.compose.material.ButtonDefaults
-import androidx.compose.material.Icon
-import androidx.compose.material.IconButton
-import androidx.compose.material.OutlinedTextField
-import androidx.compose.material.Text
 import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.filled.Close
+import androidx.compose.material3.Button
+import androidx.compose.material3.ButtonDefaults
+import androidx.compose.material3.Icon
+import androidx.compose.material3.IconButton
+import androidx.compose.material3.OutlinedTextField
+import androidx.compose.material3.Text
 import androidx.compose.material3.Switch
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.LaunchedEffect
@@ -173,7 +173,7 @@ fun BadHabitFormContent(state: BadHabitFormState, badHabitId: Long? = null, proc
             onClick = { process(SubmitBadHabitInput(form, badHabitId)) },
             modifier = Modifier.fillMaxWidth().padding(top = 32.dp).height(56.dp),
             colors = ButtonDefaults.buttonColors(
-                backgroundColor = Color.Black,
+//                backgroundColor = Color.Black,
                 contentColor = Color.White
             )
         ) { Text(text = if (isCreate) "Create Bad Habit" else "Update Bad Habit", fontSize = 18.sp) }
