@@ -1,13 +1,13 @@
 package com.zeyadgasser.playground.badhabits.domain
 
-import kotlinx.datetime.Clock
+import com.zeyadgasser.playground.utils.TimeService
 import kotlinx.datetime.DatePeriod
 import kotlinx.datetime.LocalDate
-import kotlinx.datetime.TimeZone
 import kotlinx.datetime.minus
-import kotlinx.datetime.todayIn
 
-class GetCurrentStreakUseCase(private val getGoodDayDates: GetGoodDayDatesUseCase) {
+class GetCurrentStreakUseCase(
+    private val getGoodDayDates: GetGoodDayDatesUseCase, private val timeService: TimeService,
+) {
 
     /**
      * Calculates the current streak for a bad habit based on its ratings and creation date.
@@ -28,7 +28,8 @@ class GetCurrentStreakUseCase(private val getGoodDayDates: GetGoodDayDatesUseCas
         if (goodDayDates.isEmpty()) return "0" // No good days found on or after creation date, so no streak
 
         var currentStreak = 0
-        val today = Clock.System.todayIn(TimeZone.currentSystemDefault())
+        val today = timeService.getCurrentDate()
+//        val today = Clock.System.todayIn(TimeZone.currentSystemDefault())
         val yesterday = today.minus(DatePeriod(days = 1))
 
         var checkDate: LocalDate? = null
@@ -41,7 +42,8 @@ class GetCurrentStreakUseCase(private val getGoodDayDates: GetGoodDayDatesUseCas
         if (checkDate != null) {
             var tempCurrentStreak = 0
             var dayInSequence = checkDate
-            val creationDate = LocalDate.parse(habitCreationDateString) // Re-parse creation date here for filtering
+            val creationDate =
+                LocalDate.parse(habitCreationDateString) // Re-parse creation date here for filtering
             while (goodDayDates.contains(checkDate) && checkDate >= creationDate) { // Ensure within creation boundary
                 tempCurrentStreak++
                 dayInSequence = dayInSequence?.minus(DatePeriod(days = 1))

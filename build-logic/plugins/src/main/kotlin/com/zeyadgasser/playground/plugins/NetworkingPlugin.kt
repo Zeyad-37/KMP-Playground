@@ -1,11 +1,9 @@
 package com.zeyadgasser.playground.plugins
 
 import com.zeyadgasser.playground.extensions.libs
-import dev.mokkery.gradle.mokkery
 import org.gradle.api.Plugin
 import org.gradle.api.Project
 import org.gradle.kotlin.dsl.configure
-import org.jetbrains.kotlin.allopen.gradle.AllOpenExtension
 import org.jetbrains.kotlin.gradle.dsl.KotlinMultiplatformExtension
 
 class NetworkingPlugin : Plugin<Project> {

@@ -6,17 +6,17 @@ import com.zeyadgasser.playground.routine.domain.RoutineRepository
 import com.zeyadgasser.playground.routine.list.viewmodel.RoutineListState.EmptyState
 import com.zeyadgasser.playground.routine.sharedpresentation.RoutinePM
 import com.zeyadgasser.playground.routine.sharedpresentation.RoutinePresentationMapper
+import com.zeyadgasser.playground.utils.TimeService
 import kotlinx.coroutines.flow.Flow
 import kotlinx.coroutines.flow.flow
 import kotlinx.coroutines.flow.onEmpty
 import kotlinx.coroutines.flow.onStart
-import kotlinx.datetime.Clock
-import kotlinx.datetime.TimeZone
-import kotlinx.datetime.toLocalDateTime
+import kotlinx.datetime.LocalDate
 
 class LoadRoutineListInputHandler(
     private val repository: RoutineRepository,
     private val taskPresentationMapper: RoutinePresentationMapper,
+    private val timeService: TimeService,
 ) : InputHandler<LoadRoutineListInput, RoutineListState> {
 
     override fun invoke(input: LoadRoutineListInput, currentState: RoutineListState): Flow<Result> =
@@ -33,8 +33,5 @@ class LoadRoutineListInputHandler(
         list.groupBy { it.category }.toMap()
             .map { (category, articles) -> CategorisedRoutinePM(category, articles) }
 
-    private fun getCurrentDate(): String {
-        val time = Clock.System.now().toLocalDateTime(TimeZone.currentSystemDefault())
-        return "Today, ${time.date.dayOfMonth}, ${time.date.month.name}, ${time.date.year}"
-    }
+    private fun getCurrentDate(): String = "Today, ${timeService.getCurrentDateLabel()}"
 }

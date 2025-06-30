@@ -6,13 +6,14 @@ import com.zeyadgasser.playground.task.data.db.TaskWithDependencies
 import com.zeyadgasser.playground.task.data.network.TaskDTO
 import com.zeyadgasser.playground.task.data.utils.CryptoHelper
 import com.zeyadgasser.playground.task.domain.model.TaskDomain
-import kotlinx.datetime.Instant
 import kotlinx.datetime.LocalDateTime
 import kotlinx.datetime.TimeZone
 import kotlinx.datetime.format
 import kotlinx.datetime.format.DateTimeFormat
 import kotlinx.datetime.format.char
 import kotlinx.datetime.toLocalDateTime
+import kotlin.time.ExperimentalTime
+import kotlin.time.Instant
 
 class TaskDataMapper(private val cryptoHelper: CryptoHelper) {
 
@@ -74,6 +75,7 @@ class TaskDataMapper(private val cryptoHelper: CryptoHelper) {
         year(); char('-'); monthNumber(); char('-'); dayOfMonth(); char(' '); hour(); char(':'); minute()
     }
 
+    @OptIn(ExperimentalTime::class)
     private fun formatDate(date: String): String =
         Instant.parse(date).toLocalDateTime(TimeZone.currentSystemDefault()).format(dateTimeComponentFormat)
 

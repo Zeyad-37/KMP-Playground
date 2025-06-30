@@ -1,6 +1,5 @@
 package com.zeyadgasser.playground.utils
 
-import kotlinx.datetime.Clock
 import kotlinx.datetime.LocalDate
 import kotlinx.datetime.LocalDateTime
 import kotlinx.datetime.LocalTime
@@ -9,9 +8,12 @@ import kotlinx.datetime.format
 import kotlinx.datetime.format.DayOfWeekNames
 import kotlinx.datetime.format.char
 import kotlinx.datetime.toLocalDateTime
+import kotlin.time.Clock
+import kotlin.time.ExperimentalTime
 
 object TimeService {
 
+    @OptIn(ExperimentalTime::class)
     fun getCurrentDateTime(): LocalDateTime =
         Clock.System.now().toLocalDateTime(TimeZone.currentSystemDefault())
 
@@ -26,7 +28,7 @@ object TimeService {
     })
 
     fun getCurrentDateFormatted(): String = getCurrentDate().format(LocalDate.Format {
-        dayOfMonth()
+        day()
         char('/')
         monthNumber()
         char('/')
@@ -36,7 +38,7 @@ object TimeService {
     fun getCurrentDateLabel(): String = getCurrentDate().format(LocalDate.Format {
         dayOfWeek(DayOfWeekNames.ENGLISH_FULL)
         chars(", ")
-        dayOfMonth()
+        day()
         char('/')
         monthNumber()
         char('/')

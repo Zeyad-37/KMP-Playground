@@ -16,7 +16,7 @@ val routineListModule = module {
     single<RoutineListState> { RoutineListState.InitialState(false) }
     single { RoutinePresentationMapper }
     single { RoutinesReducer }
-    single { LoadRoutineListInputHandler(get(), get()) }
-    single { RateRoutineInputHandler(get(), get(), get()) }
+    single { LoadRoutineListInputHandler(get(), get(), get()) }
+    single { RateRoutineInputHandler(get(), get(), get(), get()) }
     factory { RoutineListViewModel(get(), get(), get(), get(), get(named(IO))) }
 }
