@@ -28,10 +28,9 @@ class ComposeMultiplatformPlugin : Plugin<Project> {
                     implementation(libs.findLibrary("androidx.lifecycle.viewmodel.compose").get())
                 }
                 commonMain.dependencies {
-//                    implementation(libs.findLibrary("androidx.lifecycle.runtime.compose").get())
+                    implementation(libs.findLibrary("androidx.lifecycle.runtime.compose").get())
                     implementation(compose.runtime)
                     implementation(compose.foundation)
-                    implementation(compose.material)
                     implementation(compose.material3)
                     implementation(compose.animation)
                     implementation(compose.ui)

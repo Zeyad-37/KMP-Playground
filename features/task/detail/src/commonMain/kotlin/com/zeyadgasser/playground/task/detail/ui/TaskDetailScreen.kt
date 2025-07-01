@@ -3,17 +3,18 @@ package com.zeyadgasser.playground.task.detail.ui
 import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.padding
-import androidx.compose.material.Icon
-import androidx.compose.material.IconButton
-import androidx.compose.material.MaterialTheme
-import androidx.compose.material.Scaffold
-import androidx.compose.material.Snackbar
-import androidx.compose.material.SnackbarHost
-import androidx.compose.material.SnackbarHostState
-import androidx.compose.material.Text
-import androidx.compose.material.TopAppBar
 import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.automirrored.filled.ArrowBack
+import androidx.compose.material3.ExperimentalMaterial3Api
+import androidx.compose.material3.Icon
+import androidx.compose.material3.IconButton
+import androidx.compose.material3.MaterialTheme
+import androidx.compose.material3.Scaffold
+import androidx.compose.material3.Snackbar
+import androidx.compose.material3.SnackbarHost
+import androidx.compose.material3.SnackbarHostState
+import androidx.compose.material3.Text
+import androidx.compose.material3.TopAppBar
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.LaunchedEffect
 import androidx.compose.runtime.getValue
@@ -57,6 +58,7 @@ fun TaskDetailScreenStateHolder(
     TaskDetailScreenContent(modifier, taskDetailState, snackBarHostState) { viewModel.process(it) }
 }
 
+@OptIn(ExperimentalMaterial3Api::class)
 @Composable
 fun TaskDetailScreenContent(
     modifier: Modifier = Modifier,
@@ -74,8 +76,8 @@ fun TaskDetailScreenContent(
                         text = "KMP Playground",
                         modifier = Modifier.fillMaxWidth(),
                         textAlign = TextAlign.Start,
-                        color = MaterialTheme.colors.onBackground,
-                        style = MaterialTheme.typography.h3
+                        color = MaterialTheme.colorScheme.onBackground,
+                        style = MaterialTheme.typography.headlineSmall
                     )
                 },
                 navigationIcon = {

@@ -12,16 +12,10 @@ data class TaskDetail(val taskId: String)
 data object BreathingCoachApp
 
 @Serializable
-data object RoutineList
-
-@Serializable
 data class RoutineDetail(val routineId: Long)
 
 @Serializable
 data class RoutineForm(val routineId: Long?)
-
-@Serializable
-data object BadHabitList
 
 @Serializable
 data class BadHabitDetail(val badHabitId: Long)
