@@ -14,16 +14,16 @@ Learn more about [Kotlin Multiplatform](https://www.jetbrains.com/help/kotlin-mu
 
 TODO:
 Version 1.0:
-- Bad Habit Tracker
-- Fix todos (AI)
-- Remove database module (Spike)
-- Fix tests (AI)
+- Fix Scaffolds
 - Notifications
-- Profile 
-- Settings (Multiplatform settings / Storo)
 - GEN AI
   - Icon Generation
   - Motivational quotes generation
+- Fix todos (AI)
+- Remove database module (Spike)
+- Fix tests (AI)
+- Profile 
+- Settings (Multiplatform settings / Storo)
 - 2FA / Bio security
 - Forgot password ??
 - Sign Up/In (Firebase Auth - Google/Apple/Facebook/Phone/Anonymous) ??
@@ -33,6 +33,7 @@ Version 1.0:
 - Monetization
 - Web JS or Wasm ??
 Version 2.0:
+- Splash Screen
 - Weekly Routine
 - Monthly Routine ?
 - Yearly Routine ?
