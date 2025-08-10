@@ -75,7 +75,6 @@ kotlin {
             implementation(project(":core:architecture"))
             implementation(project(":core:networking"))
             implementation(project(":core:sharedUI"))
-            implementation(project(":core:database"))
             implementation(project(":core:utils"))
             implementation(project(":features:task:data"))
             implementation(project(":features:task:domain"))
