@@ -10,10 +10,10 @@ import com.zeyadgasser.playground.task.domain.model.Value
 class CheckTaskUseCase(private val taskRepository: TaskRepository) {
 
     suspend fun invoke(task: TaskDomain): Pair<Operation, Value> {
-        val dependencies = task.dependencies.firstOrNull()?.toIntOrNull() ?: 0
+        val hasDependencies = task.dependencies.isNotEmpty()
         return if (task.done) {
             Operation(true) to Value(taskRepository.insertTask(task.copy(done = false)))
-        } else if (dependencies == 0 && !task.done) {
+        } else if (!hasDependencies) {
             Operation(true) to Value(taskRepository.insertTask(task.copy(done = true)))
         } else {
             Operation(false) to Value(task.done)
