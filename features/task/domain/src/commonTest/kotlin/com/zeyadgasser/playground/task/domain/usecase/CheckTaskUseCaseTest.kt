@@ -41,4 +41,12 @@ class CheckTaskUseCaseTest {
         assertEquals(expected, checkTaskUseCase.invoke(taskDomain))
         verifyNoMoreCalls(taskRepository)
     }
+
+    @Test
+    fun invokeFailWithNonNumericDependency() = runTest {
+        val taskWithStringDep = TestingData.taskDomain.copy(dependencies = listOf("dep"))
+        val expected = Operation(false) to Value(false)
+        assertEquals(expected, checkTaskUseCase.invoke(taskWithStringDep))
+        verifyNoMoreCalls(taskRepository)
+    }
 }
