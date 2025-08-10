@@ -1,9 +1,7 @@
 plugins {
     alias(libs.plugins.playground.multiplatform.lib)
-    alias(libs.plugins.sqldelight)
     alias(libs.plugins.kotlinxSerialization)
     alias(libs.plugins.playground.koin)
-    alias(libs.plugins.playground.sql.delight)
     alias(libs.plugins.playground.room)
     alias(libs.plugins.playground.networking)
     alias(libs.plugins.playground.testing)
@@ -21,7 +19,6 @@ kotlin {
             dependencies {
                 api(files("$rootDir/libs/crypto.aar"))
                 implementation(project(":core:architecture"))
-                implementation(project(":core:database"))
                 implementation(project(":core:networking"))
                 implementation(project(":features:task:domain"))
                 implementation(libs.kotlinx.datetime)
@@ -39,12 +36,6 @@ kotlin {
             }
         }
 
-        androidHostTest {
-            dependencies {
-                implementation(libs.sql.delight.jvm.driver)
-            }
-        }
-
         getByName("androidDeviceTest") {
             dependencies {
                 implementation(libs.androidx.runner)
@@ -57,12 +48,5 @@ kotlin {
             dependencies {
             }
         }
-        jvmTest.dependencies {
-            implementation(libs.sql.delight.jvm.driver)
-        }
-//        getByName("jvmTest") {
-//            dependencies {
-//            }
-//        }
     }
 }
